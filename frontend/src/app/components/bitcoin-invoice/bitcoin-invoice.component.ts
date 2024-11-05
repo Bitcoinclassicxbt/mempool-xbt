@@ -84,7 +84,7 @@ export class BitcoinInvoiceComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   get availableMethods(): string[] {
-    return Object.keys(this.invoice?.addresses || {}).filter(k => k === 'BTC_LightningLike');
+    return Object.keys(this.invoice?.addresses || {}).filter(k => k === 'LKY_LightningLike');
   }
 
   bypassSecurityTrustUrl(text: string): SafeUrl {
