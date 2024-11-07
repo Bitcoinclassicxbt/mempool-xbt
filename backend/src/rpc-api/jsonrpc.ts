@@ -32,7 +32,7 @@ JsonRPC.prototype.call = function (method, params) {
         params: params,
       };
     }
-    console.dir(method);
+    //console.dir(method);
 
     // First we encode the request into JSON
     requestJSON = JSON.stringify(requestJSON);
