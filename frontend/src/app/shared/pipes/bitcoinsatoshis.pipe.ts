@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Pipe({
   name: 'bitcoinsatoshis'
 })
-export class BitcoinsatoshisPipe implements PipeTransform {
+export class LuckycoinsatoshisPipe implements PipeTransform {
 
   constructor(private sanitizer: DomSanitizer) { }
 

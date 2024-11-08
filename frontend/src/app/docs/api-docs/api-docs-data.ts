@@ -9246,7 +9246,7 @@ export const restApiDocsData = [
           headers: "X-Mempool-Auth: stacksats",
           response: `[
   {
-    "type": "Bitcoin",
+    "type": "Luckycoin",
     "invoiceId": "CCunucVyNw7jUiUz64mmHz",
     "amount": 10311031,
     "status": "pending",
@@ -9254,7 +9254,7 @@ export const restApiDocsData = [
     "link": "/payment/bitcoin/CCunucVyNw7jUiUz64mmHz"
   },
   {
-    "type": "Bitcoin",
+    "type": "Luckycoin",
     "invoiceId": "SG1U27R9PdWi3gH3jB9tm9",
     "amount": 21000000,
     "status": "paid",

@@ -213,7 +213,7 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
       this.insertSquare();
       this.enterpriseService.goal(8);
     }
-    if (this._step === 'checkout' && this.canPayWithBitcoin) {
+    if (this._step === 'checkout' && this.canPayWithLuckycoin) {
       this.btcpayInvoiceFailed = false;
       this.loadingBtcpayInvoice = true;
       this.invoice = null;
@@ -323,7 +323,7 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
             return;
           }
 
-          if (this.step === 'checkout' && this.canPayWithBitcoin && !this.loadingBtcpayInvoice) {
+          if (this.step === 'checkout' && this.canPayWithLuckycoin && !this.loadingBtcpayInvoice) {
             this.loadingBtcpayInvoice = true;
             this.requestLKYPayInvoice();
           }
@@ -793,7 +793,7 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
     return Object.keys(this.estimate?.availablePaymentMethods || {}) as PaymentMethod[];
   }
 
-  get couldPayWithBitcoin(): boolean {
+  get couldPayWithLuckycoin(): boolean {
     return !!this.estimate?.availablePaymentMethods?.bitcoin;
   }
 
@@ -826,10 +826,10 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
   }
 
   get couldPay(): boolean {
-    return this.couldPayWithBalance || this.couldPayWithBitcoin || this.couldPayWithCashapp || this.couldPayWithApplePay || this.couldPayWithGooglePay;
+    return this.couldPayWithBalance || this.couldPayWithLuckycoin || this.couldPayWithCashapp || this.couldPayWithApplePay || this.couldPayWithGooglePay;
   }
 
-  get canPayWithBitcoin(): boolean {
+  get canPayWithLuckycoin(): boolean {
     const paymentMethod = this.estimate?.availablePaymentMethods?.bitcoin;
     return paymentMethod && this.cost >= paymentMethod.min && this.cost <= paymentMethod.max;
   }
@@ -891,7 +891,7 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
   }
 
   get canPay(): boolean {
-    return this.canPayWithBalance || this.canPayWithBitcoin || this.canPayWithCashapp || this.canPayWithApplePay || this.canPayWithGooglePay;
+    return this.canPayWithBalance || this.canPayWithLuckycoin || this.canPayWithCashapp || this.canPayWithApplePay || this.canPayWithGooglePay;
   }
 
   get hasAccessToBalanceMode(): boolean {

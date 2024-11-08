@@ -11,7 +11,7 @@ import { ServicesApiServices } from '@app/services/services-api.service';
   templateUrl: './bitcoin-invoice.component.html',
   styleUrls: ['./bitcoin-invoice.component.scss']
 })
-export class BitcoinInvoiceComponent implements OnInit, OnChanges, OnDestroy {
+export class LuckycoinInvoiceComponent implements OnInit, OnChanges, OnDestroy {
   @Input() invoice;
   @Input() redirect = true;
   @Input() minimal = false;
