@@ -495,7 +495,7 @@ class ElectrsApi implements AbstractBitcoinApi {
     txids: string[]
   ): Promise<IEsploraApi.Outspend[][]> {
     return this.failoverRouter.$post<IEsploraApi.Outspend[][]>(
-      '/internal/txs/outspends/bytxid',
+      '/internal/txs/outspends/by-txid',
       txids,
       'json'
     );
