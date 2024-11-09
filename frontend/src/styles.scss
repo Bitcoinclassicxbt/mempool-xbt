@@ -183,12 +183,13 @@ main {
 .form-control {
   color: var(--fg);
   background-color: var(--secondary);
-  border: 1px solid #2ddb9f;
+  border: 1px solid transparent;
 }
 
 .form-control:focus {
   color: var(--fg);
   background-color: var(--secondary);
+  border-color: rgba(45, 219, 158, 0.466)
 }
 
 .btn-purple {
