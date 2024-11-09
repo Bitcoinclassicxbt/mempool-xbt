@@ -168,6 +168,7 @@ class BitcoinRoutes {
           config.MEMPOOL.API_URL_PREFIX + 'address/:address/txs',
           this.getAddressTransactions
         )
+
         .get(
           config.MEMPOOL.API_URL_PREFIX + 'address/:address/txs/summary',
           this.getAddressTransactionSummary
@@ -795,6 +796,16 @@ class BitcoinRoutes {
         'Address summary lookups require mempool/electrs backend.'
       );
       return;
+    }
+
+    try {
+      const data = await bitcoinApi.$getAddressTransactionSummary(
+        req.params.address
+      );
+
+      res.json(data);
+    } catch (e) {
+      handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
   }
 
