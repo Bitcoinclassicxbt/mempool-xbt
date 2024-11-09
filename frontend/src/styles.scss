@@ -1,10 +1,9 @@
-/* Theme */
 $primary: #1DB954;
 
-$bg: mix(#1d1f31, $primary, 10%); // Slight green tint
-$active-bg: mix(#11131f, $primary, 10%);
-$hover-bg: mix(#12131e, $primary, 10%);
-$fg: #fff;
+$bg: #0A0A1A;
+$active-bg: darken($bg, 5%);
+$hover-bg: lighten($bg, 5%);
+$fg: $primary;
 $nav-bg: $bg;
 $title-fg: #4a68b9;
 
@@ -12,7 +11,6 @@ $taproot: #eba814;
 $taproot-light: #d5a90a;
 $taproot-dark: #9d7c05;
 
-/* Bootstrap */
 $body-bg: $bg;
 $body-color: $fg;
 $gray-800: $bg;
@@ -40,8 +38,8 @@ $pagination-disabled-bg: $bg;
 $custom-select-indicator-color: $fg;
 
 .input-group-text {
-  background-color: mix(#1c2031, $primary, 10%) !important;
-  border: 1px solid mix(#20263e, $primary, 10%) !important;
+  background-color: $bg !important;
+  border: 1px solid darken($bg, 10%) !important;
 }
 
 $link-color: $info;
@@ -99,9 +97,9 @@ $dropdown-link-active-bg: $active-bg;
   --signet-alt: #471850;
   --liquidtestnet-alt: #272e46;
 
-  --taproot: #eba814;
-  --taproot-light: #d5a90a;
-  --taproot-dark: #9d7c05;
+  --taproot: #{$taproot};
+  --taproot-light: #{$taproot-light};
+  --taproot-dark: #{$taproot-dark};
 
   --green: #3bcc49;
   --red: #dc3545;
@@ -115,7 +113,6 @@ $dropdown-link-active-bg: $active-bg;
   --search-button-focus: #533180;
   --search-button-shadow: #7c58ab80;
 }
-
 html, body {
   height: 100%;
 }
