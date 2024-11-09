@@ -1,7 +1,9 @@
 /* Theme */
-$bg: #1d1f31;
-$active-bg: #11131f;
-$hover-bg: #12131e;
+$primary: #1DB954; // Spotify Green
+
+$bg: mix(#1d1f31, $primary, 10%); // Slight green tint
+$active-bg: mix(#11131f, $primary, 10%);
+$hover-bg: mix(#12131e, $primary, 10%);
 $fg: #fff;
 $nav-bg: $bg;
 $title-fg: #4a68b9;
@@ -18,7 +20,6 @@ $gray-700: $fg;
 
 $nav-tabs-link-active-bg: $active-bg;
 
-$primary: #105fb0;
 $secondary: #2d3348;
 $tertiary: #653b9c;
 $success: #1a9436;
@@ -28,25 +29,25 @@ $h5-font-size: 1.15rem !default;
 
 $pagination-bg: $body-bg;
 $pagination-border-color: $gray-800;
-$pagination-disabled-bg:           $fg;
+$pagination-disabled-bg: $fg;
 $pagination-disabled-border-color: $bg;
-$pagination-active-color:          $fg;
-$pagination-active-bg:             $tertiary;
-$pagination-hover-bg:              $hover-bg;
-$pagination-hover-border-color:     $bg;
-$pagination-disabled-bg:          $bg;
+$pagination-active-color: $fg;
+$pagination-active-bg: $tertiary;
+$pagination-hover-bg: $hover-bg;
+$pagination-hover-border-color: $bg;
+$pagination-disabled-bg: $bg;
 
 $custom-select-indicator-color: $fg;
 
 .input-group-text {
-  background-color: #1c2031 !important;
-  border: 1px solid #20263e !important;
+  background-color: mix(#1c2031, $primary, 10%) !important;
+  border: 1px solid mix(#20263e, $primary, 10%) !important;
 }
 
-$link-color:                $info;
-$link-decoration:           none !default;
-$link-hover-color:          darken($link-color, 15%) !default;
-$link-hover-decoration:     underline !default;
+$link-color: $info;
+$link-decoration: none !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
 
 $dropdown-bg: $bg;
 $dropdown-link-color: $fg;
