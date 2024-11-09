@@ -189,6 +189,7 @@ class PoolsUpdater {
     const response = await this.query(this.treeUrl);
 
     if (response !== undefined) {
+      console.log(response);
       for (const file of response['tree']) {
         if (file['path'] === 'pools-v2.json') {
           return file['sha'];
