@@ -466,7 +466,7 @@ class ElectrsApi implements AbstractBitcoinApi {
     txId?: string
   ): Promise<IEsploraApi.Transaction[]> {
     return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
-      '/address/' + scripthash + '/txs' + (txId ? '?after_txid=' + txId : '')
+      '/scripthash/' + scripthash + '/txs' + (txId ? '?after_txid=' + txId : '')
     );
   }
 
