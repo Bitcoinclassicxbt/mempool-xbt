@@ -343,11 +343,11 @@ export const restApiDocsData = [
           `,
         },
         codeSampleMainnet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `{
-  address: "1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv",
+  address: "LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy",
   chain_stats: {
     funded_txo_count: 5,
     funded_txo_sum: 15007599040,
@@ -387,11 +387,11 @@ export const restApiDocsData = [
 }`
         },
         codeSampleSignet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `{
-  address: "1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv",
+  address: "LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy",
   chain_stats: {
     funded_txo_count: 5,
     funded_txo_sum: 15007599040,
@@ -480,9 +480,9 @@ export const restApiDocsData = [
           `,
         },
         codeSampleMainnet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `[
   {
     txid: "dba43fd04b7ae3df8e5b596f2e7fab247c58629d622e3a5213f03a5a09684430",
@@ -528,11 +528,11 @@ export const restApiDocsData = [
 ]`
         },
         codeSampleSignet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `{
-  address: "1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv",
+  address: "LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy",
   chain_stats: {
     funded_txo_count: 5,
     funded_txo_sum: 15007599040,
@@ -633,9 +633,9 @@ export const restApiDocsData = [
           `,
         },
         codeSampleMainnet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `[
   {
     txid: "c4e53c2e37f4fac759fdb0d8380e4d49e6c7211233ae276a44ce7074a1d6d168",
@@ -681,11 +681,11 @@ export const restApiDocsData = [
 ],`
         },
         codeSampleSignet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `{
-  address: "1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv",
+  address: "LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy",
   chain_stats: {
     funded_txo_count: 765,
     funded_txo_sum: 87749875807,
@@ -786,9 +786,9 @@ export const restApiDocsData = [
           `,
         },
         codeSampleMainnet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `[
   {
     txid: "16cd9bbc6b62313a22d16671fa559aec6bf581df8b5853d37775c84b0fddfa90",
@@ -822,9 +822,9 @@ export const restApiDocsData = [
 ]`
         },
         codeSampleSignet: {
-          esModule: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          commonJS: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
-          curl: [`1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `[
   {
     txid: "16cd9bbc6b62313a22d16671fa559aec6bf581df8b5853d37775c84b0fddfa90",
