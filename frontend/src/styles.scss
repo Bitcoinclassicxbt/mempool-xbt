@@ -22,7 +22,7 @@ $primary: #1c7f5d;
 $secondary: #0f2f24;
 $tertiary: #1d8d66;
 $success: #1a9436;
-$info: #2ddb7f;
+$info: #2ddb9f;
 
 $h5-font-size: 1.15rem !default;
 
@@ -45,7 +45,7 @@ $custom-select-indicator-color: $fg;
 
 $link-color:                $info;
 $link-decoration:           none !default;
-$link-hover-color:          darken($link-color, 15%) !default;
+$link-hover-color:          ligthen($link-color, 15%) !default;
 $link-hover-decoration:     underline !default;
 
 $dropdown-bg: $bg;
@@ -80,7 +80,7 @@ $dropdown-link-active-bg: $active-bg;
   --skeleton-bg-light: #5d6182;
 
   --box-bg: #{$bg} !important;
-  --stat-box-bg: ligthen($box-bg, 10%) !important;;
+  --stat-box-bg: #152621;
   --alert-bg: #0c642b;
   --navbar-bg: #{$nav-bg};
   --transparent-fg: #ffffff66;
