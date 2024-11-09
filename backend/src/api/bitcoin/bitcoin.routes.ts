@@ -170,6 +170,11 @@ class BitcoinRoutes {
         )
 
         .get(
+          config.MEMPOOL.API_URL_PREFIX + 'address/:address/utxo',
+          this.getAddressUtxo
+        )
+
+        .get(
           config.MEMPOOL.API_URL_PREFIX + 'address/:address/txs/summary',
           this.getAddressTransactionSummary
         )
@@ -770,6 +775,34 @@ class BitcoinRoutes {
         lastTxId
       );
       res.json(transactions);
+    } catch (e) {
+      if (
+        e instanceof Error &&
+        e.message &&
+        (e.message.indexOf('too long') > 0 ||
+          e.message.indexOf('confirmed status') > 0)
+      ) {
+        handleError(req, res, 413, e instanceof Error ? e.message : e);
+        return;
+      }
+      handleError(req, res, 500, e instanceof Error ? e.message : e);
+    }
+  }
+
+  private async getAddressUtxo(req: Request, res: Response) {
+    if (config.MEMPOOL.BACKEND !== 'esplora') {
+      handleError(
+        req,
+        res,
+        405,
+        'Address lookups cannot be used with bitcoind as backend.'
+      );
+      return;
+    }
+
+    try {
+      const utxos = await bitcoinApi.$getAddressUtxos(req.params.address);
+      res.json(utxos);
     } catch (e) {
       if (
         e instanceof Error &&

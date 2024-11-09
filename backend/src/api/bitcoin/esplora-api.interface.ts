@@ -20,6 +20,18 @@ export namespace IEsploraApi {
     value: number;
   }
 
+  export interface UTXO {
+    txid: string;
+    vout: number;
+    status: {
+      confirmed: boolean;
+      block_height: number;
+      block_hash: string;
+      block_time: number;
+    };
+    value: number;
+  }
+
   export interface Vin {
     txid: string;
     vout: number;

@@ -445,7 +445,13 @@ class ElectrsApi implements AbstractBitcoinApi {
     txId?: string
   ): Promise<IEsploraApi.Transaction[]> {
     return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
-      '/address/' + address + '/txs' + (txId ? '?after_txid' + txId : '')
+      '/address/' + address + '/txs' + (txId ? '?after_txid=' + txId : '')
+    );
+  }
+
+  $getAddressUtxos(address: string): Promise<IEsploraApi.UTXO[]> {
+    return this.failoverRouter.$get<IEsploraApi.UTXO[]>(
+      '/address/' + address + '/utxo'
     );
   }
 
