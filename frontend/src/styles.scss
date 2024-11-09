@@ -79,8 +79,8 @@ $dropdown-link-active-bg: $active-bg;
   --skeleton-bg: #2e324e;
   --skeleton-bg-light: #5d6182;
 
-  --box-bg: ligthen($bg);
-  --stat-box-bg: ligthen($bg, 10%);
+  --box-bg: $bg !important;
+  --stat-box-bg: ligthen($box-bg, 10%) !important;;
   --alert-bg: #0c642b;
   --navbar-bg: $nav-bg;
   --transparent-fg: #ffffff66;
