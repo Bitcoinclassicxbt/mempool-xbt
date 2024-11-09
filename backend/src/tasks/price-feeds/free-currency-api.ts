@@ -82,6 +82,10 @@ class FreeCurrencyApi implements ConversionFeed {
   }
 
   public async $fetchConversionRates(date: string): Promise<ConversionRates> {
+    if (!this.PAID) {
+      return emptyRates;
+    }
+
     const response = await query(
       `${this.API_URL_PREFIX}historical?date=${date}&apikey=${this.API_KEY}`,
       true
