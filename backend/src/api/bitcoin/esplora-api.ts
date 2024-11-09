@@ -1,25 +1,31 @@
 import config from '../../config';
 import axios, { AxiosResponse, isAxiosError } from 'axios';
 import http from 'http';
-import { AbstractBitcoinApi, HealthCheckHost } from './bitcoin-api-abstract-factory';
+import {
+  AbstractBitcoinApi,
+  HealthCheckHost,
+} from './bitcoin-api-abstract-factory';
 import { IEsploraApi } from './esplora-api.interface';
 import logger from '../../logger';
 import { Common } from '../common';
-import { SubmitPackageResult, TestMempoolAcceptResult } from './bitcoin-api.interface';
+import {
+  SubmitPackageResult,
+  TestMempoolAcceptResult,
+} from './bitcoin-api.interface';
 
 interface FailoverHost {
-  host: string,
-  rtts: number[],
-  rtt: number,
-  timedOut?: boolean,
-  failures: number,
-  latestHeight?: number,
-  socket?: boolean,
-  outOfSync?: boolean,
-  unreachable?: boolean,
-  preferred?: boolean,
-  checked: boolean,
-  lastChecked?: number,
+  host: string;
+  rtts: number[];
+  rtt: number;
+  timedOut?: boolean;
+  failures: number;
+  latestHeight?: number;
+  socket?: boolean;
+  outOfSync?: boolean;
+  unreachable?: boolean;
+  preferred?: boolean;
+  checked: boolean;
+  lastChecked?: number;
 }
 
 class FailoverRouter {
@@ -33,12 +39,12 @@ class FailoverRouter {
   pollTimer: NodeJS.Timeout | null = null;
   pollConnection = axios.create();
   requestConnection = axios.create({
-    httpAgent: new http.Agent({ keepAlive: true })
+    httpAgent: new http.Agent({ keepAlive: true }),
   });
 
   constructor() {
     // setup list of hosts
-    this.hosts = (config.ESPLORA.FALLBACK || []).map(domain => {
+    this.hosts = (config.ESPLORA.FALLBACK || []).map((domain) => {
       return {
         host: domain,
         checked: false,
@@ -68,7 +74,8 @@ class FailoverRouter {
       return config;
     });
     this.pollConnection.interceptors.response.use((response) => {
-      response.config['meta'].rtt = Date.now() - response.config['meta'].startTime;
+      response.config['meta'].rtt =
+        Date.now() - response.config['meta'].startTime;
       return response;
     });
 
@@ -89,18 +96,34 @@ class FailoverRouter {
     for (const host of this.hosts) {
       try {
         const result = await (host.socket
-          ? this.pollConnection.get<number>('/blocks/tip/height', { socketPath: host.host, timeout: config.ESPLORA.FALLBACK_TIMEOUT })
-          : this.pollConnection.get<number>(host.host + '/blocks/tip/height', { timeout: config.ESPLORA.FALLBACK_TIMEOUT })
-        );
+          ? this.pollConnection.get<number>('/blocks/tip/height', {
+              socketPath: host.host,
+              timeout: config.ESPLORA.FALLBACK_TIMEOUT,
+            })
+          : this.pollConnection.get<number>(host.host + '/blocks/tip/height', {
+              timeout: config.ESPLORA.FALLBACK_TIMEOUT,
+            }));
         if (result) {
           const height = result.data;
           host.latestHeight = height;
-          this.maxHeight = Math.max(height || 0, ...this.hosts.map(h => (!(h.unreachable || h.timedOut || h.outOfSync) ? h.latestHeight || 0 : 0)));
+          this.maxHeight = Math.max(
+            height || 0,
+            ...this.hosts.map((h) =>
+              !(h.unreachable || h.timedOut || h.outOfSync)
+                ? h.latestHeight || 0
+                : 0
+            )
+          );
           const rtt = result.config['meta'].rtt;
           host.rtts.unshift(rtt);
           host.rtts.slice(0, 5);
-          host.rtt = host.rtts.reduce((acc, l) => acc + l, 0) / host.rtts.length;
-          if (height == null || isNaN(height) || (this.maxHeight - height > this.maxSlippage)) {
+          host.rtt =
+            host.rtts.reduce((acc, l) => acc + l, 0) / host.rtts.length;
+          if (
+            height == null ||
+            isNaN(height) ||
+            this.maxHeight - height > this.maxSlippage
+          ) {
             host.outOfSync = true;
           } else {
             host.outOfSync = false;
@@ -118,7 +141,10 @@ class FailoverRouter {
         host.unreachable = true;
         host.rtts = [];
         host.rtt = Infinity;
-        if (isAxiosError(e) && (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT')) {
+        if (
+          isAxiosError(e) &&
+          (e.code === 'ECONNABORTED' || e.code === 'ETIMEDOUT')
+        ) {
           host.timedOut = true;
         } else {
           host.timedOut = false;
@@ -129,13 +155,25 @@ class FailoverRouter {
 
       const rankOrder = this.sortHosts();
       // switch if the current host is out of sync or significantly slower than the next best alternative
-      if (this.activeHost.outOfSync || this.activeHost.unreachable || (this.activeHost !== rankOrder[0] && rankOrder[0].preferred) || (!this.activeHost.preferred && this.activeHost.rtt > (rankOrder[0].rtt * 2) + 50)) {
+      if (
+        this.activeHost.outOfSync ||
+        this.activeHost.unreachable ||
+        (this.activeHost !== rankOrder[0] && rankOrder[0].preferred) ||
+        (!this.activeHost.preferred &&
+          this.activeHost.rtt > rankOrder[0].rtt * 2 + 50)
+      ) {
         if (this.activeHost.unreachable) {
-          logger.warn(`🚨🚨🚨 Unable to reach ${this.activeHost.host}, failing over to next best alternative 🚨🚨🚨`);
+          logger.warn(
+            `🚨🚨🚨 Unable to reach ${this.activeHost.host}, failing over to next best alternative 🚨🚨🚨`
+          );
         } else if (this.activeHost.outOfSync) {
-          logger.warn(`🚨🚨🚨 ${this.activeHost.host} has fallen behind, failing over to next best alternative 🚨🚨🚨`);
+          logger.warn(
+            `🚨🚨🚨 ${this.activeHost.host} has fallen behind, failing over to next best alternative 🚨🚨🚨`
+          );
         } else {
-          logger.debug(`🛠️ ${this.activeHost.host} is no longer the best esplora host 🛠️`);
+          logger.debug(
+            `🛠️ ${this.activeHost.host} is no longer the best esplora host 🛠️`
+          );
         }
         this.electHost();
       }
@@ -143,16 +181,46 @@ class FailoverRouter {
     }
 
     const rankOrder = this.updateFallback();
-    logger.debug(`Tomahawk ranking:\n${rankOrder.map((host, index) => this.formatRanking(index, host, this.activeHost, this.maxHeight)).join('\n')}`);
+    logger.debug(
+      `Tomahawk ranking:\n${rankOrder
+        .map((host, index) =>
+          this.formatRanking(index, host, this.activeHost, this.maxHeight)
+        )
+        .join('\n')}`
+    );
 
     const elapsed = Date.now() - start;
 
-    this.pollTimer = setTimeout(() => { this.pollHosts(); }, Math.max(1, this.pollInterval - elapsed));
+    this.pollTimer = setTimeout(
+      () => {
+        this.pollHosts();
+      },
+      Math.max(1, this.pollInterval - elapsed)
+    );
   }
 
-  private formatRanking(index: number, host: FailoverHost, active: FailoverHost, maxHeight: number): string {
-    const heightStatus = !host.checked ? '⏳' : (host.outOfSync ? '🚫' : (host.latestHeight && host.latestHeight < maxHeight ? '🟧' : '✅'));
-    return `${host === active ? '⭐️' : '  '} ${host.rtt < Infinity ? Math.round(host.rtt).toString().padStart(5, ' ') + 'ms' : (host.timedOut ? '  ⌛️💥 ' : '    -  ')} ${!host.checked ? '⏳' : (host.unreachable ? '🔥' : '✅')} | block: ${host.latestHeight || '??????'} ${heightStatus} | ${host.host} ${host === active ? '⭐️' : '  '}`;
+  private formatRanking(
+    index: number,
+    host: FailoverHost,
+    active: FailoverHost,
+    maxHeight: number
+  ): string {
+    const heightStatus = !host.checked
+      ? '⏳'
+      : host.outOfSync
+      ? '🚫'
+      : host.latestHeight && host.latestHeight < maxHeight
+      ? '🟧'
+      : '✅';
+    return `${host === active ? '⭐️' : '  '} ${
+      host.rtt < Infinity
+        ? Math.round(host.rtt).toString().padStart(5, ' ') + 'ms'
+        : host.timedOut
+        ? '  ⌛️💥 '
+        : '    -  '
+    } ${!host.checked ? '⏳' : host.unreachable ? '🔥' : '✅'} | block: ${
+      host.latestHeight || '??????'
+    } ${heightStatus} | ${host.host} ${host === active ? '⭐️' : '  '}`;
   }
 
   private updateFallback(): FailoverHost[] {
@@ -170,14 +238,16 @@ class FailoverRouter {
     // sort by connection quality
     return this.hosts.slice().sort((a, b) => {
       if ((a.unreachable || a.outOfSync) === (b.unreachable || b.outOfSync)) {
-        if  (a.preferred === b.preferred) {
+        if (a.preferred === b.preferred) {
           // lower rtt is best
           return a.rtt - b.rtt;
-        } else { // unless we have a preferred host
+        } else {
+          // unless we have a preferred host
           return a.preferred ? -1 : 1;
         }
-      } else { // or the host is out of sync
-        return (a.unreachable || a.outOfSync) ? 1 : -1;
+      } else {
+        // or the host is out of sync
+        return a.unreachable || a.outOfSync ? 1 : -1;
       }
     });
   }
@@ -193,7 +263,9 @@ class FailoverRouter {
   private addFailure(host: FailoverHost): FailoverHost {
     host.failures++;
     if (host.failures > 5 && this.multihost) {
-      logger.warn(`🚨🚨🚨 Too many esplora failures on ${this.activeHost.host}, falling back to next best alternative 🚨🚨🚨`);
+      logger.warn(
+        `🚨🚨🚨 Too many esplora failures on ${this.activeHost.host}, falling back to next best alternative 🚨🚨🚨`
+      );
       this.activeHost.unreachable = true;
       this.electHost();
       return this.activeHost;
@@ -202,11 +274,22 @@ class FailoverRouter {
     }
   }
 
-  private async $query<T>(method: 'get'| 'post', path, data: any, responseType = 'json', host = this.activeHost, retry: boolean = true): Promise<T> {
+  private async $query<T>(
+    method: 'get' | 'post',
+    path,
+    data: any,
+    responseType = 'json',
+    host = this.activeHost,
+    retry: boolean = true
+  ): Promise<T> {
     let axiosConfig;
     let url;
     if (host.socket) {
-      axiosConfig = { socketPath: host.host, timeout: config.ESPLORA.REQUEST_TIMEOUT, responseType };
+      axiosConfig = {
+        socketPath: host.host,
+        timeout: config.ESPLORA.REQUEST_TIMEOUT,
+        responseType,
+      };
       url = path;
     } else {
       axiosConfig = { timeout: config.ESPLORA.REQUEST_TIMEOUT, responseType };
@@ -215,28 +298,51 @@ class FailoverRouter {
     if (data?.params) {
       axiosConfig.params = data.params;
     }
-    return (method === 'post'
+    return (
+      method === 'post'
         ? this.requestConnection.post<T>(url, data, axiosConfig)
         : this.requestConnection.get<T>(url, axiosConfig)
-    ).then((response) => { host.failures = Math.max(0, host.failures - 1); return response.data; })
+    )
+      .then((response) => {
+        host.failures = Math.max(0, host.failures - 1);
+        return response.data;
+      })
       .catch((e) => {
         let fallbackHost = this.fallbackHost;
         if (e?.response?.status !== 404) {
-          logger.warn(`esplora request failed ${e?.response?.status} ${host.host}${path}`);
+          logger.warn(
+            `esplora request failed ${e?.response?.status} ${host.host}${path}`
+          );
           logger.warn(e instanceof Error ? e.message : e);
           fallbackHost = this.addFailure(host);
         }
         if (retry && e?.code === 'ECONNREFUSED' && this.multihost) {
           // Retry immediately
-          return this.$query(method, path, data, responseType, fallbackHost, false);
+          return this.$query(
+            method,
+            path,
+            data,
+            responseType,
+            fallbackHost,
+            false
+          );
         } else {
           throw e;
         }
       });
   }
 
-  public async $get<T>(path, responseType = 'json', params: any = null): Promise<T> {
-    return this.$query<T>('get', path, params ? { params } : null, responseType);
+  public async $get<T>(
+    path,
+    responseType = 'json',
+    params: any = null
+  ): Promise<T> {
+    return this.$query<T>(
+      'get',
+      path,
+      params ? { params } : null,
+      responseType
+    );
   }
 
   public async $post<T>(path, data: any, responseType = 'json'): Promise<T> {
@@ -248,23 +354,44 @@ class ElectrsApi implements AbstractBitcoinApi {
   private failoverRouter = new FailoverRouter();
 
   $getRawMempool(): Promise<IEsploraApi.Transaction['txid'][]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction['txid'][]>('/mempool/txids');
+    return this.failoverRouter.$get<IEsploraApi.Transaction['txid'][]>(
+      '/mempool/txids'
+    );
   }
 
   $getRawTransaction(txId: string): Promise<IEsploraApi.Transaction> {
     return this.failoverRouter.$get<IEsploraApi.Transaction>('/tx/' + txId);
   }
 
-  async $getRawTransactions(txids: string[]): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$post<IEsploraApi.Transaction[]>('/internal/txs', txids, 'json');
+  async $getRawTransactions(
+    txids: string[]
+  ): Promise<IEsploraApi.Transaction[]> {
+    return this.failoverRouter.$post<IEsploraApi.Transaction[]>(
+      '/internal/txs',
+      txids,
+      'json'
+    );
   }
 
-  async $getMempoolTransactions(txids: string[]): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$post<IEsploraApi.Transaction[]>('/internal/mempool/txs', txids, 'json');
+  async $getMempoolTransactions(
+    txids: string[]
+  ): Promise<IEsploraApi.Transaction[]> {
+    return this.failoverRouter.$post<IEsploraApi.Transaction[]>(
+      '/internal/mempool/txs',
+      txids,
+      'json'
+    );
   }
 
-  async $getAllMempoolTransactions(lastSeenTxid?: string, max_txs?: number): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction[]>('/internal/mempool/txs' + (lastSeenTxid ? '/' + lastSeenTxid : ''), 'json', max_txs ? { max_txs } : null);
+  async $getAllMempoolTransactions(
+    lastSeenTxid?: string,
+    max_txs?: number
+  ): Promise<IEsploraApi.Transaction[]> {
+    return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+      '/internal/mempool/txs' + (lastSeenTxid ? '/' + lastSeenTxid : ''),
+      'json',
+      max_txs ? { max_txs } : null
+    );
   }
 
   $getTransactionHex(txId: string): Promise<string> {
@@ -284,7 +411,9 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   $getTxsForBlock(hash: string): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction[]>('/internal/block/' + hash + '/txs');
+    return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+      '/block/' + hash + '/txs'
+    );
   }
 
   $getBlockHash(height: number): Promise<string> {
@@ -300,15 +429,21 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   $getRawBlock(hash: string): Promise<Buffer> {
-    return this.failoverRouter.$get<any>('/block/' + hash + '/raw', 'arraybuffer')
-      .then((response) => { return Buffer.from(response.data); });
+    return this.failoverRouter
+      .$get<any>('/block/' + hash + '/raw', 'arraybuffer')
+      .then((response) => {
+        return Buffer.from(response.data);
+      });
   }
 
   $getAddress(address: string): Promise<IEsploraApi.Address> {
     return this.failoverRouter.$get<IEsploraApi.Address>('/address/' + address);
   }
 
-  $getAddressTransactions(address: string, txId?: string): Promise<IEsploraApi.Transaction[]> {
+  $getAddressTransactions(
+    address: string,
+    txId?: string
+  ): Promise<IEsploraApi.Transaction[]> {
     throw new Error('Method getAddressTransactions not implemented.');
   }
 
@@ -316,7 +451,10 @@ class ElectrsApi implements AbstractBitcoinApi {
     throw new Error('Method getScriptHash not implemented.');
   }
 
-  $getScriptHashTransactions(scripthash: string, txId?: string): Promise<IEsploraApi.Transaction[]> {
+  $getScriptHashTransactions(
+    scripthash: string,
+    txId?: string
+  ): Promise<IEsploraApi.Transaction[]> {
     throw new Error('Method getScriptHashTransactions not implemented.');
   }
 
@@ -328,7 +466,10 @@ class ElectrsApi implements AbstractBitcoinApi {
     throw new Error('Method not implemented.');
   }
 
-  $testMempoolAccept(rawTransactions: string[], maxfeerate?: number): Promise<TestMempoolAcceptResult[]> {
+  $testMempoolAccept(
+    rawTransactions: string[],
+    maxfeerate?: number
+  ): Promise<TestMempoolAcceptResult[]> {
     throw new Error('Method not implemented.');
   }
 
@@ -337,32 +478,56 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   $getOutspend(txId: string, vout: number): Promise<IEsploraApi.Outspend> {
-    return this.failoverRouter.$get<IEsploraApi.Outspend>('/tx/' + txId + '/outspend/' + vout);
+    return this.failoverRouter.$get<IEsploraApi.Outspend>(
+      '/tx/' + txId + '/outspend/' + vout
+    );
   }
 
   $getOutspends(txId: string): Promise<IEsploraApi.Outspend[]> {
-    return this.failoverRouter.$get<IEsploraApi.Outspend[]>('/tx/' + txId + '/outspends');
+    return this.failoverRouter.$get<IEsploraApi.Outspend[]>(
+      '/tx/' + txId + '/outspends'
+    );
   }
 
-  async $getBatchedOutspends(txids: string[]): Promise<IEsploraApi.Outspend[][]> {
+  async $getBatchedOutspends(
+    txids: string[]
+  ): Promise<IEsploraApi.Outspend[][]> {
     throw new Error('Method not implemented.');
   }
 
-  async $getBatchedOutspendsInternal(txids: string[]): Promise<IEsploraApi.Outspend[][]> {
-    return this.failoverRouter.$post<IEsploraApi.Outspend[][]>('/internal/txs/outspends/by-txid', txids, 'json');
+  async $getBatchedOutspendsInternal(
+    txids: string[]
+  ): Promise<IEsploraApi.Outspend[][]> {
+    return this.failoverRouter.$post<IEsploraApi.Outspend[][]>(
+      '/internal/txs/outspends/by-txid',
+      txids,
+      'json'
+    );
   }
 
-  async $getOutSpendsByOutpoint(outpoints: { txid: string, vout: number }[]): Promise<IEsploraApi.Outspend[]> {
-    return this.failoverRouter.$post<IEsploraApi.Outspend[]>('/internal/txs/outspends/by-outpoint', outpoints.map(out => `${out.txid}:${out.vout}`), 'json');
+  async $getOutSpendsByOutpoint(
+    outpoints: { txid: string; vout: number }[]
+  ): Promise<IEsploraApi.Outspend[]> {
+    return this.failoverRouter.$post<IEsploraApi.Outspend[]>(
+      '/internal/txs/outspends/by-outpoint',
+      outpoints.map((out) => `${out.txid}:${out.vout}`),
+      'json'
+    );
   }
 
   async $getCoinbaseTx(blockhash: string): Promise<IEsploraApi.Transaction> {
-    const txid = await this.failoverRouter.$get<string>(`/block/${blockhash}/txid/0`);
+    const txid = await this.failoverRouter.$get<string>(
+      `/block/${blockhash}/txid/0`
+    );
     return this.failoverRouter.$get<IEsploraApi.Transaction>('/tx/' + txid);
   }
 
-  async $getAddressTransactionSummary(address: string): Promise<IEsploraApi.AddressTxSummary[]> {
-    return this.failoverRouter.$get<IEsploraApi.AddressTxSummary[]>('/address/' + address + '/txs/summary');
+  async $getAddressTransactionSummary(
+    address: string
+  ): Promise<IEsploraApi.AddressTxSummary[]> {
+    return this.failoverRouter.$get<IEsploraApi.AddressTxSummary[]>(
+      '/address/' + address + '/txs/summary'
+    );
   }
 
   public startHealthChecks(): void {
@@ -371,7 +536,7 @@ class ElectrsApi implements AbstractBitcoinApi {
 
   public getHealthStatus(): HealthCheckHost[] {
     if (config.MEMPOOL.OFFICIAL) {
-      return this.failoverRouter.sortHosts().map(host => ({
+      return this.failoverRouter.sortHosts().map((host) => ({
         host: host.host,
         active: host === this.failoverRouter.activeHost,
         rtt: host.rtt,
