@@ -805,6 +805,7 @@ class BitcoinRoutes {
 
       res.json(data);
     } catch (e) {
+      console.log(e);
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
   }
