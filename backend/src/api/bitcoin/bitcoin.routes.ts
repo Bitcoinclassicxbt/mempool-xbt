@@ -99,7 +99,7 @@ class BitcoinRoutes {
       // Temporarily add txs/package endpoint for all backends until esplora supports it
       .post(config.MEMPOOL.API_URL_PREFIX + 'txs/package', this.$submitPackage);
 
-    if (config.MEMPOOL.BACKEND === 'esplora') {
+    if (config.MEMPOOL.BACKEND !== 'esplora') {
       app
         .get(config.MEMPOOL.API_URL_PREFIX + 'mempool', this.getMempool)
         .get(
