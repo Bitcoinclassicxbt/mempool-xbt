@@ -13,7 +13,7 @@ class NonkycApi implements PriceFeed {
   constructor() {}
 
   public async $fetchPrice(currency): Promise<number> {
-    const response = await query(this.url + currency);
+    const response = await query(this.url);
     if (response && response[0]) {
       return parseFloat(response[0].price);
     } else {
