@@ -21,7 +21,7 @@ class NonkycApi implements PriceFeed {
   public url: string =
     'https://nonkyc.io/api/v2/market/tradehistory?symbol=LKY_USDT&limit=100';
   public urlHist: string =
-    'https://api.nonkyc.io/api/v2/market/candles?symbol=LKY%2FUSDT&resolution={GRANULARITY}&countBack=10000&firstDataRequest=1';
+    'https://api.nonkyc.io/api/v2/market/candles?symbol=LKY%2FUSDT&resolution={GRANULARITY}&countBack=10000000000000&firstDataRequest=1';
 
   constructor() {}
 
