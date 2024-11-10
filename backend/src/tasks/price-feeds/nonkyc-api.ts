@@ -1,6 +1,19 @@
 import { query } from '../../utils/axios-query';
 import priceUpdater, { PriceFeed, PriceHistory } from '../price-updater';
 
+type Candle = {
+  time: number;
+  close: number;
+  open: number;
+  high: number;
+  low: number;
+  volume: number;
+};
+
+type NKYCHistoricalDataResponse = {
+  bars: Candle[];
+};
+
 class NonkycApi implements PriceFeed {
   public name: string = 'NonKYC';
   public currencies: string[] = ['USD'];
@@ -8,7 +21,7 @@ class NonkycApi implements PriceFeed {
   public url: string =
     'https://nonkyc.io/api/v2/market/tradehistory?symbol=LKY_USDT&limit=100';
   public urlHist: string =
-    'https://api.gemini.com/v2/candles/BTC{CURRENCY}/{GRANULARITY}';
+    'https://api.nonkyc.io/api/v2/market/candles?symbol=LKY%2FUSDT&resolution={GRANULARITY}&countBack=10000&firstDataRequest=1';
 
   constructor() {}
 
@@ -25,7 +38,31 @@ class NonkycApi implements PriceFeed {
     currencies: string[],
     type: 'hour' | 'day'
   ): Promise<PriceHistory> {
-    return [];
+    const priceHistory: PriceHistory = {};
+
+    for (const currency of currencies) {
+      if (this.currencies.includes(currency) === false) {
+        continue;
+      }
+
+      const response = (
+        (await query(
+          this.urlHist.replace('{GRANULARITY}', type === 'hour' ? '60' : '1440')
+        )) as NKYCHistoricalDataResponse
+      )?.bars;
+
+      const pricesRaw = response ? response : [];
+
+      for (const price of pricesRaw as Candle[]) {
+        const time = Math.round(price.time / 1000);
+        if (priceHistory[time] === undefined) {
+          priceHistory[time] = priceUpdater.getEmptyPricesObj();
+        }
+        priceHistory[time][currency] = price.close;
+      }
+    }
+
+    return priceHistory;
   }
 }
 
