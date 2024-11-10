@@ -34,6 +34,10 @@ export interface ConversionRates {
   [currency: string]: number;
 }
 
+function roundToTwoDecimals(num: number): number {
+  return Math.round(num * 100) / 100;
+}
+
 function getMedian(arr: number[]): number {
   const sortedArr = arr.slice().sort((a, b) => a - b);
   const mid = Math.floor(sortedArr.length / 2);
@@ -336,7 +340,7 @@ class PriceUpdater {
       if (prices.length === 0) {
         this.latestPrices[currency] = -1;
       } else {
-        this.latestPrices[currency] = Math.round(getMedian(prices));
+        this.latestPrices[currency] = roundToTwoDecimals(getMedian(prices));
       }
     }
 
@@ -352,7 +356,7 @@ class PriceUpdater {
             this.latestConversionsRatesFromFeed[conversionCurrency] <
             MAX_PRICES[conversionCurrency]
         ) {
-          this.latestPrices[conversionCurrency] = Math.round(
+          this.latestPrices[conversionCurrency] = roundToTwoDecimals(
             this.latestPrices.USD *
               this.latestConversionsRatesFromFeed[conversionCurrency]
           );
@@ -521,7 +525,9 @@ class PriceUpdater {
         if (grouped[time][currency].length === 0) {
           continue;
         }
-        prices[currency] = Math.round(getMedian(grouped[time][currency]));
+        prices[currency] = roundToTwoDecimals(
+          getMedian(grouped[time][currency])
+        );
       }
       await PricesRepository.$savePrices(parseInt(time, 10), prices);
       ++totalInserted;
@@ -650,11 +656,11 @@ class PriceUpdater {
         ) {
           prices[conversionCurrency] =
             year >= 2013
-              ? Math.round(
+              ? roundToTwoDecimals(
                   priceTime.USD *
                     conversionRates[yearMonthTimestamp][conversionCurrency]
                 )
-              : Math.round(
+              : roundToTwoDecimals(
                   priceTime.USD *
                     conversionRates[yearMonthTimestamp][conversionCurrency] *
                     100
