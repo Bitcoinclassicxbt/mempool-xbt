@@ -33,7 +33,7 @@ interface DiffShape {
   expected: boolean;
 }
 
-const EPOCH_BLOCK_LENGTH = 2016; // Luckycoin mainnet
+const EPOCH_BLOCK_LENGTH = 20; // Luckycoin mainnet difficulty adjustment
 
 @Component({
   selector: 'app-difficulty',
@@ -102,7 +102,7 @@ export class DifficultyComponent implements OnInit {
           colorPreviousAdjustments = 'var(--transparent-fg)';
         }
 
-        const blocksUntilHalving = 210000 - (maxHeight % 210000);
+        const blocksUntilHalving = 100000 - (maxHeight % 100000);
         const timeUntilHalving = new Date().getTime() + (blocksUntilHalving * 600000);
         const newEpochStart = Math.floor(this.stateService.latestBlockHeight / EPOCH_BLOCK_LENGTH) * EPOCH_BLOCK_LENGTH;
         const newExpectedHeight = Math.floor(newEpochStart + da.expectedBlocks);
@@ -118,7 +118,7 @@ export class DifficultyComponent implements OnInit {
           this.expectedHeight = newExpectedHeight;
           this.currentHeight = this.stateService.latestBlockHeight;
           this.currentIndex = this.currentHeight - this.epochStart;
-          this.expectedIndex = Math.min(this.expectedHeight - this.epochStart, 2016) - 1;
+          this.expectedIndex = Math.min(this.expectedHeight - this.epochStart, 20) - 1;
           this.difference = this.currentIndex - this.expectedIndex;
 
           this.shapes = [];
@@ -131,7 +131,7 @@ export class DifficultyComponent implements OnInit {
           this.shapes = this.shapes.concat(this.blocksToShapes(
             this.expectedIndex + 1, this.currentIndex, 'ahead', false
           ));
-          if (this.currentIndex < 2015) {
+          if (this.currentIndex < 19) {
             this.shapes = this.shapes.concat(this.blocksToShapes(
               this.currentIndex + 1, this.currentIndex + 1, 'next', (this.expectedIndex > this.currentIndex)
             ));
@@ -142,12 +142,8 @@ export class DifficultyComponent implements OnInit {
         }
 
 
-        let retargetDateString;
-        if (da.remainingBlocks > 1870) {
-          retargetDateString = (new Date(da.estimatedRetargetDate)).toLocaleDateString(this.locale, { month: 'long', day: 'numeric' });
-        } else {
-          retargetDateString = (new Date(da.estimatedRetargetDate)).toLocaleTimeString(this.locale, { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
-        }
+        let retargetDateString = (new Date(da.estimatedRetargetDate)).toLocaleTimeString(this.locale, { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+        
 
         const data = {
           base: `${da.progressPercent.toFixed(2)}%`,
@@ -236,14 +232,17 @@ export class DifficultyComponent implements OnInit {
   }
 }
 
+
+
+//https://github.com/LuckyCoinProj/luckycoinV3/blob/master/src/chainparams.cpp#L79 -> Luckycoin doesnt use this
 function getNextBlockSubsidy(height: number): number {
-  const halvings = Math.floor(height / 210_000) + 1;
+  const halvings = Math.floor(height / 100_000) + 1;
   // Force block reward to zero when right shift is undefined.
   if (halvings >= 64) {
     return 0;
   }
 
-  let subsidy = BigInt(50 * 100_000_000);
+  let subsidy = BigInt(88 * 100_000_000);
   // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
   subsidy >>= BigInt(halvings);
   return Number(subsidy);

@@ -188,91 +188,101 @@ export const languages: Language[] = [
 export const specialBlocks = {
   '0': {
     labelEvent: 'Genesis',
-    labelEventCompleted: 'The Genesis of Luckycoin',
+    labelEventCompleted: 'The Genesis of Luckycoin with 88 LKY reward per block',
+    details: 'Initial block reward set at 88 LKY with a target block time of 1 minute.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '210000': {
+  '100000': {
     labelEvent: 'Luckycoin\'s 1st Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 25 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 44 LKY per block',
+    details: 'First halving, reducing the block reward from 88 to 44 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '420000': {
+  '200000': {
     labelEvent: 'Luckycoin\'s 2nd Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 12.5 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 22 LKY per block',
+    details: 'Second halving, reducing the block reward from 44 to 22 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '630000': {
+  '300000': {
     labelEvent: 'Luckycoin\'s 3rd Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 6.25 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 11 LKY per block',
+    details: 'Third halving, reducing the block reward from 22 to 11 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '709632': {
-    labelEvent: 'Taproot 🌱 activation',
-    labelEventCompleted: 'Taproot 🌱 has been activated!',
-    networks: ['mainnet'],
-  },
-  '840000': {
+  '400000': {
     labelEvent: 'Luckycoin\'s 4th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 3.125 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 5.5 LKY per block',
+    details: 'Fourth halving, reducing the block reward from 11 to 5.5 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1050000': {
+  '500000': {
     labelEvent: 'Luckycoin\'s 5th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 1.5625 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 2.75 LKY per block',
+    details: 'Fifth halving, reducing the block reward from 5.5 to 2.75 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1260000': {
+  '600000': {
     labelEvent: 'Luckycoin\'s 6th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.78125 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 1.375 LKY per block',
+    details: 'Sixth halving, reducing the block reward from 2.75 to 1.375 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1470000': {
+  '700000': {
     labelEvent: 'Luckycoin\'s 7th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.390625 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.6875 LKY per block',
+    details: 'Seventh halving, reducing the block reward from 1.375 to 0.6875 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1680000': {
+  '800000': {
     labelEvent: 'Luckycoin\'s 8th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.1953125 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.34375 LKY per block',
+    details: 'Eighth halving, reducing the block reward from 0.6875 to 0.34375 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1890000': {
+  '900000': {
     labelEvent: 'Luckycoin\'s 9th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.09765625 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.171875 LKY per block',
+    details: 'Ninth halving, reducing the block reward from 0.34375 to 0.171875 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '2100000': {
+  '1000000': {
     labelEvent: 'Luckycoin\'s 10th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.04882812 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.0859375 LKY per block',
+    details: 'Tenth halving, reducing the block reward from 0.171875 to 0.0859375 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '2310000': {
+  '1100000': {
     labelEvent: 'Luckycoin\'s 11th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.02441406 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.04296875 LKY per block',
+    details: 'Eleventh halving, reducing the block reward from 0.0859375 to 0.04296875 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '2520000': {
+  '1200000': {
     labelEvent: 'Luckycoin\'s 12th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.01220703 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.021484375 LKY per block',
+    details: 'Twelfth halving, reducing the block reward from 0.04296875 to 0.021484375 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '2730000': {
+  '1300000': {
     labelEvent: 'Luckycoin\'s 13th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00610351 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.0107421875 LKY per block',
+    details: 'Thirteenth halving, reducing the block reward from 0.021484375 to 0.0107421875 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '2940000': {
+  '1400000': {
     labelEvent: 'Luckycoin\'s 14th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00305175 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.00537109375 LKY per block',
+    details: 'Fourteenth halving, reducing the block reward from 0.0107421875 to 0.00537109375 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '3150000': {
+  '1500000': {
     labelEvent: 'Luckycoin\'s 15th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00152587 LKY per block',
+    labelEventCompleted: 'Block Subsidy has halved to 0.002685546875 LKY per block',
+    details: 'Fifteenth halving, reducing the block reward from 0.00537109375 to 0.002685546875 LKY.',
     networks: ['mainnet', 'testnet', 'testnet4'],
   }
 };
-
 export const fiatCurrencies = {
   AUD: {
     name: 'Australian Dollar',

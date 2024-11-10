@@ -468,7 +468,7 @@ export class BlockFeesSubsidyGraphComponent implements OnInit {
   }
 
   subsidyAt(height: number): number {
-    return this.subsidies[Math.floor(Math.min(height / 210000, 33))];
+    return this.subsidies[Math.floor(Math.min(height / 100000, 33))];
   }
 
   onZoom() {

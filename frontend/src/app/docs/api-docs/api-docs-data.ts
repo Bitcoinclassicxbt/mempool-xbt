@@ -9256,7 +9256,7 @@ export const restApiDocsData = [
   {
     "type": "Luckycoin",
     "invoiceId": "SG1U27R9PdWi3gH3jB9tm9",
-    "amount": 21000000,
+    "amount": 10000000,
     "status": "paid",
     "date": 1706372582000,
     "link": null
@@ -9324,7 +9324,7 @@ export const restApiDocsData = [
         codeSampleMainnet: {
           esModule: [],
           commonJS: [],
-          curl: ["txInput=ee13ebb99632377c15c94980357f674d285ac413452050031ea6dcd3e9b2dc29&userBid=21000000"],
+          curl: ["txInput=ee13ebb99632377c15c94980357f674d285ac413452050031ea6dcd3e9b2dc29&userBid=10000000"],
           headers: "X-Mempool-Auth: stacksats",
           response: `HTTP/1.1 200 OK`,
         },
