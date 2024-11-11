@@ -103,7 +103,7 @@ export class DifficultyComponent implements OnInit {
         }
 
         const blocksUntilHalving = 100000 - (maxHeight % 100000);
-        const timeUntilHalving = new Date().getTime() + (blocksUntilHalving * 600000);
+        const timeUntilHalving = new Date().getTime() + (blocksUntilHalving * 60000);
         const newEpochStart = Math.floor(this.stateService.latestBlockHeight / EPOCH_BLOCK_LENGTH) * EPOCH_BLOCK_LENGTH;
         const newExpectedHeight = Math.floor(newEpochStart + da.expectedBlocks);
         this.now = new Date().getTime();
