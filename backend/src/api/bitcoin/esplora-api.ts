@@ -521,7 +521,7 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   $sendRawTransaction(rawTransaction: string): Promise<string> {
-    throw new Error('Method not implemented.');
+    return this.failoverRouter.$post<string>('/tx', rawTransaction);
   }
 
   $testMempoolAccept(
