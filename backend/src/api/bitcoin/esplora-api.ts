@@ -470,8 +470,8 @@ class ElectrsApi implements AbstractBitcoinApi {
     );
   }
 
-  $getAddressPrefix(prefix: string): string[] {
-    throw new Error('Method not implemented.');
+  $getAddressPrefix(prefix: string): Promise<string[]> {
+    return this.failoverRouter.$get<string[]>('/address-prefix/' + prefix);
   }
 
   $sendRawTransaction(rawTransaction: string): Promise<string> {

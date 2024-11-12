@@ -932,8 +932,8 @@ class BitcoinRoutes {
 
   private async getAddressPrefix(req: Request, res: Response) {
     try {
-      const blockHash = await bitcoinApi.$getAddressPrefix(req.params.prefix);
-      res.send(blockHash);
+      const addresses = await bitcoinApi.$getAddressPrefix(req.params.prefix);
+      res.send(addresses);
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
