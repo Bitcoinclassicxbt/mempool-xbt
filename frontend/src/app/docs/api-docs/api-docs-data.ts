@@ -1011,6 +1011,93 @@ export const restApiDocsData = [
     }
   },
   {
+    "type": "endpoint",
+    "category": "addresses",
+    "httpRequestMethod": "GET",
+    "fragment": "get-address-utxo-by-amount",
+    "title": "GET Address UTXO by Amount",
+    "description": {
+        "default": "Fetches an array of UTXOs for an address that fulfill a send value of amount while performing UTXO management and using up low-value UTXOs the address has first. Does not work for addresses with over 500 UTXOs.",
+        "liquid": "Fetches an array of UTXOs for an address that fulfill a send value of amount while performing UTXO management and using up low-value UTXOs the address has first. Includes additional fields such as <code>valuecommitment</code>, <code>assetcommitment</code>, and <code>range_proof</code> for confidential transactions. Does not work for addresses with over 500 UTXOs."
+    },
+    "urlString": "/api/address/:address/fetch-utxos/:amount",
+    "showConditions": bitcoinNetworks.concat(liquidNetworks),
+    "showJsExamples": showJsExamplesDefault,
+    "codeExample": {
+        "default": {
+            "codeTemplate": {
+                "curl": "/api/address/%{1}/fetch-utxos/%{2}",
+                "commonJS": 
+        `const { %{0}: { addresses } } = mempoolJS();
+
+        const address = '%{1}';
+        const amount = '%{2}';
+        const addressUtxosByAmount = await addresses.getAddressUtxoByAmount({ address, amount });
+
+        document.getElementById("result").textContent = JSON.stringify(addressUtxosByAmount, undefined, 2);`,
+                "esModule": 
+  `const { %{0}: { addresses } } = mempoolJS();
+
+  const address = '%{1}';
+  const amount = '%{2}';
+  const addressUtxosByAmount = await addresses.getAddressUtxoByAmount({ address, amount });
+  console.log(addressUtxosByAmount);`
+            },
+            "codeSampleMainnet": {
+                "esModule": ["1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY", "1000000"],
+                "commonJS": ["1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY", "1000000"],
+                "curl": ["1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY", "1000000"],
+                "response": [
+                    {
+                        "txid": "6ca4bf433be8ff96f03c3509dea0f252325d9a1ad3ceeeaf71174284c483211a",
+                        "vout": 1,
+                        "status": {
+                            "confirmed": true,
+                            "block_height": 167423,
+                            "block_hash": "451225dcc4e54aee107b1c3260247de195efed555302f2efbbe75c97386f0a04",
+                            "block_time": 1730671649
+                        },
+                        "value": 10162740,
+                        "raw": "010000000196e22c1c4270c33df21c8609dc8ae2d06e9d91c89b342bb14f7c4487fac726f2010000006b483045022100dac763e3105e8677ad65b5811538d03473a52c6b107d8f66dd55e28fa44df45d02207cf12f68a6e6928f3ec5764055603f650610afeb1d5fe7659a57ff6d6c989ef20121022e15e6c680395fac7d8f0b4936cc57ed00e859aa835dbb1b62c59b9d7fc3d16bffffffff0200e1f505000000001976a914de78db6443cef983f3a31d69a5b69b9130091efe88ac34129b00000000001976a914e9c5b3dcb4db556e185a89825e9190bec6ecf63388ac00000000"
+                    },
+                    {
+                        "txid": "76bdcda117463b652d0f01812b22ed96bda725de4d7d1432cdb72360c7633e99",
+                        "vout": 1,
+                        "status": {
+                            "confirmed": true,
+                            "block_height": 177188,
+                            "block_hash": "b11de3f806b551f309ec52c86fe677cafdf0d89308776c6ab4bb564370022e85",
+                            "block_time": 1731393989
+                        },
+                        "value": 903420000,
+                        "raw": "0200000001cf6d3b3700105bcb632b1799dadb2be84ead4d4ac21293e6d162c68288dd42df010000006b483045022100c182989ae8ab56bc004989002ae56be8b23d705dce2cf5686e6eb369e5b5e22f02207e0e15c819e23cb32da12af07bf146edfdc35aa2165f35ee154e41c580692dc80121022e15e6c680395fac7d8f0b4936cc57ed00e859aa835dbb1b62c59b9d7fc3d16bffffffff02000a88e47e0000001976a914781a1dbb282779ce4c9f0d58f7cedbbe9521c65488ac6018d935000000001976a914e9c5b3dcb4db556e185a89825e9190bec6ecf63388ac00000000"
+                    }
+                ]
+            },
+            "codeSampleTestnet": {
+                "esModule": ["tb1q4kgratttzjvkxfmgd95z54qcq7y6hekdm3w56u", "500000"],
+                "commonJS": ["tb1q4kgratttzjvkxfmgd95z54qcq7y6hekdm3w56u", "500000"],
+                "curl": ["tb1q4kgratttzjvkxfmgd95z54qcq7y6hekdm3w56u", "500000"],
+                "response": [
+                    {
+                        "txid": "e3b1fc3e1a6b972167ed8ff3be424ba196c20366a40f9985e410cb3f57625677",
+                        "vout": 0,
+                        "status": {
+                            "confirmed": true,
+                            "block_height": 2086944,
+                            "block_hash": "000000000000039a27007892b0f3ac646afa4eb3ef3d4a4e75e8bdf636b4d006",
+                            "block_time": 1730159123
+                        },
+                        "value": 1973787,
+                        "raw": "0200000001b34098e283d72c33bf8e3c9fbd7c46a7ad3d16e8f0d165ac25d70ac428f0b6fe010000006a47304402205b2f8f5b5d5d6e59dbafff5e4fa90e84a5df41c124bdf0a3c62a83024b0cf6f90220052e8e3fda233c7ed98a9b5ef09f1d6069f3739e59960c7be6e45225d94a7485012103b2f78e6fcbedc985ff5ac32ac78db7c095e8e88cf437a9a30deba30c9d95c0a2ffffffff0200b5402d000000001976a914fcdabf84ed3f0e900e2a91a6ab1c2151d3e2411a88ac48505238000000001976a914e9c5b3dcb4db556e185a89825e9190bec6ecf63388ac00000000"
+                    }
+                ]
+            }
+        }
+    }
+},
+
+  {
     type: "endpoint",
     category: "addresses",
     httpRequestMethod: "GET",
