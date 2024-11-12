@@ -28,8 +28,6 @@ export const getRelevantUTXOSFromClosestIndex = (
 };
 
 export const txJsonToHex = (tx: IEsploraApi.Transaction): string => {
-  console.log(tx);
-
   const transaction = new BitcoinJsTransaction();
 
   transaction.version = tx.version;
@@ -62,8 +60,7 @@ export const txJsonToHex = (tx: IEsploraApi.Transaction): string => {
 
   tx.vout.forEach((output) => {
     const scriptPubKeyBuffer = Buffer.from(output.scriptpubkey, 'hex');
-    const valueSatoshis = Math.round(output.value * 1e8);
-    console.log(BigInt(valueSatoshis));
+    const valueSatoshis = Math.round(output.value / 1e8);
     transaction.addOutput(scriptPubKeyBuffer, BigInt(valueSatoshis));
   });
 

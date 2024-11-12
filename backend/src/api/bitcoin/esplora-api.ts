@@ -370,7 +370,6 @@ class ElectrsApi implements AbstractBitcoinApi {
       '/tx/' + txId
     );
 
-    console.log(tx);
     return { ...tx, hex: txJsonToHex(tx) };
   }
 
