@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "esnext",
+    "target": "es2022",
     "types": ["node", "jest"],
     "lib": ["es2022", "dom"],
     "strict": true,
