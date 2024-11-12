@@ -28,6 +28,8 @@ export const getRelevantUTXOSFromClosestIndex = (
 };
 
 export const txJsonToHex = (tx: IEsploraApi.Transaction): string => {
+  console.log(tx);
+
   const transaction = new BitcoinJsTransaction();
 
   transaction.version = tx.version;
