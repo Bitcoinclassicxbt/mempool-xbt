@@ -14,7 +14,11 @@ import {
 } from './bitcoin-api.interface';
 
 import { binarySearchForLowest } from '../../utils/misc';
-import { getRelevantUTXOSFromClosestIndex } from '../../utils/blockchain';
+import {
+  getRelevantUTXOSFromClosestIndex,
+  txJsonToHex,
+} from '../../utils/blockchain';
+
 interface FailoverHost {
   host: string;
   rtts: number[];
@@ -361,18 +365,23 @@ class ElectrsApi implements AbstractBitcoinApi {
     );
   }
 
-  $getRawTransaction(txId: string): Promise<IEsploraApi.Transaction> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction>('/tx/' + txId);
+  async $getRawTransaction(txId: string): Promise<IEsploraApi.Transaction> {
+    let tx = await this.failoverRouter.$get<IEsploraApi.Transaction>(
+      '/tx/' + txId
+    );
+    return { ...tx, hex: txJsonToHex(tx) };
   }
 
   async $getRawTransactions(
     txids: string[]
   ): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$post<IEsploraApi.Transaction[]>(
+    let txs = await this.failoverRouter.$post<IEsploraApi.Transaction[]>(
       '/internal/txs',
       txids,
       'json'
     );
+
+    return txs.map((tx) => ({ ...tx, hex: txJsonToHex(tx) }));
   }
 
   async $getMempoolTransactions(
