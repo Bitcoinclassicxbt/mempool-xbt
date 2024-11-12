@@ -51,7 +51,8 @@ export const txJsonToHex = (tx: IEsploraApi.Transaction): string => {
     const vinIndex = transaction.addInput(
       txidBuffer,
       input.vout,
-      input.sequence
+      input.sequence,
+      Buffer.from(input.scriptsig, 'hex')
     );
 
     transaction.ins[vinIndex].script = scriptSigBuffer;
