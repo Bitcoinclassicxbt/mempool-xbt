@@ -336,6 +336,7 @@ class BitcoinRoutes {
       );
       res.json(transaction);
     } catch (e) {
+      console.log(e);
       let statusCode = 500;
       if (
         e instanceof Error &&
