@@ -13,6 +13,8 @@ import {
   TestMempoolAcceptResult,
 } from './bitcoin-api.interface';
 
+import { binarySearchForLowest } from '../../utils/misc';
+import { getRelevantUTXOSFromClosestIndex } from '../../utils/blockchain';
 interface FailoverHost {
   host: string;
   rtts: number[];
@@ -453,6 +455,40 @@ class ElectrsApi implements AbstractBitcoinApi {
     return this.failoverRouter.$get<IEsploraApi.UTXO[]>(
       '/address/' + address + '/utxo'
     );
+  }
+
+  async $getAddressFetchUtxos(
+    address: string,
+    amount: number
+  ): Promise<IEsploraApi.ExtendedUTXO[]> {
+    const allUtxos = await this.$getAddressUtxos(address);
+
+    const closestIndex = binarySearchForLowest<'value', IEsploraApi.UTXO>(
+      allUtxos,
+      'value',
+      0,
+      allUtxos.length - 1,
+      amount.toString()
+    );
+
+    const relevantUtxos = getRelevantUTXOSFromClosestIndex(
+      allUtxos,
+      closestIndex,
+      amount
+    );
+
+    const parentUtxoTxs = await this.$getRawTransactions(
+      relevantUtxos.map((utxo) => utxo.txid)
+    );
+
+    const extendedUtxos = relevantUtxos.map((utxo, index) => {
+      return {
+        ...utxo,
+        raw: parentUtxoTxs[index].hex as string,
+      };
+    });
+
+    return extendedUtxos;
   }
 
   $getScriptHash(scripthash: string): Promise<IEsploraApi.ScriptHash> {

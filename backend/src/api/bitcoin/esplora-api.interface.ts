@@ -31,6 +31,9 @@ export namespace IEsploraApi {
     };
     value: number;
   }
+  export interface ExtendedUTXO extends UTXO {
+    raw: string;
+  }
 
   export interface Vin {
     txid: string;

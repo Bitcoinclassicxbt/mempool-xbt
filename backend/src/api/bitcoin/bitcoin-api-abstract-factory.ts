@@ -31,6 +31,10 @@ export interface AbstractBitcoinApi {
     lastSeenTxId: string
   ): Promise<IEsploraApi.Transaction[]>;
   $getAddressUtxos(address: string): Promise<IEsploraApi.UTXO[]>;
+  $getAddressFetchUtxos(
+    address: string,
+    amount: number
+  ): Promise<IEsploraApi.ExtendedUTXO[]>;
   $getAddressPrefix(prefix: string): Promise<string[]>;
   $getScriptHash(scripthash: string): Promise<IEsploraApi.ScriptHash>;
   $getScriptHashTransactions(

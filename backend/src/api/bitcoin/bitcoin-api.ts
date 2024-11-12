@@ -184,6 +184,15 @@ class BitcoinApi implements AbstractBitcoinApi {
     );
   }
 
+  $getAddressFetchUtxos(
+    address: string,
+    amount: number
+  ): Promise<IEsploraApi.ExtendedUTXO[]> {
+    throw new Error(
+      'Method getAddressTransactions not supported by the Bitcoin RPC API.'
+    );
+  }
+
   $getScriptHash(scripthash: string): Promise<IEsploraApi.ScriptHash> {
     throw new Error(
       'Method getScriptHash not supported by the Bitcoin RPC API.'

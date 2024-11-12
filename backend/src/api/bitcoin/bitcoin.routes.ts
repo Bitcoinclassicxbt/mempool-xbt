@@ -173,6 +173,11 @@ class BitcoinRoutes {
           config.MEMPOOL.API_URL_PREFIX + 'address/:address/utxo',
           this.getAddressUtxo
         )
+        .get(
+          config.MEMPOOL.API_URL_PREFIX +
+            'address/:address/fetch-utxos/:amount',
+          this.getAddressFetchUtxos
+        )
 
         .get(
           config.MEMPOOL.API_URL_PREFIX + 'address/:address/txs/summary',
@@ -802,6 +807,42 @@ class BitcoinRoutes {
 
     try {
       const utxos = await bitcoinApi.$getAddressUtxos(req.params.address);
+      res.json(utxos);
+    } catch (e) {
+      if (
+        e instanceof Error &&
+        e.message &&
+        (e.message.indexOf('too long') > 0 ||
+          e.message.indexOf('confirmed status') > 0)
+      ) {
+        handleError(req, res, 413, e instanceof Error ? e.message : e);
+        return;
+      }
+      handleError(req, res, 500, e instanceof Error ? e.message : e);
+    }
+  }
+
+  private async getAddressFetchUtxos(req: Request, res: Response) {
+    if (config.MEMPOOL.BACKEND !== 'esplora') {
+      handleError(
+        req,
+        res,
+        405,
+        'Address lookups cannot be used with bitcoind as backend.'
+      );
+      return;
+    }
+
+    if (!isNaN(Number(req.params.amount)) && Number(req.params.amount) < 0) {
+      handleError(req, res, 400, 'Amount must be a positive number');
+      return;
+    }
+
+    try {
+      const utxos = await bitcoinApi.$getAddressFetchUtxos(
+        req.params.address,
+        Number(req.params.amount)
+      );
       res.json(utxos);
     } catch (e) {
       if (
