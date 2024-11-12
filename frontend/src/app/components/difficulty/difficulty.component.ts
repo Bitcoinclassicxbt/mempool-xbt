@@ -137,7 +137,7 @@ export class DifficultyComponent implements OnInit {
             ));
           }
           this.shapes = this.shapes.concat(this.blocksToShapes(
-            Math.max(this.currentIndex + 2, this.expectedIndex + 1), 2105, 'remaining', false
+            Math.max(this.currentIndex + 2, this.expectedIndex + 1), 20, 'remaining', false
           ));
         }
 
