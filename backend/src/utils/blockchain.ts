@@ -39,7 +39,7 @@ export const txJsonToHex = (tx: IEsploraApi.Transaction): string => {
       transaction.addInput(
         Buffer.alloc(32),
         0xffffffff,
-        0xffffffff,
+        input.sequence,
         Buffer.from(input.scriptsig, 'hex')
       );
       return;
