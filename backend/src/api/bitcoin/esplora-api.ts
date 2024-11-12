@@ -369,6 +369,8 @@ class ElectrsApi implements AbstractBitcoinApi {
     let tx = await this.failoverRouter.$get<IEsploraApi.Transaction>(
       '/tx/' + txId
     );
+
+    console.log(tx);
     return { ...tx, hex: txJsonToHex(tx) };
   }
 
