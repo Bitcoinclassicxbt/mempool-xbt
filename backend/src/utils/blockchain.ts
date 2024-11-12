@@ -60,7 +60,7 @@ export const txJsonToHex = (tx: IEsploraApi.Transaction): string => {
   tx.vout.forEach((output) => {
     const scriptPubKeyBuffer = Buffer.from(output.scriptpubkey, 'hex');
     const valueSatoshis = Math.round(output.value * 1e8);
-    transaction.addOutput(scriptPubKeyBuffer, valueSatoshis);
+    transaction.addOutput(scriptPubKeyBuffer, BigInt(valueSatoshis));
   });
 
   return transaction.toHex();
