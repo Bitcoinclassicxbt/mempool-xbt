@@ -20,6 +20,7 @@ class PoolsUpdater {
   treeUrl: string = config.MEMPOOL.POOLS_JSON_TREE_URL;
 
   public async $startService(): Promise<void> {
+    // @ts-ignore
     while ('Bitcoin is still alive') {
       try {
         await this.updatePoolsJson();
