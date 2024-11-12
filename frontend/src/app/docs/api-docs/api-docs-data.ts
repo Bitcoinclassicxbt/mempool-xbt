@@ -912,9 +912,9 @@ export const restApiDocsData = [
           `,
         },
         codeSampleMainnet: {
-          esModule: [`1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY`],
-          commonJS: [`1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY`],
-          curl: [`1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY`],
+          esModule: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          commonJS: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `[
   {
     txid: "12f96289f8f9cd51ccfe390879a46d7eeb0435d9e0af9297776e6bdf249414ff",
@@ -1044,9 +1044,9 @@ export const restApiDocsData = [
   console.log(addressUtxosByAmount);`
             },
             "codeSampleMainnet": {
-                "esModule": ["1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY", "1000000"],
-                "commonJS": ["1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY", "1000000"],
-                "curl": ["1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY", "1000000"],
+                "esModule": ["LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy", "1000000"],
+                "commonJS": ["LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy", "1000000"],
+                "curl": ["LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy", "1000000"],
                 "response": [
                     {
                         "txid": "6ca4bf433be8ff96f03c3509dea0f252325d9a1ad3ceeeaf71174284c483211a",
@@ -1117,10 +1117,10 @@ export const restApiDocsData = [
           esModule: ``,
         },
         codeSampleMainnet: {
-          curl: [`1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY`],
+          curl: [`LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy`],
           response: `{
   isvalid: true,
-  address: "1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY",
+  address: "LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy",
   scriptPubKey: "76a914c825a1ecf2a6830c4401620c3a16f1995057c2ab88ac",
   isscript: false,
   iswitness: false
@@ -1528,7 +1528,7 @@ export const restApiDocsData = [
       ],
       "vout": [
         {
-          "scriptpubkey_address": "1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY",
+          "scriptpubkey_address": "LHCRZRAXDpQfnwZMBs9Fcjx7ZfGecQdjEy",
           "value": 638307429
         }
       ]
