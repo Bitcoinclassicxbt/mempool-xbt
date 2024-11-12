@@ -356,6 +356,7 @@ class BitcoinRoutes {
       res.setHeader('content-type', 'text/plain');
       res.send(transaction.hex);
     } catch (e) {
+      console.log(e);
       let statusCode = 500;
       if (
         e instanceof Error &&
