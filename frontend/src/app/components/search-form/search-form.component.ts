@@ -246,14 +246,13 @@ export class SearchFormComponent implements OnInit {
       this.navigate('/lightning/node/', result.public_key);
     } else if (result.short_id) {
       this.navigate('/lightning/channel/', result.id);
-    } else if (result.address) {
-
-        this.navigate('/address/', result.address);
-
-      
-    } else if (result.slug) {
+    }  else if (result.slug) {
       this.navigate('/mining/pool/', result.slug);
-    }
+    } else if (result.searchText) {
+
+      this.navigate('/address/', result.searchText);
+
+  }
   }
 
   search(result?: string): void {
