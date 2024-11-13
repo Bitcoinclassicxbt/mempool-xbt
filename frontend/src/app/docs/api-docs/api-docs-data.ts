@@ -215,7 +215,7 @@ export const restApiDocsData = [
   },
   {
     "type": "endpoint",
-    "category": "supply",
+    "category": "general",
     "httpRequestMethod": "GET",
     "fragment": "get-circulating-supply",
     "title": "GET Circulating Supply",
