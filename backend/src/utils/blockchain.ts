@@ -1,7 +1,7 @@
 import { IEsploraApi } from '../api/bitcoin/esplora-api.interface';
 import { Transaction as BitcoinJsTransaction } from 'bitcoinjs-lib';
 
-const INITIAL_SUBSIDY = 50n;
+const INITIAL_SUBSIDY = 88n;
 const HALVING_INTERVAL = 100000;
 
 export const getCirculatingSupplyAtHeight = (height: number): bigint => {

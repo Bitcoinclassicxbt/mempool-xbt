@@ -248,7 +248,7 @@ export const restApiDocsData = [
                 "curl": [],
                 "commonJS": [],
                 "esModule": [],
-                "response": "6953800.00000000"
+                "response": "12239040.00000000"
             }
         }
     }
