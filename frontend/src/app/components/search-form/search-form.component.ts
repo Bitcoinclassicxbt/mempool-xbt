@@ -238,6 +238,7 @@ export class SearchFormComponent implements OnInit {
   }
 
   selectedResult(result: any): void {
+    console.log(result);
     if (typeof result === 'string') {
       this.search(result);
     } else if (typeof result === 'number' && result <= this.stateService.latestBlockHeight) {
