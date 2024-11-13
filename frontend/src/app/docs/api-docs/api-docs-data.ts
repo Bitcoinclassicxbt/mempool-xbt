@@ -222,7 +222,7 @@ export const restApiDocsData = [
     "description": {
         "default": "Returns the current circulating supply of Luckycoin. The response is returned as raw text."
     },
-    "urlString": "/api/v1/circulating-supply",
+    "urlString": "/v1/circulating-supply",
     "showConditions": [""],
     "showJsExamples": showJsExamplesDefault,
     "codeExample": {
