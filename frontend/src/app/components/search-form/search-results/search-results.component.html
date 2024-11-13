@@ -36,9 +36,9 @@
     </button>
   </ng-template>
   <ng-template [ngIf]="results.addresses.length">
-    <div class="card-title" i18n="search.bitcoin-addresses">{{ networkName }} Addresses</div>
+    <div class="card-title">{{ networkName }} Addresses</div>
     <ng-template ngFor [ngForOf]="results.addresses" let-address let-i="index">
-      <button (click)="clickItem(results.hashQuickMatch + i)" [class.active]="(results.hashQuickMatch + i) === activeIdx" type="button" role="option" class="dropdown-item">
+      <button (click)="clickItem(addressesStartIndex + i)" [class.active]="(addressesStartIndex + i) === activeIdx" type="button" role="option" class="dropdown-item">
         <ngb-highlight [result]="address | shortenString : isMobile ? 25 : 36" [term]="results.searchText"></ngb-highlight>
       </button>
     </ng-template>
