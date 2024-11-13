@@ -222,13 +222,13 @@ export const restApiDocsData = [
     "description": {
         "default": "Returns the current circulating supply of Luckycoin. The response is returned as raw text."
     },
-    "urlString": "/api/circulating-supply",
-    "showConditions": [true],
+    "urlString": "/v1/circulating-supply",
+    "showConditions": [""],
     "showJsExamples": showJsExamplesDefault,
     "codeExample": {
         "default": {
             "codeTemplate": {
-                "curl": "/api/circulating-supply",
+                "curl": "/v1/circulating-supply",
                 "commonJS": 
         `const fetch = require('node-fetch');
 
