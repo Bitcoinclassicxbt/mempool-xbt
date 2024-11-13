@@ -21,13 +21,17 @@ import transactionRepository from '../../repositories/TransactionRepository';
 import rbfCache from '../rbf-cache';
 import { calculateMempoolTxCpfp } from '../cpfp';
 import { handleError } from '../../utils/api';
-
+import { getCirculatingSupplyAtHeight } from '../../utils/blockchain';
 class BitcoinRoutes {
   public initRoutes(app: Application) {
     app
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'transaction-times',
         this.getTransactionTimes
+      )
+      .get(
+        config.MEMPOOL.API_URL_PREFIX + 'circulating-supply',
+        this.getCirculatingSupply
       )
       .get(config.MEMPOOL.API_URL_PREFIX + 'cpfp/:txId', this.$getCpfpInfo)
       .get(
@@ -1019,6 +1023,21 @@ class BitcoinRoutes {
       }
       res.setHeader('content-type', 'text/plain');
       res.send(result.toString());
+    } catch (e) {
+      handleError(req, res, 500, e instanceof Error ? e.message : e);
+    }
+  }
+
+  private getCirculatingSupply(req: Request, res: Response) {
+    try {
+      const currentHeight = blocks.getCurrentBlockHeight();
+      const result = getCirculatingSupplyAtHeight(currentHeight);
+      if (!result) {
+        handleError(req, res, 503, `Service Temporarily Unavailable`);
+        return;
+      }
+      res.setHeader('content-type', 'text/plain');
+      res.send(result.toString() + '.00000000');
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
