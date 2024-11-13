@@ -214,6 +214,46 @@ export const restApiDocsData = [
     }
   },
   {
+    "type": "endpoint",
+    "category": "supply",
+    "httpRequestMethod": "GET",
+    "fragment": "get-circulating-supply",
+    "title": "GET Circulating Supply",
+    "description": {
+        "default": "Returns the current circulating supply of Luckycoin. The response is returned as raw text."
+    },
+    "urlString": "/api/circulating-supply",
+    "showConditions": [true],
+    "showJsExamples": showJsExamplesDefault,
+    "codeExample": {
+        "default": {
+            "codeTemplate": {
+                "curl": "/api/circulating-supply",
+                "commonJS": 
+        `const fetch = require('node-fetch');
+
+        const response = await fetch('/api/circulating-supply');
+        const supply = await response.text();
+
+        console.log('Circulating supply:', supply);`,
+                "esModule": 
+  `import fetch from 'node-fetch';
+
+  const response = await fetch('/api/circulating-supply');
+  const supply = await response.text();
+
+  console.log('Circulating supply:', supply);`
+            },
+            "codeSampleMainnet": {
+                "curl": [],
+                "commonJS": [],
+                "esModule": [],
+                "response": "6953800.00000000"
+            }
+        }
+    }
+},
+  {
     type: "endpoint",
     category: "general",
     httpRequestMethod: "GET",
