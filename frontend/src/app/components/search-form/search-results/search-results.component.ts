@@ -13,7 +13,6 @@ export class SearchResultsComponent implements OnChanges {
   isMobile = (window.innerWidth <= 1150);
   resultsFlattened = [];
   activeIdx = 0;
-  addressesStartIndex = 0;
   focusFirst = true;
   networkName = '';
 
@@ -27,24 +26,13 @@ export class SearchResultsComponent implements OnChanges {
 
   ngOnChanges() {
     this.activeIdx = 0;
-  
-    // Determine if hashQuickMatch exists
-    const hasHashQuickMatch = !!this.results.hashQuickMatch;
-  
-    // Calculate the starting index for addresses
-    this.addressesStartIndex = hasHashQuickMatch ? 1 : 0;
-  
-    // Flatten the results accordingly
-    this.resultsFlattened = [
-      ...(hasHashQuickMatch ? [this.results.searchText] : []),
-      ...this.results.addresses,
-      ...this.results.pools,
-      ...this.results.nodes,
-      ...this.results.channels,
-      ...this.results.otherNetworks
-    ];
-  
-    // Rest of your code...
+    if (this.results) {
+      this.resultsFlattened = [...(this.results.hashQuickMatch ? [this.results.searchText] : []), ...this.results.addresses, ...this.results.pools, ...this.results.nodes, ...this.results.channels, ...this.results.otherNetworks];
+      // If searchText is a public key corresponding to a node, select it by default
+      if (this.results.publicKey && this.results.nodes.length > 0) {
+        this.activeIdx = 1;
+      }
+    }
   }
 
   searchButtonClick() {
