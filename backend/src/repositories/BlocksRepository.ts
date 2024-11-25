@@ -268,7 +268,7 @@ class BlocksRepository {
       return;
     }
 
-    console.dir(transactions);
+    console.dir(transactions, { depth: null });
     console.dir(updates);
 
     try {
