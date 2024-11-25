@@ -1474,10 +1474,10 @@ class DatabaseMigration {
 
   private getCreateBalancesTableQuery(): string {
     return `CREATE TABLE IF NOT EXISTS balances (
-      id int(11) unsigned NOT NULL AUTO_INCREMENT,
+      id int(11) NOT NULL AUTO_INCREMENT,
       address varchar(255) NOT NULL UNIQUE,
       last_seen datetime NOT NULL,
-      balance int(11) unsigned NOT NULL,
+      balance int(11) NOT NULL,
       PRIMARY KEY (id),
       INDEX idx_balances (address, last_seen, balance) USING BTREE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`;
