@@ -237,11 +237,14 @@ class BlocksRepository {
     for (let transaction of transactions) {
       let sender_address =
         transaction.vin[0].prevout?.scriptpubkey_address ??
-        transaction.vin[0].prevout?.scriptpubkey_asm.split(' ')[1];
+        transaction.vin[0].prevout?.scriptpubkey_asm
+          .replace(/\bOP_\w+\b/g, '')
+          .trim();
 
       transaction.vout.forEach((utxo) => {
         let recipient_address =
-          utxo.scriptpubkey_address ?? utxo.scriptpubkey_asm.split(' ')[1];
+          utxo.scriptpubkey_address ??
+          utxo.scriptpubkey_asm.replace(/\bOP_\w+\b/g, '').trim();
 
         if (sender_address) {
           balanceEntries[sender_address] = {
