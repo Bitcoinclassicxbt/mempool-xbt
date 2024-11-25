@@ -134,6 +134,12 @@ class DatabaseMigration {
       this.getCreateStatisticsQuery(),
       await this.$checkIfTableExists('statistics')
     );
+
+    await this.$executeQuery(
+      this.getCreateBalancesTableQuery(),
+      await this.$checkIfTableExists('balances')
+    );
+
     if (databaseSchemaVersion < 2 && this.statisticsAddedIndexed === false) {
       await this.$executeQuery(`CREATE INDEX added ON statistics (added);`);
       await this.updateToSchemaVersion(2);
@@ -1463,6 +1469,17 @@ class DatabaseMigration {
       PRIMARY KEY (height),
       INDEX (pool_id),
       FOREIGN KEY (pool_id) REFERENCES pools (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`;
+  }
+
+  private getCreateBalancesTableQuery(): string {
+    return `CREATE TABLE IF NOT EXISTS balances (
+      id int(11) unsigned NOT NULL AUTO_INCREMENT,
+      address varchar(255) NOT NULL UNIQUE,
+      last_seen datetime NOT NULL,
+      balance int(11) unsigned NOT NULL,
+      PRIMARY KEY (id),
+      INDEX idx_balances (address, last_seen, balance) USING BTREE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`;
   }
 

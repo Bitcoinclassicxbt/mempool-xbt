@@ -1127,6 +1127,10 @@ class Blocks {
 
           newlyIndexed++;
           await blocksRepository.$saveBlockInDatabase(blockExtended);
+          await blocksRepository.$saveBalancesInDatabase(
+            transactions,
+            block.timestamp
+          );
         }
 
         currentBlockHeight -= chunkSize;
