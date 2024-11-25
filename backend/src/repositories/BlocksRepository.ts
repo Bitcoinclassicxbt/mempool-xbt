@@ -271,8 +271,8 @@ class BlocksRepository {
       return;
     }
 
-    console.dir(transactions, { depth: null });
-    console.dir(updates);
+    //console.dir(transactions, { depth: null });
+    //console.dir(updates);
 
     try {
       const query = `
