@@ -268,6 +268,8 @@ class BlocksRepository {
       return;
     }
 
+    console.dir(updates);
+
     try {
       const query = `
         INSERT INTO balances (address, balance, last_seen)
