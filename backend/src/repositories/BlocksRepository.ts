@@ -260,6 +260,10 @@ class BlocksRepository {
               ? await bitcoinApi.$getScriptHash(output)
               : await bitcoinApi.$getAddress(output);
 
+            if (isScriptHash) {
+              console.log('OUTPUT SH: ' + output);
+            }
+
             const outputSummary: DatabaseBalance = {
               address: output,
               balance:
