@@ -260,11 +260,18 @@ class BlocksRepository {
           const isScriptHash = output.length === 64;
 
           try {
-            const outputSummaryResponse = isScriptHash
-              ? await bitcoinApi.$getScriptHash(output)
-              : await bitcoinApi.$getAddress(output);
-
+            let outputSummaryResponse;
             if (isScriptHash) {
+              outputSummaryResponse = await bitcoinApi.$getScriptHash(output);
+            } else {
+              outputSummaryResponse = await bitcoinApi.$getAddress(output);
+            }
+
+            if (
+              isScriptHash &&
+              output ===
+                'bfa1bb76dd2493767901122ffa429fd32643ed5f76114bf65764b232012b57e1'
+            ) {
               console.log('OUTPUT SH: ' + output);
               console.log(outputSummaryResponse);
             }
@@ -272,13 +279,12 @@ class BlocksRepository {
             const outputSummary: DatabaseBalance = {
               address: output,
               balance:
-                outputSummaryResponse.chain_stats.funded_txo_sum -
-                outputSummaryResponse.chain_stats.spent_txo_sum,
+                Number(outputSummaryResponse.chain_stats.funded_txo_sum) -
+                Number(outputSummaryResponse.chain_stats.spent_txo_sum),
               lastSeen: blockTimestamp,
             };
 
             balances[output] = outputSummary;
-            return;
           } catch (e) {
             logger.err(
               'Failed to get balance for address: ' +
@@ -287,6 +293,7 @@ class BlocksRepository {
                 (e instanceof Error ? e.message : e)
             );
           }
+          return;
         })
       );
     }
