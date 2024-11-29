@@ -238,14 +238,16 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
-      let outputs: string[] = Array.from(
+      let outputs = Array.from(
         new Set(
           await Promise.all(
             transaction.vout.map(async (vout) => {
-              return (
-                vout.scriptpubkey_address ??
-                (await calcScriptHash(vout.scriptpubkey))
-              );
+              return {
+                electrs:
+                  vout.scriptpubkey_address ??
+                  (await calcScriptHash(vout.scriptpubkey)),
+                key: vout.scriptpubkey_address ?? vout.scriptpubkey,
+              };
             })
           )
         )
@@ -253,38 +255,33 @@ class BlocksRepository {
 
       await Promise.all(
         outputs.map(async (output) => {
-          if (balanceCache && balanceCache[output]) {
+          if (balanceCache && balanceCache[output.key]) {
             return;
           }
 
-          const isScriptHash = output.length === 64;
+          const isScriptHash = output.electrs.length === 64;
 
           try {
             let outputSummaryResponse;
             if (isScriptHash) {
-              outputSummaryResponse = await bitcoinApi.$getScriptHash(output);
+              outputSummaryResponse = await bitcoinApi.$getScriptHash(
+                output.electrs
+              );
             } else {
-              outputSummaryResponse = await bitcoinApi.$getAddress(output);
-            }
-
-            if (
-              isScriptHash &&
-              output ===
-                'bfa1bb76dd2493767901122ffa429fd32643ed5f76114bf65764b232012b57e1'
-            ) {
-              console.log('OUTPUT SH: ' + output);
-              console.log(outputSummaryResponse);
+              outputSummaryResponse = await bitcoinApi.$getAddress(
+                output.electrs
+              );
             }
 
             const outputSummary: DatabaseBalance = {
-              address: output,
+              address: output.key,
               balance:
                 Number(outputSummaryResponse.chain_stats.funded_txo_sum) -
                 Number(outputSummaryResponse.chain_stats.spent_txo_sum),
               lastSeen: blockTimestamp,
             };
 
-            balances[output] = outputSummary;
+            balances[output.key] = outputSummary;
           } catch (e) {
             logger.err(
               'Failed to get balance for address: ' +
