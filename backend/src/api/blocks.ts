@@ -1035,21 +1035,18 @@ class Blocks {
       const blockchainInfo = await bitcoinClient.getBlockchainInfo();
       let currentBlockHeight = blockchainInfo.blocks;
 
-      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== -1) {
+      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== 0) {
         logger.err(
-          'INDEXING_BLOCKS_AMOUNT must be set to -1 to index all blocks when balances enabled!!!'
+          'INDEXING_BLOCKS_AMOUNT must be set to 0 to index all blocks when balances enabled!!!'
         );
         throw new Error(
-          'INDEXING_BLOCKS_AMOUNT must be set to -1 to index all blocks when balances enabled!!!'
+          'INDEXING_BLOCKS_AMOUNT must be set to 0 to index all blocks when balances enabled!!!'
         );
       }
       let indexingBlockAmount = Math.min(
-        config.MEMPOOL.INDEXING_BLOCKS_AMOUNT,
+        config.MEMPOOL.INDEXING_BLOCKS_AMOUNT ?? currentBlockHeight,
         blockchainInfo.blocks
       );
-      if (indexingBlockAmount <= -1) {
-        indexingBlockAmount = 0;
-      }
 
       let balanceCache: DatabaseBalances = {};
 
