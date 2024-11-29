@@ -26,7 +26,7 @@ export async function calcScriptHash(script: string): Promise<string> {
   const buf = Buffer.from(script, 'hex');
 
   // Perform SHA256 hashing
-  const hash = crypto.createHash('sha256').update(buf).digest();
+  const hash = crypto.createHash('sha256').update(buf).digest().reverse();
 
   // Convert the hash buffer to a hex string and return
   return hash.toString('hex');
