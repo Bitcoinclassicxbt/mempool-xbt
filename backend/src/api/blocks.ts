@@ -1130,7 +1130,7 @@ class Blocks {
             blockHash,
             block.height,
             block.timestamp,
-            true,
+            false,
             null,
             true
           );
@@ -1648,7 +1648,7 @@ class Blocks {
       blockHash,
       block.height,
       block.timestamp,
-      true
+      false
     );
     const blockExtended = await this.$getBlockExtended(block, transactions);
 
