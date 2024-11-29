@@ -1071,7 +1071,15 @@ class BitcoinRoutes {
       `;
 
       // Assuming you are using a MySQL connection pool named 'db'
-      const [rows] = await DB.query(query, [limit, offset]);
+      let [rows] = await DB.query<IBitcoinApi.DBBalance[]>(query, [
+        limit,
+        offset,
+      ]);
+
+      rows = rows.map((row: IBitcoinApi.DBBalance, index) => {
+        row.id = index + offset;
+        return row;
+      });
 
       res.json(rows);
     } catch (e) {

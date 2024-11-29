@@ -1,3 +1,5 @@
+import { RowDataPacket } from 'mysql2';
+
 export namespace IBitcoinApi {
   export interface MempoolInfo {
     loaded: boolean; //  (boolean) True if the mempool is fully loaded
@@ -15,6 +17,14 @@ export namespace IBitcoinApi {
   }
 
   export interface Balance {
+    address: string;
+    tag?: string;
+    balance: number;
+    lastSeen: number;
+  }
+
+  export interface DBBalance extends RowDataPacket {
+    id: number;
     address: string;
     tag?: string;
     balance: number;
