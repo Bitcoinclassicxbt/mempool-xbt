@@ -23,6 +23,11 @@ import transactionUtils from '../api/transaction-utils';
 import { parseDATUMTemplateCreator } from '../utils/bitcoin-script';
 import { calcScriptHash } from '../utils/blockchain';
 
+type Output = {
+  electrs: string;
+  key: string;
+  is_opreturn: boolean;
+};
 interface DatabaseBlock {
   id: string;
   height: number;
@@ -241,26 +246,31 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
-      let outputs = Array.from(
-        new Set(
-          await Promise.all(
-            transaction.vout.map(async (vout) => {
-              return {
-                electrs:
-                  vout.scriptpubkey_address ??
-                  (await calcScriptHash(vout.scriptpubkey)),
-                key:
-                  vout.scriptpubkey_address ??
-                  extractHexString(vout.scriptpubkey_asm),
-              };
-            })
-          )
-        )
+      let outputs: Output[] = Object.values(
+        await transaction.vout.reduce(async (accPromise, vout) => {
+          const acc = await accPromise;
+          const key =
+            vout.scriptpubkey_address ??
+            extractHexString(vout.scriptpubkey_asm);
+
+          acc[key] = acc[key] || {
+            electrs:
+              vout.scriptpubkey_address ??
+              (await calcScriptHash(vout.scriptpubkey)),
+            key,
+          };
+
+          return acc;
+        }, Promise.resolve({}))
       );
 
       await Promise.all(
         outputs.map(async (output) => {
           if (balanceCache && balanceCache[output.key]) {
+            return;
+          }
+
+          if (output.is_opreturn) {
             return;
           }
 
