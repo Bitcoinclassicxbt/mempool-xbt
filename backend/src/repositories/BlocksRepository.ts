@@ -21,6 +21,7 @@ import blocks from '../api/blocks';
 import BlocksAuditsRepository from './BlocksAuditsRepository';
 import transactionUtils from '../api/transaction-utils';
 import { parseDATUMTemplateCreator } from '../utils/bitcoin-script';
+import { calcScriptHash } from '../utils/blockchain';
 
 interface DatabaseBlock {
   id: string;
@@ -68,11 +69,12 @@ interface DatabaseBlock {
 
 type DatabaseBalance = {
   address: string;
+  tag?: string;
   balance: number;
   lastSeen: number;
 };
 
-type DatabaseBalances = {
+export type DatabaseBalances = {
   [key: string]: DatabaseBalance;
 };
 
@@ -230,66 +232,83 @@ class BlocksRepository {
 
   public async $saveBalancesInDatabase(
     transactions: TransactionExtended[],
-    blockTimestamp: number
+    blockTimestamp: number,
+    balanceCache?: DatabaseBalances
   ): Promise<void> {
-    let balanceEntries: DatabaseBalances = {};
+    let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
-      let sender_address =
-        transaction.vin[0].prevout?.scriptpubkey_address ??
-        transaction.vin[0].prevout?.scriptpubkey_asm
-          .replace(/\bOP_\w+\b/g, '')
-          .trim();
+      let output =
+        transaction.vout[0].scriptpubkey_address ??
+        (await calcScriptHash(transaction.vout[0].scriptpubkey));
 
-      transaction.vout.forEach((utxo) => {
-        let recipient_address =
-          utxo.scriptpubkey_address ??
-          utxo.scriptpubkey_asm.replace(/\bOP_\w+\b/g, '').trim();
+      if (balanceCache && balanceCache[output]) {
+        continue;
+      }
 
-        if (sender_address) {
-          balanceEntries[sender_address] = {
-            address: sender_address,
-            balance:
-              (balanceEntries[sender_address]?.balance ?? 0) - utxo.value,
-            lastSeen: blockTimestamp,
-          };
-        }
+      const isScriptHash = output.length === 64;
 
-        balanceEntries[recipient_address] = {
-          address: recipient_address,
+      try {
+        const outputSummaryResponse = isScriptHash
+          ? await bitcoinApi.$getScriptHash(output)
+          : await bitcoinApi.$getAddress(output);
+
+        const outputSummary: DatabaseBalance = {
+          address: output,
           balance:
-            (balanceEntries[recipient_address]?.balance ?? 0) + utxo.value,
+            outputSummaryResponse.chain_stats.funded_txo_sum -
+            outputSummaryResponse.chain_stats.spent_txo_sum,
           lastSeen: blockTimestamp,
         };
-      });
+
+        balances[output] = outputSummary;
+      } catch (e) {
+        logger.err(
+          'Failed to get balance for address: ' +
+            output +
+            ' Reason: ' +
+            (e instanceof Error ? e.message : e)
+        );
+      }
     }
 
-    // Prepare data for bulk update
-    const updates = Object.values(balanceEntries);
+    // Prepare bulk insertion
+    const updates = Object.values(balances);
 
     if (updates.length === 0) {
-      return;
+      return; // No data to save
     }
 
-    //console.dir(transactions, { depth: null });
-    //console.dir(updates);
-
     try {
+      const values = updates.flatMap((entry) => [
+        entry.address,
+        entry.balance,
+        entry.lastSeen,
+      ]);
+
+      const placeholders = updates
+        .map(() => '(?, ?, FROM_UNIXTIME(?))')
+        .join(', ');
+
       const query = `
         INSERT INTO balances (address, balance, last_seen)
-        VALUES ${updates
-          .map(
-            (entry) =>
-              `('${entry.address}', ${entry.balance}, FROM_UNIXTIME(${entry.lastSeen}))`
-          )
-          .join(', ')}
+        VALUES ${placeholders}
         ON DUPLICATE KEY UPDATE
-          balance = balance + VALUES(balance),
+          balance = VALUES(balance),
           last_seen = VALUES(last_seen);
       `;
 
-      // Execute the query
-      await DB.query(query);
+      // Execute the query with parameterized values
+      await DB.query(query, values);
+
+      if (balanceCache) {
+        //pointer for this is saved in parent call
+        Object.keys(balances).forEach(
+          (key) => (balanceCache[key] = balances[key])
+        );
+      }
+
+      return;
     } catch (e) {
       logger.err(
         'Cannot save balances into db. Reason: ' +

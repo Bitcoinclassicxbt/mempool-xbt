@@ -25,7 +25,9 @@ import poolsRepository from '../repositories/PoolsRepository';
 import blocksRepository from '../repositories/BlocksRepository';
 import loadingIndicators from './loading-indicators';
 import BitcoinApi from './bitcoin/bitcoin-api';
-import BlocksRepository from '../repositories/BlocksRepository';
+import BlocksRepository, {
+  DatabaseBalances,
+} from '../repositories/BlocksRepository';
 import HashratesRepository from '../repositories/HashratesRepository';
 import indexer from '../indexer';
 import poolsParser from './pools-parser';
@@ -1033,6 +1035,14 @@ class Blocks {
       const blockchainInfo = await bitcoinClient.getBlockchainInfo();
       let currentBlockHeight = blockchainInfo.blocks;
 
+      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== -1) {
+        logger.err(
+          'INDEXING_BLOCKS_AMOUNT must be set to -1 to index all blocks when balances enabled!!!'
+        );
+        throw new Error(
+          'INDEXING_BLOCKS_AMOUNT must be set to -1 to index all blocks when balances enabled!!!'
+        );
+      }
       let indexingBlockAmount = Math.min(
         config.MEMPOOL.INDEXING_BLOCKS_AMOUNT,
         blockchainInfo.blocks
@@ -1040,6 +1050,8 @@ class Blocks {
       if (indexingBlockAmount <= -1) {
         indexingBlockAmount = currentBlockHeight + 1;
       }
+
+      let balanceCache: DatabaseBalances = {};
 
       const lastBlockToIndex = Math.max(
         0,
@@ -1129,7 +1141,8 @@ class Blocks {
           await blocksRepository.$saveBlockInDatabase(blockExtended);
           await blocksRepository.$saveBalancesInDatabase(
             transactions,
-            block.timestamp
+            block.timestamp,
+            balanceCache
           );
         }
 
@@ -1413,6 +1426,10 @@ class Blocks {
         }
 
         await blocksRepository.$saveBlockInDatabase(blockExtended);
+        await blocksRepository.$saveBalancesInDatabase(
+          transactions,
+          block.timestamp
+        );
         this.updateTimerProgress(
           timer,
           `saved ${this.currentBlockHeight} to database`
@@ -1635,6 +1652,10 @@ class Blocks {
 
     if (Common.indexingEnabled()) {
       await blocksRepository.$saveBlockInDatabase(blockExtended);
+      await blocksRepository.$saveBalancesInDatabase(
+        transactions,
+        block.timestamp
+      );
     }
 
     return blockExtended;

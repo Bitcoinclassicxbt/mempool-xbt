@@ -1476,6 +1476,7 @@ class DatabaseMigration {
     return `CREATE TABLE IF NOT EXISTS balances (
       id int(11) NOT NULL AUTO_INCREMENT,
       address varchar(255) NOT NULL UNIQUE,
+      tag varchar(255) NULL,
       last_seen datetime NOT NULL,
       balance BIGINT NOT NULL,
       PRIMARY KEY (id),

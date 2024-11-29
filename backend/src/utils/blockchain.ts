@@ -1,5 +1,6 @@
 import { IEsploraApi } from '../api/bitcoin/esplora-api.interface';
 import { Transaction as BitcoinJsTransaction } from 'bitcoinjs-lib';
+import crypto from 'crypto';
 
 const INITIAL_SUBSIDY = 88n;
 const HALVING_INTERVAL = 100000;
@@ -14,6 +15,22 @@ export const getCirculatingSupplyAtHeight = (height: number): bigint => {
   const currentSubsidy = INITIAL_SUBSIDY / BigInt(Math.pow(2, n));
   return totalFromCompletedCycles + BigInt(remainingBlocks) * currentSubsidy;
 };
+
+export async function calcScriptHash(script: string): Promise<string> {
+  // Validate the input is a valid hex string
+  if (!/^[0-9a-fA-F]*$/.test(script) || script.length % 2 !== 0) {
+    throw new Error('Script is not a valid hex string');
+  }
+
+  // Convert the script hex string to a Buffer
+  const buf = Buffer.from(script, 'hex');
+
+  // Perform SHA256 hashing
+  const hash = crypto.createHash('sha256').update(buf).digest();
+
+  // Convert the hash buffer to a hex string and return
+  return hash.toString('hex');
+}
 
 export const getRelevantUTXOSFromClosestIndex = (
   allUtxos: IEsploraApi.UTXO[],
