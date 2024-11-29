@@ -1044,7 +1044,7 @@ class Blocks {
         );
       }
       let indexingBlockAmount = Math.min(
-        config.MEMPOOL.INDEXING_BLOCKS_AMOUNT ?? currentBlockHeight,
+        config.MEMPOOL.INDEXING_BLOCKS_AMOUNT || currentBlockHeight,
         blockchainInfo.blocks
       );
 
