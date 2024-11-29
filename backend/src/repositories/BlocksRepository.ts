@@ -238,13 +238,17 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
-      let outputs: string[] = await Promise.all(
-        transaction.vout.map(async (vout) => {
-          return (
-            vout.scriptpubkey_address ??
-            (await calcScriptHash(vout.scriptpubkey))
-          );
-        })
+      let outputs: string[] = Array.from(
+        new Set(
+          await Promise.all(
+            transaction.vout.map(async (vout) => {
+              return (
+                vout.scriptpubkey_address ??
+                (await calcScriptHash(vout.scriptpubkey))
+              );
+            })
+          )
+        )
       );
 
       await Promise.all(
@@ -262,6 +266,7 @@ class BlocksRepository {
 
             if (isScriptHash) {
               console.log('OUTPUT SH: ' + output);
+              console.log(outputSummaryResponse);
             }
 
             const outputSummary: DatabaseBalance = {
