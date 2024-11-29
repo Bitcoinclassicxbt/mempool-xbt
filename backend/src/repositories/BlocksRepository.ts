@@ -22,6 +22,7 @@ import BlocksAuditsRepository from './BlocksAuditsRepository';
 import transactionUtils from '../api/transaction-utils';
 import { parseDATUMTemplateCreator } from '../utils/bitcoin-script';
 import { calcScriptHash } from '../utils/blockchain';
+import { IBitcoinApi } from '../api/bitcoin/bitcoin-api.interface';
 
 type Output = {
   electrs: string;
@@ -72,15 +73,8 @@ interface DatabaseBlock {
   firstSeen: number;
 }
 
-type DatabaseBalance = {
-  address: string;
-  tag?: string;
-  balance: number;
-  lastSeen: number;
-};
-
 export type DatabaseBalances = {
-  [key: string]: DatabaseBalance;
+  [key: string]: IBitcoinApi.Balance;
 };
 function extractHexString(script: string): string {
   // Remove all OP_* commands and trim any extra spaces
@@ -288,7 +282,7 @@ class BlocksRepository {
               );
             }
 
-            const outputSummary: DatabaseBalance = {
+            const outputSummary: IBitcoinApi.Balance = {
               address: output.key,
               balance:
                 Number(outputSummaryResponse.chain_stats.funded_txo_sum) -

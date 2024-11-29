@@ -14,6 +14,13 @@ export namespace IBitcoinApi {
     [txId: string]: MempoolEntry;
   }
 
+  export interface Balance {
+    address: string;
+    tag?: string;
+    balance: number;
+    lastSeen: number;
+  }
+
   export interface MempoolEntry {
     vsize: number; //  (numeric) virtual transaction size as defined in BIP 141.
     weight: number; //  (numeric) transaction weight as defined in BIP 141.

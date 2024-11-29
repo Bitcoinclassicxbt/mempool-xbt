@@ -11,6 +11,8 @@ import { Common } from '../common';
 import backendInfo from '../backend-info';
 import transactionUtils from '../transaction-utils';
 import { IEsploraApi } from './esplora-api.interface';
+import { IBitcoinApi } from './bitcoin-api.interface';
+
 import loadingIndicators from '../loading-indicators';
 import { TransactionExtended } from '../../mempool.interfaces';
 import logger from '../../logger';
@@ -22,6 +24,8 @@ import rbfCache from '../rbf-cache';
 import { calculateMempoolTxCpfp } from '../cpfp';
 import { handleError } from '../../utils/api';
 import { getCirculatingSupplyAtHeight } from '../../utils/blockchain';
+import DB from '../../database';
+
 class BitcoinRoutes {
   public initRoutes(app: Application) {
     app
@@ -33,6 +37,7 @@ class BitcoinRoutes {
         config.MEMPOOL.API_URL_PREFIX + 'circulating-supply',
         this.getCirculatingSupply
       )
+      .get(config.MEMPOOL.API_URL_PREFIX + 'holders', this.getHolders)
       .get(config.MEMPOOL.API_URL_PREFIX + 'cpfp/:txId', this.$getCpfpInfo)
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'difficulty-adjustment',
@@ -1038,6 +1043,37 @@ class BitcoinRoutes {
       }
       res.setHeader('content-type', 'text/plain');
       res.send(result.toString() + '.00000000');
+    } catch (e) {
+      handleError(req, res, 500, e instanceof Error ? e.message : e);
+    }
+  }
+
+  private async getHolders(req: Request, res: Response) {
+    const pageParam = req.query.page as string;
+    const limitParam = req.query.limit as string;
+
+    const page = parseInt(pageParam, 10) || 1;
+    const limit = Math.max(parseInt(limitParam, 10) || 100, 100);
+
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+      handleError(req, res, 400, 'Invalid page or limit');
+      return;
+    }
+
+    const offset = (page - 1) * limit;
+
+    try {
+      const query = `
+        SELECT * FROM balances
+        ORDER BY balance DESC
+        LIMIT ?
+        OFFSET ?
+      `;
+
+      // Assuming you are using a MySQL connection pool named 'db'
+      const [rows] = await DB.query(query, [limit, offset]);
+
+      res.json(rows);
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
