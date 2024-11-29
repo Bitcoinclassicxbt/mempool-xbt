@@ -1035,18 +1035,24 @@ class Blocks {
       const blockchainInfo = await bitcoinClient.getBlockchainInfo();
       let currentBlockHeight = blockchainInfo.blocks;
 
-      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== 0) {
+      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== -1) {
         logger.err(
-          'INDEXING_BLOCKS_AMOUNT must be set to 0 to index all blocks when balances enabled!!!'
+          'INDEXING_BLOCKS_AMOUNT has to be -1 when balances are enabled!'
         );
         throw new Error(
-          'INDEXING_BLOCKS_AMOUNT must be set to 0 to index all blocks when balances enabled!!!'
+          'INDEXING_BLOCKS_AMOUNT has to be -1 when balances are enabled!'
         );
       }
-      let indexingBlockAmount = Math.min(
-        config.MEMPOOL.INDEXING_BLOCKS_AMOUNT || currentBlockHeight,
-        blockchainInfo.blocks
-      );
+
+      let indexingBlockAmount: number;
+      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT === -1) {
+        indexingBlockAmount = currentBlockHeight + 1;
+      } else {
+        indexingBlockAmount = Math.min(
+          config.MEMPOOL.INDEXING_BLOCKS_AMOUNT,
+          currentBlockHeight + 1
+        );
+      }
 
       let balanceCache: DatabaseBalances = {};
 
@@ -1073,7 +1079,6 @@ class Blocks {
 
       while (currentBlockHeight >= lastBlockToIndex) {
         const endBlock = Math.max(
-          0,
           lastBlockToIndex,
           currentBlockHeight - chunkSize + 1
         );
@@ -1084,7 +1089,7 @@ class Blocks {
             endBlock
           );
         if (missingBlockHeights.length <= 0) {
-          currentBlockHeight -= chunkSize;
+          currentBlockHeight = endBlock - 1;
           continue;
         }
 
@@ -1143,7 +1148,7 @@ class Blocks {
           );
         }
 
-        currentBlockHeight -= chunkSize;
+        currentBlockHeight = endBlock - 1;
       }
       if (newlyIndexed > 0) {
         logger.notice(
