@@ -296,6 +296,11 @@ class BlocksRepository {
               lastSeen: blockTimestamp,
             };
 
+            //Unecessary saving of addresses with 0 balance. These remain indiscoverable until they are used.
+            if (!outputSummary.balance) {
+              return;
+            }
+
             balances[output.key] = outputSummary;
           } catch (e) {
             logger.err(
