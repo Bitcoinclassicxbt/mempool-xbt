@@ -77,7 +77,10 @@ type DatabaseBalance = {
 export type DatabaseBalances = {
   [key: string]: DatabaseBalance;
 };
-
+function extractHexString(script: string): string {
+  // Remove all OP_* commands and trim any extra spaces
+  return script.replace(/\bOP_\w+\b/g, '').trim();
+}
 const BLOCK_DB_FIELDS = `
   blocks.hash AS id,
   blocks.height,
@@ -246,7 +249,9 @@ class BlocksRepository {
                 electrs:
                   vout.scriptpubkey_address ??
                   (await calcScriptHash(vout.scriptpubkey)),
-                key: vout.scriptpubkey_address ?? vout.scriptpubkey,
+                key:
+                  vout.scriptpubkey_address ??
+                  extractHexString(vout.scriptpubkey_asm),
               };
             })
           )
