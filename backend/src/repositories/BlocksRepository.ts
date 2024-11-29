@@ -238,40 +238,49 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
-      let output =
-        transaction.vout[0].scriptpubkey_address ??
-        (await calcScriptHash(transaction.vout[0].scriptpubkey));
+      let outputs: string[] = await Promise.all(
+        transaction.vout.map(async (vout) => {
+          return (
+            vout.scriptpubkey_address ??
+            (await calcScriptHash(vout.scriptpubkey))
+          );
+        })
+      );
 
-      if (balanceCache && balanceCache[output]) {
-        continue;
-      }
+      await Promise.all(
+        outputs.map(async (output) => {
+          if (balanceCache && balanceCache[output]) {
+            return;
+          }
 
-      const isScriptHash = output.length === 64;
+          const isScriptHash = output.length === 64;
 
-      try {
-        const outputSummaryResponse = isScriptHash
-          ? await bitcoinApi.$getScriptHash(output)
-          : await bitcoinApi.$getAddress(output);
+          try {
+            const outputSummaryResponse = isScriptHash
+              ? await bitcoinApi.$getScriptHash(output)
+              : await bitcoinApi.$getAddress(output);
 
-        const outputSummary: DatabaseBalance = {
-          address: output,
-          balance:
-            outputSummaryResponse.chain_stats.funded_txo_sum -
-            outputSummaryResponse.chain_stats.spent_txo_sum,
-          lastSeen: blockTimestamp,
-        };
+            const outputSummary: DatabaseBalance = {
+              address: output,
+              balance:
+                outputSummaryResponse.chain_stats.funded_txo_sum -
+                outputSummaryResponse.chain_stats.spent_txo_sum,
+              lastSeen: blockTimestamp,
+            };
 
-        balances[output] = outputSummary;
-      } catch (e) {
-        logger.err(
-          'Failed to get balance for address: ' +
-            output +
-            ' Reason: ' +
-            (e instanceof Error ? e.message : e)
-        );
-      }
+            balances[output] = outputSummary;
+            return;
+          } catch (e) {
+            logger.err(
+              'Failed to get balance for address: ' +
+                output +
+                ' Reason: ' +
+                (e instanceof Error ? e.message : e)
+            );
+          }
+        })
+      );
     }
-
     // Prepare bulk insertion
     const updates = Object.values(balances);
 
@@ -317,7 +326,6 @@ class BlocksRepository {
       throw e;
     }
   }
-
   /**
    * Save newly indexed data from core coinstatsindex
    *

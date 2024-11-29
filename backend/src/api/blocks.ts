@@ -1048,7 +1048,7 @@ class Blocks {
         blockchainInfo.blocks
       );
       if (indexingBlockAmount <= -1) {
-        indexingBlockAmount = currentBlockHeight + 1;
+        indexingBlockAmount = 0;
       }
 
       let balanceCache: DatabaseBalances = {};
