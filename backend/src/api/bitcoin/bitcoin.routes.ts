@@ -1076,12 +1076,12 @@ class BitcoinRoutes {
         offset,
       ]);
 
-      rows = rows.map((row: IBitcoinApi.DBBalance, index) => {
-        row.id = index + offset;
-        return row;
-      });
+      let finalRows: IBitcoinApi.ApiBalance[] =
+        rows.map<IBitcoinApi.ApiBalance>((row, index) => {
+          return { ...row, position: index + offset };
+        });
 
-      res.json(rows);
+      res.json(finalRows);
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }

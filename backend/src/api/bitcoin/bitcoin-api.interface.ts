@@ -31,6 +31,10 @@ export namespace IBitcoinApi {
     lastSeen: number;
   }
 
+  export type ApiBalance = {
+    position: number;
+  } & Balance;
+
   export interface MempoolEntry {
     vsize: number; //  (numeric) virtual transaction size as defined in BIP 141.
     weight: number; //  (numeric) transaction weight as defined in BIP 141.
