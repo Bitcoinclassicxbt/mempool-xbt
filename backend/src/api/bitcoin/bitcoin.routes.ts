@@ -1078,6 +1078,7 @@ class BitcoinRoutes {
 
       let finalRows: IBitcoinApi.ApiBalance[] =
         rows.map<IBitcoinApi.ApiBalance>((row, index) => {
+          delete row.id;
           return { ...row, position: index + offset };
         });
 

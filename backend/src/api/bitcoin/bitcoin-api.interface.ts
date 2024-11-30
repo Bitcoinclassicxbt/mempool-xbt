@@ -24,7 +24,7 @@ export namespace IBitcoinApi {
   }
 
   export interface DBBalance extends RowDataPacket {
-    id: number;
+    id?: number;
     address: string;
     tag?: string;
     balance: number;
