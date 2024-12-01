@@ -3,6 +3,7 @@
 You can build and run the Mempool frontend and proxy to the production Mempool backend (for easier frontend development), or you can connect it to your own backend for a full Mempool development instance, custom deployment, etc.
 
 Jump to a section in this doc:
+
 - [Quick Setup for Frontend Development](#quick-setup-for-frontend-development)
 - [Manual Frontend Setup](#manual-setup)
 - [Translations](#translations-transifex-project)
@@ -22,7 +23,7 @@ cd mempool/frontend
 
 ### 2. Specify Website
 
-The same frontend codebase is used for https://mempool.space and https://liquid.network.
+The same frontend codebase is used for https://luckyscan.org and https://liquid.network.
 
 Configure the frontend for the site you want by running the corresponding command:
 
@@ -42,7 +43,7 @@ $ npm install
 $ npm run serve:local-prod
 ```
 
-The frontend will be available at http://localhost:4200/ and all API requests will be proxied to the production server at https://mempool.space.
+The frontend will be available at http://localhost:4200/ and all API requests will be proxied to the production server at https://luckyscan.org.
 
 ### 4. Test
 
@@ -103,34 +104,34 @@ https://www.transifex.com/mempool/mempool/dashboard/
 
 ### Translators
 
-* Arabic @baro0k
-* Czech @pixelmade2
-* Danish @pierrevendelboe
-* German @Emzy
-* English (default)
-* Spanish @maxhodler @bisqes
-* Persian @techmix
-* French @Bayernatoor
-* Korean @kcalvinalvinn @sogoagain
-* Italian @HodlBits
-* Lithuanian @eimze21
-* Hebrew @rapidlab309
-* Georgian @wyd_idk
-* Hungarian @btcdragonlord
-* Dutch @m__btc
-* Japanese @wiz @japananon
-* Norwegian @T82771355
-* Polish @maciejsoltysiak
-* Portugese @jgcastro1985
-* Slovenian @thepkbadger
-* Finnish @bio_bitcoin
-* Swedish @softsimon_
-* Thai @Gusb3ll
-* Turkish @stackmore
-* Ukrainian @volbil
-* Vietnamese @LuckycoinvnNews
-* Chinese @wdljt
-* Russian @TonyCrusoe @Bitconan
-* Romanian @mirceavesa
-* Macedonian @SkechBoy
-* Nepalese @kebinm
+- Arabic @baro0k
+- Czech @pixelmade2
+- Danish @pierrevendelboe
+- German @Emzy
+- English (default)
+- Spanish @maxhodler @bisqes
+- Persian @techmix
+- French @Bayernatoor
+- Korean @kcalvinalvinn @sogoagain
+- Italian @HodlBits
+- Lithuanian @eimze21
+- Hebrew @rapidlab309
+- Georgian @wyd_idk
+- Hungarian @btcdragonlord
+- Dutch @m\_\_btc
+- Japanese @wiz @japananon
+- Norwegian @T82771355
+- Polish @maciejsoltysiak
+- Portugese @jgcastro1985
+- Slovenian @thepkbadger
+- Finnish @bio_bitcoin
+- Swedish @softsimon\_
+- Thai @Gusb3ll
+- Turkish @stackmore
+- Ukrainian @volbil
+- Vietnamese @LuckycoinvnNews
+- Chinese @wdljt
+- Russian @TonyCrusoe @Bitconan
+- Romanian @mirceavesa
+- Macedonian @SkechBoy
+- Nepalese @kebinm

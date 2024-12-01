@@ -1,0 +1,81 @@
+<div class="container-xl" style="min-height: 335px">
+  <div
+    class="float-left"
+    style="display: flex; width: 100%; align-items: center"
+  >
+    <h1>Holders</h1>
+    <div *ngIf="isLoading" class="spinner-border" role="status"></div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div style="min-height: 295px">
+    <table class="table table-borderless">
+      <thead>
+        <th class="position text-left">#</th>
+        <th class="address text-left">Address</th>
+        <th class="balance text-right">Balance</th>
+        <th class="last-seen text-right">Last Seen</th>
+      </thead>
+      <tbody
+        *ngIf="holders$ | async as holders; else skeleton"
+        [style]="isLoading ? 'opacity: 0.75' : ''"
+      >
+        <tr
+          *ngFor="let holder of holders; let i = index; trackBy: trackByHolder"
+        >
+          <td class="position text-left">{{ holder.position }}</td>
+          <td class="address text-left">
+            <a [routerLink]="['/address', holder.address]">{{
+              holder.tag || holder.address
+            }}</a>
+          </td>
+          <td class="balance text-right">
+            <app-amount
+              [satoshis]="holder.balance"
+              digitsInfo="1.2-2"
+            ></app-amount>
+          </td>
+          <td class="last-seen text-right">
+            {{ holder.last_seen | date: "yyyy-MM-dd HH:mm:ss" }}
+          </td>
+        </tr>
+      </tbody>
+      <ng-template #skeleton>
+        <tbody>
+          <tr *ngFor="let item of skeletonLines">
+            <td class="position text-left">
+              <span class="skeleton-loader" style="max-width: 50px"></span>
+            </td>
+            <td class="address text-left">
+              <span class="skeleton-loader" style="max-width: 250px"></span>
+            </td>
+            <td class="tag text-left">
+              <span class="skeleton-loader" style="max-width: 100px"></span>
+            </td>
+            <td class="balance text-right">
+              <span class="skeleton-loader" style="max-width: 100px"></span>
+            </td>
+            <td class="last-seen text-right">
+              <span class="skeleton-loader" style="max-width: 150px"></span>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+    </table>
+
+    <ngb-pagination
+      class="pagination-container float-right mt-2"
+      [class]="isLoading ? 'disabled' : ''"
+      [collectionSize]="holdersCount"
+      [rotate]="true"
+      [maxSize]="maxSize"
+      [pageSize]="100"
+      [(page)]="page"
+      (pageChange)="pageChange(page)"
+      [boundaryLinks]="true"
+      [ellipses]="false"
+    >
+    </ngb-pagination>
+  </div>
+</div>

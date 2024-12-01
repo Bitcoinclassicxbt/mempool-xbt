@@ -1,0 +1,51 @@
+.container-xl {
+  max-width: 1400px;
+}
+
+.container {
+  max-width: 100%;
+}
+
+tr,
+td,
+th {
+  border: 0px;
+  padding-top: 0.65rem !important;
+  padding-bottom: 0.7rem !important;
+}
+
+.position {
+  width: 5%;
+}
+
+.address {
+  width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag {
+  width: 15%;
+}
+
+.balance {
+  width: 20%;
+}
+
+.last-seen {
+  width: 15%;
+}
+
+.spinner-border {
+  height: 25px;
+  width: 25px;
+  margin-top: -10px;
+  margin-left: -13px;
+  flex-shrink: 0;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

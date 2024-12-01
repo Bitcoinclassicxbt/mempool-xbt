@@ -1,10 +1,80 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbCollapseModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faFilter, faAngleDown, faAngleUp, faAngleRight, faAngleLeft, faBolt, faChartArea, faCogs, faCubes, faHammer, faDatabase, faExchangeAlt, faInfoCircle,
-  faLink, faList, faSearch, faCaretUp, faCaretDown, faTachometerAlt, faThList, faTint, faTv, faClock, faAngleDoubleDown, faSortUp, faAngleDoubleUp, faChevronDown,
-  faFileAlt, faRedoAlt, faArrowAltCircleRight, faExternalLinkAlt, faBook, faListUl, faDownload, faQrcode, faArrowRightArrowLeft, faArrowsRotate, faCircleLeft, faFastForward, faWallet, faUserClock, faWrench, faUserFriends, faQuestionCircle, faHistory, faSignOutAlt, faKey, faSuitcase, faIdCardAlt, faNetworkWired, faUserCheck, faCircleCheck, faUserCircle, faCheck, faRocket, faScaleBalanced, faHourglassStart, faHourglassHalf, faHourglassEnd, faWandMagicSparkles, faFaucetDrip, faTimeline, faCircleXmark, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  NgbCollapseModule,
+  NgbTypeaheadModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
+import {
+  faRankingStar,
+  faFilter,
+  faAngleDown,
+  faAngleUp,
+  faAngleRight,
+  faAngleLeft,
+  faBolt,
+  faChartArea,
+  faCogs,
+  faCubes,
+  faHammer,
+  faDatabase,
+  faExchangeAlt,
+  faInfoCircle,
+  faLink,
+  faList,
+  faSearch,
+  faCaretUp,
+  faCaretDown,
+  faTachometerAlt,
+  faThList,
+  faTint,
+  faTv,
+  faClock,
+  faAngleDoubleDown,
+  faSortUp,
+  faAngleDoubleUp,
+  faChevronDown,
+  faFileAlt,
+  faRedoAlt,
+  faArrowAltCircleRight,
+  faExternalLinkAlt,
+  faBook,
+  faListUl,
+  faDownload,
+  faQrcode,
+  faArrowRightArrowLeft,
+  faArrowsRotate,
+  faCircleLeft,
+  faFastForward,
+  faWallet,
+  faUserClock,
+  faWrench,
+  faUserFriends,
+  faQuestionCircle,
+  faHistory,
+  faSignOutAlt,
+  faKey,
+  faSuitcase,
+  faIdCardAlt,
+  faNetworkWired,
+  faUserCheck,
+  faCircleCheck,
+  faUserCircle,
+  faCheck,
+  faRocket,
+  faScaleBalanced,
+  faHourglassStart,
+  faHourglassHalf,
+  faHourglassEnd,
+  faWandMagicSparkles,
+  faFaucetDrip,
+  faTimeline,
+  faCircleXmark,
+  faCalendarCheck,
+} from '@fortawesome/free-solid-svg-icons';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MenuComponent } from '@components/menu/menu.component';
 import { PreviewTitleComponent } from '@components/master-page-preview/preview-title.component';
@@ -27,7 +97,12 @@ import { TimeComponent } from '@components/time/time.component';
 import { ClipboardComponent } from '@components/clipboard/clipboard.component';
 import { QrcodeComponent } from '@components/qrcode/qrcode.component';
 import { FiatComponent } from '@app/fiat/fiat.component';
-import { NgbNavModule, NgbTooltipModule, NgbPaginationModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbNavModule,
+  NgbTooltipModule,
+  NgbPaginationModule,
+  NgbDropdownModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TxFeaturesComponent } from '@components/tx-features/tx-features.component';
 import { TxFeeRatingComponent } from '@components/tx-fee-rating/tx-fee-rating.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -118,11 +193,15 @@ import { TwitterWidgetComponent } from '@components/twitter-widget/twitter-widge
 import { FaucetComponent } from '@components/faucet/faucet.component';
 import { TwitterLogin } from '@components/twitter-login/twitter-login.component';
 import { LuckycoinInvoiceComponent } from '@components/bitcoin-invoice/bitcoin-invoice.component';
-
-import { OnlyVsizeDirective, OnlyWeightDirective } from '@app/shared/components/weight-directives/weight-directives';
+import { HoldersList } from '@components/holders/holders-list.component';
+import {
+  OnlyVsizeDirective,
+  OnlyWeightDirective,
+} from '@app/shared/components/weight-directives/weight-directives';
 
 @NgModule({
   declarations: [
+    HoldersList,
     ClipboardComponent,
     TimeComponent,
     QrcodeComponent,
@@ -377,7 +456,7 @@ import { OnlyVsizeDirective, OnlyWeightDirective } from '@app/shared/components/
 
     OnlyVsizeDirective,
     OnlyWeightDirective,
-  ]
+  ],
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {
@@ -397,6 +476,7 @@ export class SharedModule {
     library.addIcons(faLink);
     library.addIcons(faBolt);
     library.addIcons(faTint);
+    library.addIcons(faRankingStar);
     library.addIcons(faFilter);
     library.addIcons(faAngleDown);
     library.addIcons(faAngleUp);

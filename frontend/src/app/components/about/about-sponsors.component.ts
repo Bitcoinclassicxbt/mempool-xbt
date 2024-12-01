@@ -7,11 +7,10 @@ import { EnterpriseService } from '@app/services/enterprise.service';
   styleUrls: ['./about-sponsors.component.scss'],
 })
 export class AboutSponsorsComponent {
-  @Input() host = 'https://mempool.space';
+  @Input() host = 'https://luckyscan.org';
   @Input() context = 'about';
 
-  constructor(private enterpriseService: EnterpriseService) {
-  }
+  constructor(private enterpriseService: EnterpriseService) {}
 
   onSponsorClick(e): boolean {
     this.enterpriseService.goal(5);
