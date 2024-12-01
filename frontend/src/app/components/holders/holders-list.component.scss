@@ -23,6 +23,20 @@ th {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.address_mobile {
+  display: none;
+  width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 }
 
 .tag {
@@ -35,13 +49,16 @@ th {
 
 .last-seen {
   width: 15%;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .spinner-border {
   height: 25px;
   width: 25px;
   margin-top: -10px;
-  margin-left: -13px;
+  margin-left: 20px;
   flex-shrink: 0;
 }
 

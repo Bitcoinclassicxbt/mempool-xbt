@@ -4,6 +4,7 @@
     style="display: flex; width: 100%; align-items: center"
   >
     <h1>Holders</h1>
+
     <div *ngIf="isLoading" class="spinner-border" role="status"></div>
   </div>
 
@@ -14,6 +15,8 @@
       <thead>
         <th class="position text-left">#</th>
         <th class="address text-left">Address</th>
+        <th class="address_mobile text-left">Address</th>
+
         <th class="balance text-right">Balance</th>
         <th class="last-seen text-right">Last Seen</th>
       </thead>
@@ -26,9 +29,17 @@
         >
           <td class="position text-left">{{ holder.position }}</td>
           <td class="address text-left">
-            <a [routerLink]="['/address', holder.address]">{{
-              holder.tag || holder.address
-            }}</a>
+            <a [routerLink]="['/address', holder.address]">
+              {{ holder.tag || holder.address }}
+            </a>
+          </td>
+          <td class="address_mobile text-left">
+            <a [routerLink]="['/address', holder.address]">
+              <app-truncate
+                [text]="holder.tag || holder.address"
+                [maxWidth]="150"
+              ></app-truncate>
+            </a>
           </td>
           <td class="balance text-right">
             <app-amount
