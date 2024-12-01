@@ -1063,26 +1063,41 @@ class BitcoinRoutes {
     const offset = (page - 1) * limit;
 
     try {
-      const query = `
-        SELECT * FROM balances
+      // Query to get the total number of balances excluding zero balances
+      const totalQuery = `
+        SELECT COUNT(*) AS total
+        FROM balances
+        WHERE balance > 0
+      `;
+
+      const [totalRows] = await DB.query(totalQuery);
+      const total = totalRows[0]?.total || 0;
+
+      // Query to fetch paginated results excluding zero balances
+      const holdersQuery = `
+        SELECT *
+        FROM balances
+        WHERE balance > 0
         ORDER BY balance DESC
         LIMIT ?
         OFFSET ?
       `;
 
-      // Assuming you are using a MySQL connection pool named 'db'
-      let [rows] = await DB.query<IBitcoinApi.DBBalance[]>(query, [
+      const [rows] = await DB.query<IBitcoinApi.DBBalance[]>(holdersQuery, [
         limit,
         offset,
       ]);
 
-      let finalRows: IBitcoinApi.ApiBalance[] =
+      const finalRows: IBitcoinApi.ApiBalance[] =
         rows.map<IBitcoinApi.ApiBalance>((row, index) => {
           delete row.id;
           return { ...row, position: index + offset + 1 };
         });
 
-      res.json(finalRows);
+      res.json({
+        total,
+        holders: finalRows,
+      });
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
