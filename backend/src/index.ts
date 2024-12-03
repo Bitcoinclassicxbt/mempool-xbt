@@ -1,4 +1,5 @@
 import express from 'express';
+import { getTags } from './utils/tags';
 import { Application, Request, Response, NextFunction } from 'express';
 import * as http from 'http';
 import * as WebSocket from 'ws';
@@ -96,6 +97,9 @@ class Server {
   }
 
   async startServer(worker = false): Promise<void> {
+    const tags = await getTags();
+    console.log(tags);
+
     logger.notice(`Starting Mempool Server${worker ? ' (worker)' : ''}... (${backendInfo.getShortCommitHash()})`);
 
     // Register cleanup listeners for exit events

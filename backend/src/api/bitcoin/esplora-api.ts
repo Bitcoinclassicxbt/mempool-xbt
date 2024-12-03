@@ -19,6 +19,9 @@ import {
   txJsonToHex,
 } from '../../utils/blockchain';
 
+import { getTags, ITags, injectTagsIntoAddress, injectTagsIntoScriptHash, injectTagsIntoTransaction} from '../../utils/tags';
+
+
 interface FailoverHost {
   host: string;
   rtts: number[];
@@ -357,6 +360,7 @@ class FailoverRouter {
 }
 
 class ElectrsApi implements AbstractBitcoinApi {
+  private tags: ITags = getTags();
   private failoverRouter = new FailoverRouter();
 
   $getRawMempool(): Promise<IEsploraApi.Transaction['txid'][]> {
@@ -370,6 +374,8 @@ class ElectrsApi implements AbstractBitcoinApi {
       '/tx/' + txId
     );
 
+    tx = injectTagsIntoTransaction(tx, this.tags);
+
     return { ...tx, hex: txJsonToHex(tx) };
   }
 
@@ -382,28 +388,34 @@ class ElectrsApi implements AbstractBitcoinApi {
       'json'
     );
 
-    return txs.map((tx) => ({ ...tx, hex: txJsonToHex(tx) }));
+    return txs.map((tx) => ({ ...injectTagsIntoTransaction(tx, this.tags), hex: txJsonToHex(tx) }));
   }
 
   async $getMempoolTransactions(
     txids: string[]
   ): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$post<IEsploraApi.Transaction[]>(
+    const txs =  await this.failoverRouter.$post<IEsploraApi.Transaction[]>(
       '/internal/mempool/txs',
       txids,
       'json'
     );
+
+    return txs.map((tx) => (injectTagsIntoTransaction(tx, this.tags)));
+
+
   }
 
   async $getAllMempoolTransactions(
     lastSeenTxid?: string,
     max_txs?: number
   ): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+    const txs = await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
       '/internal/mempool/txs' + (lastSeenTxid ? '/' + lastSeenTxid : ''),
       'json',
       max_txs ? { max_txs } : null
     );
+
+    return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
   }
 
   $getTransactionHex(txId: string): Promise<string> {
@@ -422,10 +434,13 @@ class ElectrsApi implements AbstractBitcoinApi {
     return this.failoverRouter.$get<string[]>('/block/' + hash + '/txids');
   }
 
-  $getTxsForBlock(hash: string): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+  async $getTxsForBlock(hash: string): Promise<IEsploraApi.Transaction[]> {
+    const txs = await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
       '/block/' + hash + '/txs'
     );
+
+    return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
+    
   }
 
   $getBlockHash(height: number): Promise<string> {
@@ -448,17 +463,22 @@ class ElectrsApi implements AbstractBitcoinApi {
       });
   }
 
-  $getAddress(address: string): Promise<IEsploraApi.Address> {
-    return this.failoverRouter.$get<IEsploraApi.Address>('/address/' + address);
+  async $getAddress(address: string): Promise<IEsploraApi.Address> {
+    const account =  await this.failoverRouter.$get<IEsploraApi.Address>('/address/' + address);
+
+    return injectTagsIntoAddress(account, this.tags); 
   }
 
-  $getAddressTransactions(
+  async $getAddressTransactions(
     address: string,
     txId?: string
   ): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+    const txs =  await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
       '/address/' + address + '/txs' + (txId ? '?after_txid=' + txId : '')
     );
+
+    return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
+
   }
 
   $getAddressUtxos(address: string): Promise<IEsploraApi.UTXO[]> {
@@ -501,19 +521,23 @@ class ElectrsApi implements AbstractBitcoinApi {
     return extendedUtxos;
   }
 
-  $getScriptHash(scripthash: string): Promise<IEsploraApi.ScriptHash> {
-    return this.failoverRouter.$get<IEsploraApi.ScriptHash>(
+  async $getScriptHash(scripthash: string): Promise<IEsploraApi.ScriptHash> {
+    const txs = await this.failoverRouter.$get<IEsploraApi.ScriptHash>(
       '/scripthash/' + scripthash
     );
+
+    return injectTagsIntoScriptHash(txs, this.tags);
   }
 
-  $getScriptHashTransactions(
+  async $getScriptHashTransactions(
     scripthash: string,
     txId?: string
   ): Promise<IEsploraApi.Transaction[]> {
-    return this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+    const txs =  await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
       '/scripthash/' + scripthash + '/txs' + (txId ? '?after_txid=' + txId : '')
     );
+
+    return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
   }
 
   $getAddressPrefix(prefix: string): Promise<string[]> {

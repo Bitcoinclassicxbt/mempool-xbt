@@ -1,3 +1,5 @@
+import { ITag } from "../../utils/tags";
+
 export namespace IEsploraApi {
   export interface Transaction {
     txid: string;
@@ -70,6 +72,7 @@ export namespace IEsploraApi {
     scriptpubkey_asm: string;
     scriptpubkey_type: string;
     scriptpubkey_address?: string;
+    tag_data? :ITag;
     value: number;
     // Elements
     valuecommitment?: number;
@@ -82,6 +85,7 @@ export namespace IEsploraApi {
     scriptpubkey: string;
     scriptpubkey_asm: string;
     scriptpubkey_address: string;
+    tag_data? :ITag;
   }
 
   export interface Status {
@@ -110,6 +114,7 @@ export namespace IEsploraApi {
 
   export interface Address {
     address: string;
+    tag_data?: ITag;
     chain_stats: ChainStats;
     mempool_stats: MempoolStats;
     electrum?: boolean;
@@ -117,6 +122,7 @@ export namespace IEsploraApi {
 
   export interface ScriptHash {
     scripthash: string;
+    tag_data?: ITag;
     chain_stats: ChainStats;
     mempool_stats: MempoolStats;
     electrum?: boolean;

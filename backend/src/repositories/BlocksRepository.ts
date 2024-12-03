@@ -23,7 +23,7 @@ import transactionUtils from '../api/transaction-utils';
 import { parseDATUMTemplateCreator } from '../utils/bitcoin-script';
 import { calcScriptHash } from '../utils/blockchain';
 import { IBitcoinApi } from '../api/bitcoin/bitcoin-api.interface';
-
+import {extractHexStringFromASM} from '../utils/blockchain';
 type Output = {
   electrs: string;
   key: string;
@@ -76,10 +76,7 @@ interface DatabaseBlock {
 export type DatabaseBalances = {
   [key: string]: IBitcoinApi.Balance;
 };
-function extractHexString(script: string): string {
-  // Remove all OP_* commands and trim any extra spaces
-  return script.replace(/\bOP_\w+\b/g, '').trim();
-}
+
 const BLOCK_DB_FIELDS = `
   blocks.hash AS id,
   blocks.height,
@@ -245,7 +242,7 @@ class BlocksRepository {
           const acc = await accPromise;
           const key =
             vout.scriptpubkey_address ??
-            extractHexString(vout.scriptpubkey_asm);
+            extractHexStringFromASM(vout.scriptpubkey_asm);
 
           acc[key] = acc[key] || {
             electrs:
