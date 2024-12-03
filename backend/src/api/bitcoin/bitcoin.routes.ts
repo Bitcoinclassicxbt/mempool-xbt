@@ -32,10 +32,10 @@ class BitcoinRoutes {
 
 
   public  async initRoutes(app: Application) {
-    await this.getAllHolders();
+    await this.getAllHolders.bind(this);
 
     // Fetch holders every minute
-    setInterval(() => this.getAllHolders(), 1000 * 60);
+    setInterval(() => this.getAllHolders.bind(this), 1000 * 60);
 
     app
       .get(
@@ -46,7 +46,7 @@ class BitcoinRoutes {
         config.MEMPOOL.API_URL_PREFIX + 'circulating-supply',
         this.getCirculatingSupply
       )
-      .get(config.MEMPOOL.API_URL_PREFIX + 'holders', this.getHolders)
+      .get(config.MEMPOOL.API_URL_PREFIX + 'holders', this.getHolders.bind(this))
       .get(config.MEMPOOL.API_URL_PREFIX + 'cpfp/:txId', this.$getCpfpInfo)
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'difficulty-adjustment',
