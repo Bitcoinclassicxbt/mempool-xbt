@@ -34,6 +34,7 @@ export namespace IBitcoinApi {
   export type Holders = {
     total: number;
     holders: ApiBalance[];
+    totalBalance: number;
   }
 
   export type ApiBalance = {

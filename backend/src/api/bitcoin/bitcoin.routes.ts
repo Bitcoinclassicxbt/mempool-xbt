@@ -23,12 +23,11 @@ import transactionRepository from '../../repositories/TransactionRepository';
 import rbfCache from '../rbf-cache';
 import { calculateMempoolTxCpfp } from '../cpfp';
 import { handleError } from '../../utils/api';
-import { getCirculatingSupplyAtHeight } from '../../utils/blockchain';
 import DB from '../../database';
 import { log } from 'console';
 
 class BitcoinRoutes {
-  private holderCacheResponse: IBitcoinApi.Holders = {total: 0, holders: []};
+  private holderCacheResponse: IBitcoinApi.Holders = {total: 0, holders: [], totalBalance: 0};
 
 
   public  async initRoutes(app: Application) {
@@ -43,7 +42,7 @@ class BitcoinRoutes {
       )
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'circulating-supply',
-        this.getCirculatingSupply
+        this.getCirculatingSupply.bind(this)
       )
       .get(config.MEMPOOL.API_URL_PREFIX + 'holders', this.getHolders.bind(this))
       .get(config.MEMPOOL.API_URL_PREFIX + 'cpfp/:txId', this.$getCpfpInfo)
@@ -1043,14 +1042,8 @@ class BitcoinRoutes {
 
   private getCirculatingSupply(req: Request, res: Response) {
     try {
-      const currentHeight = blocks.getCurrentBlockHeight();
-      const result = getCirculatingSupplyAtHeight(currentHeight);
-      if (!result) {
-        handleError(req, res, 503, `Service Temporarily Unavailable`);
-        return;
-      }
-      res.setHeader('content-type', 'text/plain');
-      res.send(result.toString() + '.00000000');
+
+      res.send(Math.floor(this.holderCacheResponse.totalBalance / 1e8) + '.00000000');
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
@@ -1076,47 +1069,44 @@ class BitcoinRoutes {
   }
 
   private async getAllHolders(): Promise<void> {
-
     try {
       // Query to get the total number of balances excluding zero balances
       const totalQuery = `
-        SELECT COUNT(*) AS total
+        SELECT COUNT(*) AS total, SUM(balance) AS totalBalance
         FROM balances
         WHERE balance > 0
       `;
-
+  
       const [totalRows] = await DB.query(totalQuery);
       const total = totalRows[0]?.total || 0;
-
-      // Query to fetch paginated results excluding zero balances
+      const totalBalance = totalRows[0]?.totalBalance || 0;
+  
+      // Query to fetch all holders with non-zero balances
       const holdersQuery = `
         SELECT *
         FROM balances
         WHERE balance > 0
         ORDER BY balance DESC
-
       `;
-
+  
       const [rows] = await DB.query<IBitcoinApi.DBBalance[]>(holdersQuery);
-
-      this.holderCacheResponse =
-        {
-          total, 
-          holders: rows.map<IBitcoinApi.ApiBalance>((row, index) => {
+  
+      this.holderCacheResponse = {
+        total,
+        totalBalance,
+        holders: rows.map<IBitcoinApi.ApiBalance>((row, index) => {
           delete row.id;
-          return { ...row, position: index  + 1 };
-        })
-      }
-
+          return { ...row, position: index + 1 };
+        }),
+      };
+  
       return;
-
     } catch (e) {
       logger.err("Error in getAllHolders: " + e);
-
       return;
-      
     }
   }
+  
 
   private async getBlockTipHash(req: Request, res: Response) {
     try {

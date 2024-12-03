@@ -2,24 +2,11 @@ import { IEsploraApi } from '../api/bitcoin/esplora-api.interface';
 import { Transaction as BitcoinJsTransaction } from 'bitcoinjs-lib';
 import crypto from 'crypto';
 
-const INITIAL_SUBSIDY = 88n;
-const HALVING_INTERVAL = 100000;
-
 export function extractHexStringFromASM(script: string): string {
   // Remove all OP_* commands and trim any extra spaces
   return script.replace(/\bOP_\w+\b/g, '').trim();
 }
 
-export const getCirculatingSupplyAtHeight = (height: number): bigint => {
-  const n = Math.floor(height / HALVING_INTERVAL);
-  const totalFromCompletedCycles =
-    INITIAL_SUBSIDY *
-    BigInt(HALVING_INTERVAL) *
-    BigInt((1 - 1 / Math.pow(2, n)) / (1 - 1 / 2));
-  const remainingBlocks = height - HALVING_INTERVAL * n;
-  const currentSubsidy = INITIAL_SUBSIDY / BigInt(Math.pow(2, n));
-  return totalFromCompletedCycles + BigInt(remainingBlocks) * currentSubsidy;
-};
 
 export async function calcScriptHash(script: string): Promise<string> {
   // Validate the input is a valid hex string
