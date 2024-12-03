@@ -1,6 +1,11 @@
 import { Price } from '@app/services/price.service';
 import { IChannel } from '@interfaces/node-api.interface';
 
+export interface ITag {
+  tags?: string[];
+  name?: string;
+}
+
 export interface Transaction {
   txid: string;
   version: number;
@@ -95,6 +100,7 @@ export interface Vout {
   scriptpubkey_asm: string;
   scriptpubkey_type: string;
   scriptpubkey_address?: string;
+  tag_data?: ITag;
   value: number;
   // Elements
   valuecommitment?: number;
@@ -109,6 +115,7 @@ interface Pegout {
   scriptpubkey: string;
   scriptpubkey_asm: string;
   scriptpubkey_address: string;
+  tag_data: ITag;
 }
 
 export interface Status {
@@ -146,6 +153,7 @@ export interface Address {
 export interface ScriptHash {
   electrum?: boolean;
   scripthash: string;
+  tag_data?: ITag; 
   chain_stats: ChainStats;
   mempool_stats: MempoolStats;
 }
@@ -154,6 +162,7 @@ export interface AddressOrScriptHash {
   electrum?: boolean;
   address?: string;
   scripthash?: string;
+  tag_data?: ITag;
   chain_stats: ChainStats;
   mempool_stats: MempoolStats;
 }

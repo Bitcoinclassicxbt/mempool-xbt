@@ -167,10 +167,10 @@
                               '/address/' | relativeUrl,
                               vin.prevout.scriptpubkey.slice(2, -2)
                             ]"
-                            title="{{ vin.prevout.scriptpubkey.slice(2, -2) }}"
+                            title="{{ vin?.prevout?.tag_data?.name ?? vin.prevout.scriptpubkey.slice(2, -2) }}"
                           >
                             <app-truncate
-                              [text]="vin.prevout.scriptpubkey.slice(2, -2)"
+                              [text]="vin?.prevout?.tag_data?.name ?? vin.prevout.scriptpubkey.slice(2, -2)"
                               [lastChars]="8"
                             ></app-truncate> </a
                         ></span>
@@ -201,10 +201,10 @@
                               '/address/' | relativeUrl,
                               vin.prevout.scriptpubkey_address
                             ]"
-                            title="{{ vin.prevout.scriptpubkey_address }}"
+                            title="{{ vin.prevout.tag_data?.name ?? vin.prevout.scriptpubkey_address }}"
                           >
                             <app-truncate
-                              [text]="vin.prevout.scriptpubkey_address"
+                              [text]="vin.prevout.tag_data?.name ?? vin.prevout.scriptpubkey_address"
                               [lastChars]="8"
                             ></app-truncate>
                           </a>
@@ -539,10 +539,10 @@
                         '/address/' | relativeUrl,
                         vout.scriptpubkey_address
                       ]"
-                      title="{{ vout.scriptpubkey_address }}"
+                      title="{{ vout.tag_data?.name ?? vout.scriptpubkey_address }}"
                     >
                       <app-truncate
-                        [text]="vout.scriptpubkey_address"
+                        [text]="vout.tag_data?.name ?? vout.scriptpubkey_address"
                         [lastChars]="8"
                       ></app-truncate>
                     </a>
@@ -560,10 +560,10 @@
                             '/address/' | relativeUrl,
                             vout.scriptpubkey.slice(2, -2)
                           ]"
-                          title="{{ vout.scriptpubkey.slice(2, -2) }}"
+                          title="{{ vout.tag_data?.name ?? vout.scriptpubkey.slice(2, -2) }}"
                         >
                           <app-truncate
-                            [text]="vout.scriptpubkey.slice(2, -2)"
+                            [text]="vout.tag_data?.name ?? vout.scriptpubkey.slice(2, -2)"
                             [lastChars]="8"
                           ></app-truncate>
                         </a>
@@ -602,10 +602,10 @@
                               'https://luckyscan.org/address/' +
                               vout.pegout.scriptpubkey_address
                             "
-                            title="{{ vout.pegout.scriptpubkey_address }}"
+                            title="{{ vout.pegout.tag_data?.name ?? vout.pegout.scriptpubkey_address }}"
                           >
                             <app-truncate
-                              [text]="vout.pegout.scriptpubkey_address"
+                              [text]="vout.pegout.tag_data?.name ?? vout.pegout.scriptpubkey_address"
                             ></app-truncate>
                           </a>
                           <ng-template #localPegoutLink>
@@ -614,10 +614,10 @@
                                 '/address/',
                                 vout.pegout.scriptpubkey_address
                               ]"
-                              title="{{ vout.pegout.scriptpubkey_address }}"
+                              title="{{ vout.pegout.tag_data?.name ?? vout.pegout.scriptpubkey_address }}"
                             >
                               <app-truncate
-                                [text]="vout.pegout.scriptpubkey_address"
+                                [text]="vout.pegout.tag_data?.name ?? vout.pegout.scriptpubkey_address"
                               ></app-truncate>
                             </a>
                           </ng-template>

@@ -25,9 +25,18 @@ import { calculateMempoolTxCpfp } from '../cpfp';
 import { handleError } from '../../utils/api';
 import { getCirculatingSupplyAtHeight } from '../../utils/blockchain';
 import DB from '../../database';
+import { log } from 'console';
 
 class BitcoinRoutes {
+  private holderCache: IBitcoinApi.ApiBalance[] = [];
+
+
   public initRoutes(app: Application) {
+    
+
+    // Fetch holders every minute
+    setInterval(this.getAllHolders, 1000 * 60);
+
     app
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'transaction-times',
@@ -1062,6 +1071,16 @@ class BitcoinRoutes {
 
     const offset = (page - 1) * limit;
 
+    if (!this.holderCache) {
+      await this.getAllHolders();
+    }
+
+    const holders = this.holderCache.slice(offset, offset + limit);
+    res.json(holders);
+  }
+
+  private async getAllHolders(): Promise<void> {
+
     try {
       // Query to get the total number of balances excluding zero balances
       const totalQuery = `
@@ -1079,27 +1098,24 @@ class BitcoinRoutes {
         FROM balances
         WHERE balance > 0
         ORDER BY balance DESC
-        LIMIT ?
-        OFFSET ?
+
       `;
 
-      const [rows] = await DB.query<IBitcoinApi.DBBalance[]>(holdersQuery, [
-        limit,
-        offset,
-      ]);
+      const [rows] = await DB.query<IBitcoinApi.DBBalance[]>(holdersQuery);
 
-      const finalRows: IBitcoinApi.ApiBalance[] =
+      this.holderCache =
         rows.map<IBitcoinApi.ApiBalance>((row, index) => {
           delete row.id;
-          return { ...row, position: index + offset + 1 };
+          return { ...row, position: index  + 1 };
         });
 
-      res.json({
-        total,
-        holders: finalRows,
-      });
+      return;
+
     } catch (e) {
-      handleError(req, res, 500, e instanceof Error ? e.message : e);
+      logger.err("Error in getAllHolders: " + e);
+
+      return;
+      
     }
   }
 
