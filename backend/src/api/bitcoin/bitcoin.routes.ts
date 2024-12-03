@@ -32,11 +32,10 @@ class BitcoinRoutes {
 
 
   public  async initRoutes(app: Application) {
-    await this.getAllHolders.bind(this);
+    await this.getAllHolders();
 
     // Fetch holders every minute
-    setInterval(() => this.getAllHolders.bind(this), 1000 * 60);
-
+    setInterval(() => this.getAllHolders(), 1000 * 60);
     app
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'transaction-times',
