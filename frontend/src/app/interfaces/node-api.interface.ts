@@ -2,6 +2,7 @@ import {
   AddressTxSummary,
   Block,
   ChainStats,
+  ITag,
   Transaction,
 } from './electrs.interface';
 
@@ -140,7 +141,7 @@ export interface ITranslators {
 export type IHolder = {
   address: string;
   balance: number;
-  tag: string;
+  tag_data?: ITag;
   last_seen: number;
   position: number;
 };

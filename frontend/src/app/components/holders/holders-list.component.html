@@ -30,16 +30,54 @@
           <td class="position text-left">{{ holder.position }}</td>
           <td class="address text-left">
             <a [routerLink]="['/address', holder.address]">
-              {{ holder.tag || holder.address }}
+              {{ holder.tag_data?.name || holder.address }}
             </a>
+
+            <!-- Add spacing between address and badges -->
+            <span class="ml-1">
+              <!-- Render tags as inline warning badges -->
+              <ng-container *ngIf="holder.tag_data?.tags">
+                <span
+                  *ngFor="let tag of holder.tag_data.tags"
+                  class="badge badge-warning"
+                  >{{ tag }}</span
+                >
+              </ng-container>
+
+              <!-- Add Dormant badge if last_seen is before 2014 -->
+              <ng-container
+                *ngIf="(holder.last_seen | date: 'yyyyMMdd') < '20140101'"
+              >
+                <span class="badge badge-info">Dormant</span>
+              </ng-container>
+            </span>
           </td>
           <td class="address_mobile text-left">
             <a [routerLink]="['/address', holder.address]">
               <app-truncate
-                [text]="holder.tag || holder.address"
+                [text]="holder.tag_data?.name || holder.address"
                 [maxWidth]="150"
               ></app-truncate>
             </a>
+
+            <!-- Add spacing between address and badges -->
+            <span class="ml-1">
+              <!-- Render tags as inline warning badges -->
+              <ng-container *ngIf="holder.tag_data?.tags">
+                <span
+                  *ngFor="let tag of holder.tag_data.tags"
+                  class="badge badge-warning"
+                  >{{ tag }}</span
+                >
+              </ng-container>
+
+              <!-- Add Dormant badge if last_seen is before 2014 -->
+              <ng-container
+                *ngIf="(holder.last_seen | date: 'yyyyMMdd') < '20140101'"
+              >
+                <span class="badge badge-info">Dormant</span>
+              </ng-container>
+            </span>
           </td>
           <td class="balance text-right">
             <app-amount
