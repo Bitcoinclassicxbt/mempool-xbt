@@ -28,11 +28,11 @@ import DB from '../../database';
 import { log } from 'console';
 
 class BitcoinRoutes {
-  private holderCache: IBitcoinApi.ApiBalance[] = [];
+  private holderCacheResponse: IBitcoinApi.Holders = {total: 0, holders: []};
 
 
-  public initRoutes(app: Application) {
-    
+  public  async initRoutes(app: Application) {
+    await this.getAllHolders();
 
     // Fetch holders every minute
     setInterval(this.getAllHolders, 1000 * 60);
@@ -1071,12 +1071,12 @@ class BitcoinRoutes {
 
     const offset = (page - 1) * limit;
 
-    if (!this.holderCache) {
+    if (!this.holderCacheResponse) {
       await this.getAllHolders();
     }
 
-    const holders = this.holderCache.slice(offset, offset + limit);
-    res.json(holders);
+    const holders = this.holderCacheResponse.holders.slice(offset, offset + limit);
+    res.json({holders, total: this.holderCacheResponse.total});
   }
 
   private async getAllHolders(): Promise<void> {
@@ -1103,11 +1103,14 @@ class BitcoinRoutes {
 
       const [rows] = await DB.query<IBitcoinApi.DBBalance[]>(holdersQuery);
 
-      this.holderCache =
-        rows.map<IBitcoinApi.ApiBalance>((row, index) => {
+      this.holderCacheResponse =
+        {
+          total, 
+          holders: rows.map<IBitcoinApi.ApiBalance>((row, index) => {
           delete row.id;
           return { ...row, position: index  + 1 };
-        });
+        })
+      }
 
       return;
 

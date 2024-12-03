@@ -31,6 +31,11 @@ export namespace IBitcoinApi {
     lastSeen: number;
   }
 
+  export type Holders = {
+    total: number;
+    holders: ApiBalance[];
+  }
+
   export type ApiBalance = {
     position: number;
   } & Balance;
