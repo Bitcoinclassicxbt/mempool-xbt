@@ -16,6 +16,15 @@ export const injectTagsIntoTransaction = (tx: IEsploraApi.Transaction, tags: ITa
       vout.tag_data = tag;
     }
   })
+
+  tx.vin.forEach((vin) => {
+    if(!vin.prevout){ return; }
+
+    const tag = tags[vin.prevout.scriptpubkey_address ?? extractHexStringFromASM(vin.prevout.scriptpubkey_asm)];
+    if (tag){
+      vin.prevout.tag_data = tag;
+    }
+  } )
   return tx;
 }
 
