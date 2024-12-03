@@ -1,5 +1,6 @@
 import fs from "fs";
 import { IEsploraApi } from "../api/bitcoin/esplora-api.interface";
+import { IBitcoinApi } from "../api/bitcoin/bitcoin-api.interface";
 import {extractHexStringFromASM} from "./blockchain";
 
 export type ITag = {
@@ -8,6 +9,8 @@ export type ITag = {
 }
 
 export type ITags = {[key: string]: ITag};
+
+
 
 export const injectTagsIntoTransaction = (tx: IEsploraApi.Transaction, tags: ITags): IEsploraApi.Transaction => {
   tx.vout.forEach((vout) => {
@@ -28,22 +31,21 @@ export const injectTagsIntoTransaction = (tx: IEsploraApi.Transaction, tags: ITa
   return tx;
 }
 
-export const injectTagsIntoAddress = (account: IEsploraApi.Address, tags: ITags): IEsploraApi.Address => {
-  const tag = tags[account.address];
-  if (tag){
-    account.tag_data = tag;
+
+export function injectTags<T extends Record<G, string | number>, G extends keyof T>(
+  account: T,
+  accountKey: G,
+  tags: ITags
+): T & { tag_data?: ITag } {
+  const key = account[accountKey];
+  const tag = tags[key];
+
+  if (tag) {
+    return { ...account, tag_data: tag};
   }
+
   return account;
 }
-
-export const injectTagsIntoScriptHash = (account: IEsploraApi.ScriptHash, tags: ITags): IEsploraApi.ScriptHash => {
-  const tag = tags[account.scripthash];
-  if (tag){
-    account.tag_data = tag;
-  }
-  return account;
-}
-
 
 export const getTags =  (): ITags => {
   try{

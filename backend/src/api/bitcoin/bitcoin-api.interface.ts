@@ -1,4 +1,5 @@
 import { RowDataPacket } from 'mysql2';
+import { ITag } from '../../utils/tags';
 
 export namespace IBitcoinApi {
   export interface MempoolInfo {
@@ -26,7 +27,7 @@ export namespace IBitcoinApi {
   export interface DBBalance extends RowDataPacket {
     id?: number;
     address: string;
-    tag?: string;
+    tag_data?: ITag;
     balance: number;
     lastSeen: number;
   }

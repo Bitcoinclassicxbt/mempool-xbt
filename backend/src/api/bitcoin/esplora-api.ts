@@ -19,7 +19,7 @@ import {
   txJsonToHex,
 } from '../../utils/blockchain';
 
-import { getTags, ITags, injectTagsIntoAddress, injectTagsIntoScriptHash, injectTagsIntoTransaction} from '../../utils/tags';
+import { getTags, ITags, injectTagsIntoTransaction, injectTags} from '../../utils/tags';
 
 
 interface FailoverHost {
@@ -466,7 +466,7 @@ class ElectrsApi implements AbstractBitcoinApi {
   async $getAddress(address: string): Promise<IEsploraApi.Address> {
     const account =  await this.failoverRouter.$get<IEsploraApi.Address>('/address/' + address);
 
-    return injectTagsIntoAddress(account, this.tags); 
+    return injectTags<IEsploraApi.Address, "address">(account, "address", this.tags); 
   }
 
   async $getAddressTransactions(
@@ -526,7 +526,7 @@ class ElectrsApi implements AbstractBitcoinApi {
       '/scripthash/' + scripthash
     );
 
-    return injectTagsIntoScriptHash(txs, this.tags);
+    return injectTags<IEsploraApi.ScriptHash, "scripthash">(txs, "scripthash", this.tags);
   }
 
   async $getScriptHashTransactions(

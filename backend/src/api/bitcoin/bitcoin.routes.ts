@@ -25,6 +25,9 @@ import { calculateMempoolTxCpfp } from '../cpfp';
 import { handleError } from '../../utils/api';
 import DB from '../../database';
 import { log } from 'console';
+import { getTags, injectTags } from '../../utils/tags';
+
+const tags = getTags();
 
 class BitcoinRoutes {
   private holderCacheResponse: IBitcoinApi.Holders = {total: 0, holders: [], totalBalance: 0};
@@ -1064,7 +1067,8 @@ class BitcoinRoutes {
     const offset = (page - 1) * limit;
 
 
-    const holders = this.holderCacheResponse.holders.slice(offset, offset + limit);
+    const holders = this.holderCacheResponse.holders.slice(offset, offset + limit).map((holder) => injectTags<IBitcoinApi.ApiBalance, "address">(holder, "address", tags));
+
     res.json({holders, total: this.holderCacheResponse.total});
   }
 
