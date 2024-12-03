@@ -1071,9 +1071,6 @@ class BitcoinRoutes {
 
     const offset = (page - 1) * limit;
 
-    if (!this.holderCacheResponse) {
-      await this.getAllHolders();
-    }
 
     const holders = this.holderCacheResponse.holders.slice(offset, offset + limit);
     res.json({holders, total: this.holderCacheResponse.total});
