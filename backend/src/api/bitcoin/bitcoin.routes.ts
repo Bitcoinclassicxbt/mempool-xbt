@@ -35,7 +35,7 @@ class BitcoinRoutes {
     await this.getAllHolders();
 
     // Fetch holders every minute
-    setInterval(this.getAllHolders, 1000 * 60);
+    setInterval(() => this.getAllHolders(), 1000 * 60);
 
     app
       .get(
