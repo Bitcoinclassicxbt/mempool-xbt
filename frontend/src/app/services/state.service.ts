@@ -215,7 +215,7 @@ export class StateService {
   backendInfo$ = new ReplaySubject<IBackendInfo>(1);
   servicesBackendInfo$ = new ReplaySubject<IBackendInfo>(1);
   loadingIndicators$ = new ReplaySubject<ILoadingIndicators>(1);
-  recommendedFees$ = new ReplaySubject<Recommendedfees>(1);
+  recommendedFees$ = new ReplaySubject<Recommendedfees>(10000);
   chainTip$ = new ReplaySubject<number>(-1);
   serverHealth$ = new Subject<HealthCheckHost[]>();
 
