@@ -446,8 +446,6 @@ export class WebsocketService {
     }
 
     if (response.fees) {
-      console.log('FEES:');
-      console.log(response.fees);
       this.stateService.recommendedFees$.next(response.fees);
     }
 
