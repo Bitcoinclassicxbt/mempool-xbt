@@ -17,11 +17,18 @@ const EXPECT_PING_RESPONSE_AFTER_MS = 5000;
 const initData = makeStateKey('/api/v1/init-data');
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebsocketService {
-  private webSocketProtocol = (document.location.protocol === 'https:') ? 'wss:' : 'ws:';
-  private webSocketUrl = this.webSocketProtocol + '//' + document.location.hostname + ':' + document.location.port + '{network}/api/v1/ws';
+  private webSocketProtocol =
+    document.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  private webSocketUrl =
+    this.webSocketProtocol +
+    '//' +
+    document.location.hostname +
+    ':' +
+    document.location.port +
+    '{network}/api/v1/ws';
 
   private websocketSubject: WebSocketSubject<WebsocketResponse>;
   private goneOffline = false;
@@ -48,20 +55,30 @@ export class WebsocketService {
     private stateService: StateService,
     private apiService: ApiService,
     private transferState: TransferState,
-    private cacheService: CacheService,
+    private cacheService: CacheService
   ) {
     if (!this.stateService.isBrowser) {
       // @ts-ignore
-      this.websocketSubject = { next: () => {}};
+      this.websocketSubject = { next: () => {} };
       this.stateService.isLoadingWebSocket$.next(false);
-      this.apiService.getInitData$()
+      this.apiService
+        .getInitData$()
         .pipe(take(1))
         .subscribe((response) => this.handleResponse(response));
     } else {
-      this.network = this.stateService.network === this.stateService.env.ROOT_NETWORK ? '' : this.stateService.network;
-      this.websocketSubject = webSocket<WebsocketResponse>(this.webSocketUrl.replace('{network}', this.network ? '/' + this.network : ''));
+      this.network =
+        this.stateService.network === this.stateService.env.ROOT_NETWORK
+          ? ''
+          : this.stateService.network;
+      this.websocketSubject = webSocket<WebsocketResponse>(
+        this.webSocketUrl.replace(
+          '{network}',
+          this.network ? '/' + this.network : ''
+        )
+      );
 
-      const { response: theInitData } = this.transferState.get<any>(initData, null) || {};
+      const { response: theInitData } =
+        this.transferState.get<any>(initData, null) || {};
       if (theInitData) {
         if (theInitData.body.blocks) {
           theInitData.body.blocks = theInitData.body.blocks.reverse();
@@ -75,10 +92,15 @@ export class WebsocketService {
       }
 
       this.stateService.networkChanged$.subscribe((network) => {
-        if (network === this.network || (this.network === '' && network === this.stateService.env.ROOT_NETWORK)) {
+        if (
+          network === this.network ||
+          (this.network === '' &&
+            network === this.stateService.env.ROOT_NETWORK)
+        ) {
           return;
         }
-        this.network = network === this.stateService.env.ROOT_NETWORK ? '' : network;
+        this.network =
+          network === this.stateService.env.ROOT_NETWORK ? '' : network;
         clearTimeout(this.onlineCheckTimeout);
         clearTimeout(this.onlineCheckTimeoutTwo);
 
@@ -94,7 +116,10 @@ export class WebsocketService {
     this.websocketSubject.complete();
     this.subscription.unsubscribe();
     this.websocketSubject = webSocket<WebsocketResponse>(
-      this.webSocketUrl.replace('{network}', this.network ? '/' + this.network : '')
+      this.webSocketUrl.replace(
+        '{network}',
+        this.network ? '/' + this.network : ''
+      )
     );
 
     this.startSubscription(retrying, hasInitData);
@@ -103,13 +128,13 @@ export class WebsocketService {
   startSubscription(retrying = false, hasInitData = false) {
     if (!hasInitData) {
       this.stateService.isLoadingWebSocket$.next(true);
-      this.websocketSubject.next({'action': 'init'});
+      this.websocketSubject.next({ action: 'init' });
     }
     if (retrying) {
       this.stateService.connectionState$.next(1);
     }
-    this.subscription = this.websocketSubject
-      .subscribe((response: WebsocketResponse) => {
+    this.subscription = this.websocketSubject.subscribe(
+      (response: WebsocketResponse) => {
         this.stateService.isLoadingWebSocket$.next(false);
         this.handleResponse(response);
 
@@ -155,7 +180,8 @@ export class WebsocketService {
         console.log(err);
         console.log(`WebSocket error`);
         this.goOffline();
-      });
+      }
+    );
   }
 
   startTrackTransaction(txId: string) {
@@ -298,12 +324,13 @@ export class WebsocketService {
     if (JSON.stringify(data) === this.lastWant && !force) {
       return;
     }
-    this.websocketSubject.next({action: 'want', data: data});
+    this.websocketSubject.next({ action: 'want', data: data });
     this.lastWant = JSON.stringify(data);
   }
 
   goOffline() {
-    const retryDelay = OFFLINE_RETRY_AFTER_MS + (Math.random() * OFFLINE_RETRY_AFTER_MS);
+    const retryDelay =
+      OFFLINE_RETRY_AFTER_MS + Math.random() * OFFLINE_RETRY_AFTER_MS;
     console.log(`trying to reconnect websocket in ${retryDelay} seconds`);
     this.goneOffline = true;
     this.stateService.connectionState$.next(0);
@@ -317,7 +344,7 @@ export class WebsocketService {
     clearTimeout(this.onlineCheckTimeoutTwo);
 
     this.onlineCheckTimeout = window.setTimeout(() => {
-      this.websocketSubject.next({action: 'ping'});
+      this.websocketSubject.next({ action: 'ping' });
       this.onlineCheckTimeoutTwo = window.setTimeout(() => {
         if (!this.goneOffline) {
           console.log('WebSocket response timeout, force closing');
@@ -339,7 +366,10 @@ export class WebsocketService {
     if (response.blocks && response.blocks.length) {
       const blocks = response.blocks;
       this.stateService.resetBlocks(blocks);
-      const maxHeight = blocks.reduce((max, block) => Math.max(max, block.height), this.stateService.latestBlockHeight);
+      const maxHeight = blocks.reduce(
+        (max, block) => Math.max(max, block.height),
+        this.stateService.latestBlockHeight
+      );
       this.stateService.updateChainTip(maxHeight);
     }
 
@@ -355,8 +385,14 @@ export class WebsocketService {
       if (response.block.height === this.stateService.latestBlockHeight + 1) {
         this.stateService.updateChainTip(response.block.height);
         this.stateService.addBlock(response.block);
-        this.stateService.txConfirmed$.next([response.txConfirmed, response.block]);
-      } else if (response.block.height > this.stateService.latestBlockHeight + 1) {
+        this.stateService.txConfirmed$.next([
+          response.txConfirmed,
+          response.block,
+        ]);
+      } else if (
+        response.block.height >
+        this.stateService.latestBlockHeight + 1
+      ) {
         reinitBlocks = true;
       }
 
@@ -410,7 +446,9 @@ export class WebsocketService {
     }
 
     if (response.fees) {
-     this.stateService.recommendedFees$.next(response.fees); 
+      console.log('FEES:');
+      console.log(response.fees);
+      this.stateService.recommendedFees$.next(response.fees);
     }
 
     if (response.backendInfo) {
@@ -420,57 +458,89 @@ export class WebsocketService {
         this.latestGitCommit = response.backendInfo.gitCommit;
       } else {
         if (this.latestGitCommit !== response.backendInfo.gitCommit) {
-          setTimeout(() => {
-            window.location.reload();
-          }, Math.floor(Math.random() * 60000) + 60000);
+          setTimeout(
+            () => {
+              window.location.reload();
+            },
+            Math.floor(Math.random() * 60000) + 60000
+          );
         }
       }
     }
 
     if (response['address-transactions']) {
-      response['address-transactions'].forEach((addressTransaction: Transaction) => {
-        this.stateService.mempoolTransactions$.next(addressTransaction);
-      });
+      response['address-transactions'].forEach(
+        (addressTransaction: Transaction) => {
+          this.stateService.mempoolTransactions$.next(addressTransaction);
+        }
+      );
     }
 
     if (response['address-removed-transactions']) {
-      response['address-removed-transactions'].forEach((addressTransaction: Transaction) => {
-        this.stateService.mempoolRemovedTransactions$.next(addressTransaction);
-      });
+      response['address-removed-transactions'].forEach(
+        (addressTransaction: Transaction) => {
+          this.stateService.mempoolRemovedTransactions$.next(
+            addressTransaction
+          );
+        }
+      );
     }
 
     if (response['multi-address-transactions']) {
-      this.stateService.multiAddressTransactions$.next(response['multi-address-transactions']);
+      this.stateService.multiAddressTransactions$.next(
+        response['multi-address-transactions']
+      );
     }
 
     if (response['block-transactions']) {
-      response['block-transactions'].forEach((addressTransaction: Transaction) => {
-        this.stateService.blockTransactions$.next(addressTransaction);
-      });
+      response['block-transactions'].forEach(
+        (addressTransaction: Transaction) => {
+          this.stateService.blockTransactions$.next(addressTransaction);
+        }
+      );
     }
 
     if (response['projected-block-transactions']) {
-      if (response['projected-block-transactions'].index == this.trackingMempoolBlock) {
+      if (
+        response['projected-block-transactions'].index ==
+        this.trackingMempoolBlock
+      ) {
         if (response['projected-block-transactions'].blockTransactions) {
-          this.stateService.mempoolSequence = response['projected-block-transactions'].sequence;
+          this.stateService.mempoolSequence =
+            response['projected-block-transactions'].sequence;
           this.stateService.mempoolBlockUpdate$.next({
             block: this.trackingMempoolBlock,
-            transactions: response['projected-block-transactions'].blockTransactions.map(uncompressTx),
+            transactions:
+              response['projected-block-transactions'].blockTransactions.map(
+                uncompressTx
+              ),
           });
         } else if (response['projected-block-transactions'].delta) {
-          if (this.stateService.mempoolSequence && response['projected-block-transactions'].sequence !== this.stateService.mempoolSequence + 1) {
+          if (
+            this.stateService.mempoolSequence &&
+            response['projected-block-transactions'].sequence !==
+              this.stateService.mempoolSequence + 1
+          ) {
             this.stateService.mempoolSequence = 0;
             this.startTrackMempoolBlock(this.trackingMempoolBlock, true);
           } else {
-            this.stateService.mempoolSequence = response['projected-block-transactions'].sequence;
-            this.stateService.mempoolBlockUpdate$.next(uncompressDeltaChange(this.trackingMempoolBlock, response['projected-block-transactions'].delta));
+            this.stateService.mempoolSequence =
+              response['projected-block-transactions'].sequence;
+            this.stateService.mempoolBlockUpdate$.next(
+              uncompressDeltaChange(
+                this.trackingMempoolBlock,
+                response['projected-block-transactions'].delta
+              )
+            );
           }
         }
       }
     }
 
     if (response['wallet-transactions']) {
-      this.stateService.walletTransactions$.next(response['wallet-transactions']);
+      this.stateService.walletTransactions$.next(
+        response['wallet-transactions']
+      );
     }
 
     if (response['accelerations']) {
@@ -491,7 +561,10 @@ export class WebsocketService {
 
     if (response.loadingIndicators) {
       this.stateService.loadingIndicators$.next(response.loadingIndicators);
-      if (response.loadingIndicators.mempool != null && response.loadingIndicators.mempool < 100) {
+      if (
+        response.loadingIndicators.mempool != null &&
+        response.loadingIndicators.mempool < 100
+      ) {
         this.stateService.isLoadingMempool$.next(true);
       } else {
         this.stateService.isLoadingMempool$.next(false);
@@ -519,7 +592,7 @@ export class WebsocketService {
     }
 
     if (reinitBlocks) {
-      this.websocketSubject.next({'refresh-blocks': true});
+      this.websocketSubject.next({ 'refresh-blocks': true });
     }
   }
 
@@ -527,7 +600,7 @@ export class WebsocketService {
     if (!this.stateService.isBrowser) {
       const rbfList = await firstValueFrom(this.apiService.getRbfList$(false));
       if (rbfList) {
-        const rbfSummary = rbfList.slice(0, 6).map(rbfTree => {
+        const rbfSummary = rbfList.slice(0, 6).map((rbfTree) => {
           let oldFee = 0;
           let oldVsize = 0;
           for (const replaced of rbfTree.replaces) {
