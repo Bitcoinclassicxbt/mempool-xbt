@@ -23,7 +23,8 @@ import transactionUtils from '../api/transaction-utils';
 import { parseDATUMTemplateCreator } from '../utils/bitcoin-script';
 import { calcScriptHash } from '../utils/blockchain';
 import { IBitcoinApi } from '../api/bitcoin/bitcoin-api.interface';
-import {extractHexStringFromASM} from '../utils/blockchain';
+import { extractHexStringFromASM } from '../utils/blockchain';
+import { IEsploraApi } from '../api/bitcoin/esplora-api.interface';
 type Output = {
   electrs: string;
   key: string;
@@ -237,8 +238,15 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
+      let outputsExtracted: IEsploraApi.Vout[] = [
+        transaction.vout,
+        transaction.vin
+          .map((vin) => vin.prevout)
+          .filter((vout) => vout !== undefined && vout !== null),
+      ].flat(1);
+
       let outputs: Output[] = Object.values(
-        await transaction.vout.reduce(async (accPromise, vout) => {
+        await outputsExtracted.reduce(async (accPromise, vout) => {
           const acc = await accPromise;
           const key =
             vout.scriptpubkey_address ??
