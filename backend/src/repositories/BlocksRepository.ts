@@ -243,7 +243,7 @@ class BlocksRepository {
         .filter((vout) => vout !== undefined && vout !== null);
 
       if (prevouts.length !== transaction.vin.length) {
-        //prevouts arent being populated correctly, so fetch them directly
+        //prevouts arent being populated correctly, so fetch them directly from electrs
         prevouts = (
           await Promise.all(
             transaction.vin.map(async (input) => {
