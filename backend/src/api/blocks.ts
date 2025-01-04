@@ -1143,6 +1143,7 @@ class Blocks {
           await blocksRepository.$saveBlockInDatabase(blockExtended);
           await blocksRepository.$saveBalancesInDatabase(
             transactions,
+            block.timestamp,
             balanceCache
           );
         }
@@ -1427,7 +1428,10 @@ class Blocks {
         }
 
         await blocksRepository.$saveBlockInDatabase(blockExtended);
-        await blocksRepository.$saveBalancesInDatabase(transactions);
+        await blocksRepository.$saveBalancesInDatabase(
+          transactions,
+          block.timestamp
+        );
         this.updateTimerProgress(
           timer,
           `saved ${this.currentBlockHeight} to database`
@@ -1650,7 +1654,10 @@ class Blocks {
 
     if (Common.indexingEnabled()) {
       await blocksRepository.$saveBlockInDatabase(blockExtended);
-      await blocksRepository.$saveBalancesInDatabase(transactions);
+      await blocksRepository.$saveBalancesInDatabase(
+        transactions,
+        block.timestamp
+      );
     }
 
     return blockExtended;

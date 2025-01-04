@@ -31,10 +31,6 @@ type Output = {
   is_opreturn: boolean;
 };
 
-type Sender = {
-  timestamp: number;
-};
-type Senders = { [key: string]: Sender };
 interface DatabaseBlock {
   id: string;
   height: number;
@@ -237,56 +233,41 @@ class BlocksRepository {
 
   public async $saveBalancesInDatabase(
     transactions: TransactionExtended[],
+    blockTimestamp: number,
     balanceCache?: DatabaseBalances
   ): Promise<void> {
     let balances: DatabaseBalances = {};
-    let senders: Senders = {};
+    const seenSenders = new Set<string>();
+
+    const previousTransactions = await bitcoinApi.$getRawTransactions(
+      transactions.map((tx) => tx.vin.map((i) => i.txid)).flat(1)
+    );
+
+    previousTransactions.forEach((tx) => {
+      tx.vout.forEach((output) => {
+        const address =
+          output.scriptpubkey_address ??
+          extractHexStringFromASM(output.scriptpubkey_asm);
+
+        seenSenders.add(address);
+      });
+    });
+
+    const prevoutsMapped = previousTransactions.reduce((acc, tx) => {
+      acc[tx.txid] = tx.vout;
+      return acc;
+    }, {});
 
     for (let transaction of transactions) {
-      let prevouts = transaction.vin
-        .map((input) => input.prevout)
-        .filter((vout) => vout !== undefined && vout !== null);
+      //prevouts arent being populated correctly, so fetch them directly from electrs
 
-      if (prevouts.length !== transaction.vin.length) {
-        //prevouts arent being populated correctly, so fetch them directly from electrs
-
-        const previousTransactions = await bitcoinApi.$getRawTransactions(
-          transaction.vin.map((input) => input.txid)
-        );
-
-        prevouts = previousTransactions
-          .map((tx) => tx.vout)
-          .filter((vout) => vout !== undefined && vout !== null)
-          .flat(1);
-
-        //timestamp always be defined because this is called by the indexer
-        previousTransactions.forEach((tx) => {
-          tx.vout.forEach((vout) => {
-            const address =
-              vout.scriptpubkey_address ??
-              extractHexStringFromASM(vout.scriptpubkey_asm);
-
-            const prevSender = senders[address];
-            const txBlockTime = tx.status.block_time as number;
-            if (!prevSender || prevSender.timestamp < txBlockTime) {
-              senders[address] = {
-                timestamp: txBlockTime,
-              };
-
-              if (
-                balances[address] &&
-                balances[address].lastSeen < txBlockTime
-              ) {
-                balances[address].lastSeen = txBlockTime;
-              }
-            }
-          });
-        });
-      }
+      const txPrevouts = transaction.vin
+        .map((input) => input.txid)
+        .map((txid) => prevoutsMapped[txid]);
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
-        prevouts,
+        txPrevouts,
       ].flat(1);
 
       let outputs: Output[] = Object.values(
@@ -336,7 +317,9 @@ class BlocksRepository {
               balance:
                 Number(outputSummaryResponse.chain_stats.funded_txo_sum) -
                 Number(outputSummaryResponse.chain_stats.spent_txo_sum),
-              lastSeen: senders[output.key]?.timestamp ?? 0,
+
+              //"0" negates the update of lastSeen because it will always be less than whats in the db
+              lastSeen: seenSenders.has(output.key) ? blockTimestamp : 0,
             };
 
             //Unecessary saving of addresses with 0 balance. These remain indiscoverable until they are used.
