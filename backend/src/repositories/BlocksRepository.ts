@@ -244,13 +244,15 @@ class BlocksRepository {
 
       if (prevouts.length !== transaction.vin.length) {
         //prevouts arent being populated correctly, so fetch them directly from electrs
-        prevouts = (
-          await Promise.all(
-            transaction.vin.map(async (input) => {
-              return (await bitcoinApi.$getRawTransaction(input.txid)).vout;
-            })
-          )
-        ).flat(1);
+
+        const previousTransactions = await bitcoinApi.$getRawTransactions(
+          transaction.vin.map((input) => input.txid)
+        );
+
+        prevouts = previousTransactions
+          .map((tx) => tx.vout)
+          .filter((vout) => vout !== undefined && vout !== null)
+          .flat(1);
       }
 
       let outputsExtracted: IEsploraApi.Vout[] = [
