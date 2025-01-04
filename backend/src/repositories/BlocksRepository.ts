@@ -376,7 +376,7 @@ class BlocksRepository {
         .join(', ');
 
       const query = `
-        INSERT INTO balances (address, balance)
+        INSERT INTO balances (address, balance, last_seen)
         VALUES ${placeholders}
         ON DUPLICATE KEY UPDATE
           balance = VALUES(balance),
