@@ -253,17 +253,20 @@ class BlocksRepository {
       });
     });
 
-    const prevoutsMapped = previousTransactions.reduce((acc, tx) => {
-      acc[tx.txid] = tx.vout;
-      return acc;
-    }, {});
+    const prevoutsMapped: { [key: string]: IEsploraApi.Vout } =
+      previousTransactions.reduce((acc, tx) => {
+        acc[tx.txid] = tx.vout;
+        return acc;
+      }, {});
 
     for (let transaction of transactions) {
       //prevouts arent being populated correctly, so fetch them directly from electrs
 
-      const txPrevouts = transaction.vin
-        .map((input) => input.txid)
-        .map((txid) => prevoutsMapped[txid]);
+      const txPrevouts: IEsploraApi.Vout[] = transaction.vin.map(
+        (input) => prevoutsMapped[input.txid]
+      );
+
+      console.log(txPrevouts);
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
