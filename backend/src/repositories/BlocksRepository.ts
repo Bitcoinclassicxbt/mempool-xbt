@@ -262,13 +262,9 @@ class BlocksRepository {
     for (let transaction of transactions) {
       //prevouts arent being populated correctly, so fetch them directly from electrs
 
-      const txPrevouts: IEsploraApi.Vout[] = transaction.vin.map(
-        (input) => prevoutsMapped[input.txid]
-      );
-
-      console.log(txPrevouts);
-      console.log(prevoutsMapped);
-      console.log(transaction.vin.map((input) => input.txid));
+      const txPrevouts: IEsploraApi.Vout[] = transaction.vin
+        .filter((input) => !input.is_coinbase)
+        .map((input) => prevoutsMapped[input.txid]);
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
