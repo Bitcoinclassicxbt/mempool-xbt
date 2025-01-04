@@ -238,11 +238,24 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
 
     for (let transaction of transactions) {
+      let prevouts = transaction.vin
+        .map((input) => input.prevout)
+        .filter((vout) => vout !== undefined && vout !== null);
+
+      if (prevouts.length !== transaction.vin.length) {
+        //prevouts arent being populated correctly, so fetch them directly
+        prevouts = (
+          await Promise.all(
+            transaction.vin.map(async (input) => {
+              return (await bitcoinApi.$getRawTransaction(input.txid)).vout;
+            })
+          )
+        ).flat(1);
+      }
+
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
-        transaction.vin
-          .map((vin) => vin.prevout)
-          .filter((vout) => vout !== undefined && vout !== null),
+        prevouts,
       ].flat(1);
 
       let outputs: Output[] = Object.values(
