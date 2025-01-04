@@ -30,6 +30,11 @@ type Output = {
   key: string;
   is_opreturn: boolean;
 };
+
+type Sender = {
+  timestamp: number;
+};
+type Senders = { [key: string]: Sender };
 interface DatabaseBlock {
   id: string;
   height: number;
@@ -236,6 +241,7 @@ class BlocksRepository {
     balanceCache?: DatabaseBalances
   ): Promise<void> {
     let balances: DatabaseBalances = {};
+    let senders: Senders = {};
 
     for (let transaction of transactions) {
       let prevouts = transaction.vin
@@ -253,6 +259,30 @@ class BlocksRepository {
           .map((tx) => tx.vout)
           .filter((vout) => vout !== undefined && vout !== null)
           .flat(1);
+
+        //timestamp always be defined because this is called by the indexer
+        previousTransactions.forEach((tx) => {
+          tx.vout.forEach((vout) => {
+            const address =
+              vout.scriptpubkey_address ??
+              extractHexStringFromASM(vout.scriptpubkey_asm);
+
+            const prevSender = senders[address];
+            const txBlockTime = tx.status.block_time as number;
+            if (!prevSender || prevSender.timestamp < txBlockTime) {
+              senders[address] = {
+                timestamp: txBlockTime,
+              };
+
+              if (
+                balances[address] &&
+                balances[address].lastSeen < txBlockTime
+              ) {
+                balances[address].lastSeen = txBlockTime;
+              }
+            }
+          });
+        });
       }
 
       let outputsExtracted: IEsploraApi.Vout[] = [
@@ -307,7 +337,7 @@ class BlocksRepository {
               balance:
                 Number(outputSummaryResponse.chain_stats.funded_txo_sum) -
                 Number(outputSummaryResponse.chain_stats.spent_txo_sum),
-              lastSeen: blockTimestamp,
+              lastSeen: senders[output.key]?.timestamp ?? 0,
             };
 
             //Unecessary saving of addresses with 0 balance. These remain indiscoverable until they are used.
@@ -347,11 +377,11 @@ class BlocksRepository {
         .join(', ');
 
       const query = `
-        INSERT INTO balances (address, balance, last_seen)
+        INSERT INTO balances (address, balance)
         VALUES ${placeholders}
         ON DUPLICATE KEY UPDATE
           balance = VALUES(balance),
-          last_seen = VALUES(last_seen);
+          last_seen = GREATEST(last_seen, VALUES(last_seen))
       `;
 
       // Execute the query with parameterized values
