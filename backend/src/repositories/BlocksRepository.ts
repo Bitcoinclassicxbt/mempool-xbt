@@ -267,6 +267,8 @@ class BlocksRepository {
       );
 
       console.log(txPrevouts);
+      console.log(prevoutsMapped);
+      console.log(transaction.vin.map((input) => input.txid));
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
