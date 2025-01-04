@@ -237,7 +237,6 @@ class BlocksRepository {
 
   public async $saveBalancesInDatabase(
     transactions: TransactionExtended[],
-    blockTimestamp: number,
     balanceCache?: DatabaseBalances
   ): Promise<void> {
     let balances: DatabaseBalances = {};
