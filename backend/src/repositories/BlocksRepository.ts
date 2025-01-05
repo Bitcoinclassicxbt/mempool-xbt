@@ -274,9 +274,7 @@ class BlocksRepository {
       let outputs: Output[] = Object.values(
         await outputsExtracted.reduce(async (accPromise, vout) => {
           const acc = await accPromise;
-          if (vout === undefined) {
-            return acc;
-          }
+          if (!vout) return acc;
 
           const key =
             vout.scriptpubkey_address ??
