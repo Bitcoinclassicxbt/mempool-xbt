@@ -3,6 +3,11 @@
     class="float-left"
     style="display: flex; width: 100%; align-items: center"
   >
+    <h4>
+      SITE IS UNDER MAINTAINANCE: We are currently working on improving our
+      services. Features, including mempool data, may not be fully accurate at
+      the moment. Please check back in later.
+    </h4>
     <h1>Holders</h1>
 
     <div *ngIf="isLoading" class="spinner-border" role="status"></div>
@@ -43,13 +48,6 @@
                   >{{ tag }}</span
                 >
               </ng-container>
-
-              <!-- Add Dormant badge if last_seen is before 2014 -->
-              <ng-container
-                *ngIf="(holder.last_seen | date: 'yyyyMMdd') < '20140101'"
-              >
-                <span class="badge badge-info">Dormant</span>
-              </ng-container>
             </span>
           </td>
           <td class="address_mobile text-left">
@@ -69,13 +67,6 @@
                   class="badge badge-warning"
                   >{{ tag }}</span
                 >
-              </ng-container>
-
-              <!-- Add Dormant badge if last_seen is before 2014 -->
-              <ng-container
-                *ngIf="(holder.last_seen | date: 'yyyyMMdd') < '20140101'"
-              >
-                <span class="badge badge-info">Dormant</span>
               </ng-container>
             </span>
           </td>
