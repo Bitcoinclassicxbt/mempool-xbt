@@ -243,6 +243,10 @@ class BlocksRepository {
       transactions.map((tx) => tx.vin.map((i) => i.txid)).flat(1)
     );
 
+    console.log(
+      'txids: ',
+      transactions.map((tx) => tx.vin.map((i) => i.txid))
+    );
     console.log('previousTransactions', previousTransactions);
 
     const prevoutsMapped: { [key: string]: IEsploraApi.Vout } =
