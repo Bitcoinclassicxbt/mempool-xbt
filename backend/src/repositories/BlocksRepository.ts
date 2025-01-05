@@ -239,9 +239,13 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
     const seenSenders = new Set<string>();
 
-    const prevTxids = transactions
-      .map((tx) => tx.vin.filter((i) => !i.is_coinbase).map((i) => i.txid))
-      .flat(1);
+    const prevTxids = [
+      ...new Set(
+        transactions
+          .map((tx) => tx.vin.filter((i) => !i.is_coinbase).map((i) => i.txid))
+          .flat(1)
+      ),
+    ];
 
     const previousTransactions = await bitcoinApi.$getRawTransactions(
       prevTxids
