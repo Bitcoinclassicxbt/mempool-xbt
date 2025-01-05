@@ -5,7 +5,7 @@ export type HolderResponse = {
     address: string;
     balance: number;
     position: number;
-    lastSeen: number;
+    last_seen: number;
   }>;
 };
 

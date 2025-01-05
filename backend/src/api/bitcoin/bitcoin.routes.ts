@@ -1075,7 +1075,7 @@ class BitcoinRoutes {
           address: holder.address,
           balance: holder.balance,
           position: holder.position,
-          lastSeen: new Date(holder.lastSeen).toISOString(),
+          last_seen: new Date(holder.last_seen).toISOString(),
         };
       });
 
