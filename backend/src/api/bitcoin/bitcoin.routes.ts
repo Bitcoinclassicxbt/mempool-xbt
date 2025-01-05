@@ -12,6 +12,7 @@ import backendInfo from '../backend-info';
 import transactionUtils from '../transaction-utils';
 import { IEsploraApi } from './esplora-api.interface';
 import { IBitcoinApi } from './bitcoin-api.interface';
+import { HolderResponse, CirculatingSupplyResponse } from './feelinglucky-api';
 
 import loadingIndicators from '../loading-indicators';
 import { TransactionExtended } from '../../mempool.interfaces';
@@ -27,17 +28,19 @@ import DB from '../../database';
 import { log } from 'console';
 import { getTags, injectTags } from '../../utils/tags';
 
+const FEELING_LUCKY_URL =
+  config.FEELING_LUCKY.HOST + ':' + config.FEELING_LUCKY.PORT;
+
 const tags = getTags();
 
 class BitcoinRoutes {
-  private holderCacheResponse: IBitcoinApi.Holders = {total: 0, holders: [], totalBalance: 0};
+  //private holderCacheResponse: IBitcoinApi.Holders = {total: 0, holders: [], totalBalance: 0};
 
-
-  public  async initRoutes(app: Application) {
-    await this.getAllHolders();
+  public async initRoutes(app: Application) {
+    //await this.getAllHolders();
 
     // Fetch holders every minute
-    setInterval(() => this.getAllHolders(), 1000 * 60);
+    //setInterval(() => this.getAllHolders(), 1000 * 60);
     app
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'transaction-times',
@@ -47,7 +50,10 @@ class BitcoinRoutes {
         config.MEMPOOL.API_URL_PREFIX + 'circulating-supply',
         this.getCirculatingSupply.bind(this)
       )
-      .get(config.MEMPOOL.API_URL_PREFIX + 'holders', this.getHolders.bind(this))
+      .get(
+        config.MEMPOOL.API_URL_PREFIX + 'holders',
+        this.getHolders.bind(this)
+      )
       .get(config.MEMPOOL.API_URL_PREFIX + 'cpfp/:txId', this.$getCpfpInfo)
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'difficulty-adjustment',
@@ -1043,10 +1049,12 @@ class BitcoinRoutes {
     }
   }
 
-  private getCirculatingSupply(req: Request, res: Response) {
+  private async getCirculatingSupply(req: Request, res: Response) {
     try {
-
-      res.send(Math.floor(this.holderCacheResponse.totalBalance / 1e8) + '.00000000');
+      const response = await axios.get<CirculatingSupplyResponse>(
+        FEELING_LUCKY_URL + '/circulating-supply'
+      );
+      res.json(response.data.circulatingSupply);
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
@@ -1054,24 +1062,32 @@ class BitcoinRoutes {
 
   private async getHolders(req: Request, res: Response) {
     const pageParam = req.query.page as string;
-    const limitParam = req.query.limit as string;
 
-    const page = parseInt(pageParam, 10) || 1;
-    const limit = Math.max(parseInt(limitParam, 10) || 100, 100);
+    try {
+      const response = await axios.get<HolderResponse>(
+        FEELING_LUCKY_URL + '/holders',
+        {
+          params: {
+            page: pageParam,
+          },
+        }
+      );
 
-    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
-      handleError(req, res, 400, 'Invalid page or limit');
-      return;
+      const holders = response.data.data.map((holder) => {
+        return {
+          address: holder.address,
+          balance: holder.balance,
+          position: holder.position,
+          lastSeen: new Date(holder.lastSeen).toISOString(),
+        };
+      });
+
+      return res.json({ total: response.data.total, holders });
+    } catch (e) {
+      handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
-
-    const offset = (page - 1) * limit;
-
-
-    const holders = this.holderCacheResponse.holders.slice(offset, offset + limit).map((holder) => injectTags<IBitcoinApi.ApiBalance, "address">(holder, "address", tags));
-
-    res.json({holders, total: this.holderCacheResponse.total});
   }
-
+  /*
   private async getAllHolders(): Promise<void> {
     try {
       // Query to get the total number of balances excluding zero balances
@@ -1080,11 +1096,11 @@ class BitcoinRoutes {
         FROM balances
         WHERE balance > 0
       `;
-  
+
       const [totalRows] = await DB.query(totalQuery);
       const total = totalRows[0]?.total || 0;
       const totalBalance = totalRows[0]?.totalBalance || 0;
-  
+
       // Query to fetch all holders with non-zero balances
       const holdersQuery = `
         SELECT *
@@ -1092,9 +1108,9 @@ class BitcoinRoutes {
         WHERE balance > 0
         ORDER BY balance DESC
       `;
-  
+
       const [rows] = await DB.query<IBitcoinApi.DBBalance[]>(holdersQuery);
-  
+
       this.holderCacheResponse = {
         total,
         totalBalance,
@@ -1103,15 +1119,14 @@ class BitcoinRoutes {
           return { ...row, position: index + 1 };
         }),
       };
-  
+
       return;
     } catch (e) {
-      logger.err("Error in getAllHolders: " + e);
+      logger.err('Error in getAllHolders: ' + e);
       return;
     }
   }
-  
-
+*/
   private async getBlockTipHash(req: Request, res: Response) {
     try {
       const result = await bitcoinApi.$getBlockHashTip();

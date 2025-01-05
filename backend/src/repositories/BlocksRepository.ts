@@ -230,7 +230,7 @@ class BlocksRepository {
       }
     }
   }
-
+  /*
   public async $saveBalancesInDatabase(
     transactions: TransactionExtended[],
     blockTimestamp: number
@@ -410,6 +410,7 @@ class BlocksRepository {
    * @param utxoSetSize
    * @param totalInputAmt
    */
+
   public async $updateCoinStatsIndexData(
     blockHash: string,
     utxoSetSize: number,
