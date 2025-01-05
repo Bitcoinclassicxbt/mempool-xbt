@@ -1,13 +1,19 @@
 <div class="container-xl" style="min-height: 335px">
   <div
     class="float-left"
-    style="display: flex; width: 100%; align-items: center"
+    style="
+      display: flex;
+      width: 100%;
+      align-items: center;
+      flex-direction: column;
+    "
   >
     <h4>
-      SITE IS UNDER MAINTAINANCE: We are currently working on improving our
-      services. Features, including mempool data, may not be fully accurate at
-      the moment. Please check back in later.
+      <span style="color: #ffc107">SITE IS UNDER MAINTAINANCE:</span> We are
+      currently working on improving our services. Features, including mempool
+      data, may not be fully accurate at the moment. Please check back in later.
     </h4>
+
     <h1>Holders</h1>
 
     <div *ngIf="isLoading" class="spinner-border" role="status"></div>
