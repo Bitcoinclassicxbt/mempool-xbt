@@ -239,14 +239,15 @@ class BlocksRepository {
     let balances: DatabaseBalances = {};
     const seenSenders = new Set<string>();
 
+    const prevTxids = transactions
+      .map((tx) => tx.vin.filter((i) => !i.is_coinbase).map((i) => i.txid))
+      .flat(1);
+
     const previousTransactions = await bitcoinApi.$getRawTransactions(
-      transactions.map((tx) => tx.vin.map((i) => i.txid)).flat(1)
+      prevTxids
     );
 
-    console.log(
-      'txids: ',
-      transactions.map((tx) => tx.vin.map((i) => i.txid))
-    );
+    console.log('prevTxids', prevTxids);
     console.log('previousTransactions', previousTransactions);
 
     const prevoutsMapped: { [key: string]: IEsploraApi.Vout } =
