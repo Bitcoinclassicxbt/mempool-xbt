@@ -243,11 +243,15 @@ class BlocksRepository {
       transactions.map((tx) => tx.vin.map((i) => i.txid)).flat(1)
     );
 
+    console.log('previousTransactions', previousTransactions);
+
     const prevoutsMapped: { [key: string]: IEsploraApi.Vout } =
       previousTransactions.reduce((acc, tx) => {
         acc[tx.txid] = tx.vout;
         return acc;
       }, {});
+
+    console.log('prevoutsMapped', prevoutsMapped);
 
     for (let transaction of transactions) {
       //prevouts arent being populated correctly, so fetch them directly from electrs
@@ -255,6 +259,8 @@ class BlocksRepository {
       const txPrevouts: IEsploraApi.Vout[] = transaction.vin
         .filter((input) => !input.is_coinbase)
         .map((input) => prevoutsMapped[input.txid][input.vout]);
+
+      console.log('txPrevouts', txPrevouts);
 
       txPrevouts.forEach((output) => {
         const key =
@@ -268,6 +274,8 @@ class BlocksRepository {
         transaction.vout,
         txPrevouts,
       ].flat(2);
+
+      console.log('outputsExtracted', outputsExtracted);
 
       let outputs: Output[] = Object.values(
         await outputsExtracted.reduce(async (accPromise, vout) => {
@@ -288,6 +296,8 @@ class BlocksRepository {
           return acc;
         }, Promise.resolve({}))
       );
+
+      console.log('outputs', outputs);
 
       await Promise.all(
         outputs.map(async (output) => {
