@@ -243,16 +243,6 @@ class BlocksRepository {
       transactions.map((tx) => tx.vin.map((i) => i.txid)).flat(1)
     );
 
-    previousTransactions.forEach((tx) => {
-      tx.vout.forEach((output) => {
-        const address =
-          output.scriptpubkey_address ??
-          extractHexStringFromASM(output.scriptpubkey_asm);
-
-        seenSenders.add(address);
-      });
-    });
-
     const prevoutsMapped: { [key: string]: IEsploraApi.Vout } =
       previousTransactions.reduce((acc, tx) => {
         acc[tx.txid] = tx.vout;
@@ -264,7 +254,15 @@ class BlocksRepository {
 
       const txPrevouts: IEsploraApi.Vout[] = transaction.vin
         .filter((input) => !input.is_coinbase)
-        .map((input) => prevoutsMapped[input.txid]);
+        .map((input) => prevoutsMapped[input.txid][input.vout]);
+
+      txPrevouts.forEach((output) => {
+        const key =
+          output.scriptpubkey_address ??
+          extractHexStringFromASM(output.scriptpubkey_asm);
+
+        seenSenders.add(key);
+      });
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
