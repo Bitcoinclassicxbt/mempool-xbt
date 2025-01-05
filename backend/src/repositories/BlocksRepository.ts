@@ -392,14 +392,14 @@ class BlocksRepository {
 
       // Execute the query with parameterized values
       await DB.query(query, values);
-
+      /*
       if (balanceCache) {
         //pointer for this is saved in parent call
         Object.keys(balances).forEach(
           (key) => (balanceCache[key] = balances[key])
         );
       }
-
+*/
       return;
     } catch (e) {
       logger.err(
