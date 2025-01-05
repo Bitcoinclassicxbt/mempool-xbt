@@ -233,8 +233,7 @@ class BlocksRepository {
 
   public async $saveBalancesInDatabase(
     transactions: TransactionExtended[],
-    blockTimestamp: number,
-    balanceCache?: DatabaseBalances
+    blockTimestamp: number
   ): Promise<void> {
     let balances: DatabaseBalances = {};
     const seenSenders = new Set<string>();
@@ -311,10 +310,6 @@ class BlocksRepository {
 
       await Promise.all(
         outputs.map(async (output) => {
-          if (balanceCache && balanceCache[output.key]) {
-            return;
-          }
-
           if (output.is_opreturn) {
             return;
           }
@@ -395,13 +390,6 @@ class BlocksRepository {
 
       // Execute the query with parameterized values
       await DB.query(query, values);
-
-      if (balanceCache) {
-        //pointer for this is saved in parent call
-        Object.keys(balances).forEach(
-          (key) => (balanceCache[key] = balances[key])
-        );
-      }
 
       return;
     } catch (e) {

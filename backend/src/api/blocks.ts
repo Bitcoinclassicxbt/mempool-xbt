@@ -1143,8 +1143,7 @@ class Blocks {
           await blocksRepository.$saveBlockInDatabase(blockExtended);
           await blocksRepository.$saveBalancesInDatabase(
             transactions,
-            block.timestamp,
-            balanceCache
+            block.timestamp
           );
         }
 
