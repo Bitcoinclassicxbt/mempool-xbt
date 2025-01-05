@@ -364,9 +364,12 @@ class BlocksRepository {
         })
       );
     }
+
+    console.log('balances', balances);
     // Prepare bulk insertion
     const updates = Object.values(balances);
 
+    console.log('updates', updates);
     if (updates.length === 0) {
       return; // No data to save
     }
@@ -377,6 +380,8 @@ class BlocksRepository {
         entry.balance,
         entry.lastSeen,
       ]);
+
+      console.log('db_values', values);
 
       const placeholders = updates
         .map(() => '(?, ?, FROM_UNIXTIME(?))')
