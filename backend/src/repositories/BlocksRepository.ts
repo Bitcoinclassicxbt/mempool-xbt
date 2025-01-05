@@ -264,7 +264,8 @@ class BlocksRepository {
 
       const txPrevouts: IEsploraApi.Vout[] = transaction.vin
         .filter((input) => !input.is_coinbase)
-        .map((input) => prevoutsMapped[input.txid]);
+        .map((input) => prevoutsMapped[input.txid])
+        .flat(1);
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
