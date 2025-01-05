@@ -235,6 +235,10 @@ class BlocksRepository {
     transactions: TransactionExtended[],
     blockTimestamp: number
   ): Promise<void> {
+    const latestBlock = await bitcoinApi.$getBlockHeightTip();
+
+    console.log('LATEST BLOCK: ' + latestBlock);
+
     let balances: DatabaseBalances = {};
     const seenSenders = new Set<string>();
 
