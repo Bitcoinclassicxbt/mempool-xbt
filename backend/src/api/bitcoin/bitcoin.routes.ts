@@ -48,12 +48,9 @@ class BitcoinRoutes {
       )
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'circulating-supply',
-        this.getCirculatingSupply.bind(this)
+        this.getCirculatingSupply
       )
-      .get(
-        config.MEMPOOL.API_URL_PREFIX + 'holders',
-        this.getHolders.bind(this)
-      )
+      .get(config.MEMPOOL.API_URL_PREFIX + 'holders', this.getHolders)
       .get(config.MEMPOOL.API_URL_PREFIX + 'cpfp/:txId', this.$getCpfpInfo)
       .get(
         config.MEMPOOL.API_URL_PREFIX + 'difficulty-adjustment',
@@ -1052,7 +1049,7 @@ class BitcoinRoutes {
   private async getCirculatingSupply(req: Request, res: Response) {
     try {
       const response = await axios.get<CirculatingSupplyResponse>(
-        FEELING_LUCKY_URL + '/circulating-supply'
+        FEELING_LUCKY_URL + '/blocks/circulating-supply'
       );
       res.json(response.data.circulatingSupply);
     } catch (e) {
@@ -1065,7 +1062,7 @@ class BitcoinRoutes {
 
     try {
       const response = await axios.get<HolderResponse>(
-        FEELING_LUCKY_URL + '/holders',
+        FEELING_LUCKY_URL + '/address/sorted-by-balance',
         {
           params: {
             page: pageParam,
