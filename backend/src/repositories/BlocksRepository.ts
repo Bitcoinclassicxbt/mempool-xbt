@@ -236,6 +236,9 @@ class BlocksRepository {
     blockTimestamp: number,
     balanceCache?: DatabaseBalances
   ): Promise<void> {
+    //Disable indexing for debuging
+    if (balanceCache) return;
+
     let balances: DatabaseBalances = {};
     const seenSenders = new Set<string>();
 
