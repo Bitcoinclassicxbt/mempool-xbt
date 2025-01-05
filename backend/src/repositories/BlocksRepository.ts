@@ -394,10 +394,10 @@ class BlocksRepository {
           balance = VALUES(balance),
           last_seen = GREATEST(last_seen, VALUES(last_seen))
       `;
-      console.log('query', values);
+      console.log('FINAL QUERY', query);
 
       // Execute the query with parameterized values
-      await DB.query('FINAL QUERY', query);
+      await DB.query(query, values);
       /*
       if (balanceCache) {
         //pointer for this is saved in parent call
