@@ -29,7 +29,7 @@ import { log } from 'console';
 import { getTags, injectTags } from '../../utils/tags';
 
 const FEELING_LUCKY_URL =
-  config.FEELING_LUCKY.HOST + ':' + config.FEELING_LUCKY.PORT;
+  'http://' + config.FEELING_LUCKY.HOST + ':' + config.FEELING_LUCKY.PORT;
 
 const tags = getTags();
 
