@@ -276,6 +276,8 @@ class BlocksRepository {
           const acc = await accPromise;
           if (!vout) return acc;
 
+          console.log(vout);
+
           const key =
             vout.scriptpubkey_address ??
             extractHexStringFromASM(vout.scriptpubkey_asm);
