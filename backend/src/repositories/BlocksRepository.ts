@@ -236,9 +236,6 @@ class BlocksRepository {
     blockTimestamp: number,
     balanceCache?: DatabaseBalances
   ): Promise<void> {
-    //Disable indexing for debuging
-    if (balanceCache) return;
-
     let balances: DatabaseBalances = {};
     const seenSenders = new Set<string>();
 
@@ -398,14 +395,14 @@ class BlocksRepository {
 
       // Execute the query with parameterized values
       await DB.query(query, values);
-      /*
+
       if (balanceCache) {
         //pointer for this is saved in parent call
         Object.keys(balances).forEach(
           (key) => (balanceCache[key] = balances[key])
         );
       }
-*/
+
       return;
     } catch (e) {
       logger.err(
