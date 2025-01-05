@@ -284,7 +284,7 @@ class BlocksRepository {
         txPrevouts,
       ].flat(2);
 
-      console.log('seenSenders', outputsExtracted);
+      console.log('seenSenders', seenSenders);
       console.log('outputsExtracted', outputsExtracted);
 
       let outputs: Output[] = Object.values(
