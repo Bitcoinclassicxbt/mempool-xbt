@@ -264,13 +264,12 @@ class BlocksRepository {
 
       const txPrevouts: IEsploraApi.Vout[] = transaction.vin
         .filter((input) => !input.is_coinbase)
-        .map((input) => prevoutsMapped[input.txid])
-        .flat(1);
+        .map((input) => prevoutsMapped[input.txid]);
 
       let outputsExtracted: IEsploraApi.Vout[] = [
         transaction.vout,
         txPrevouts,
-      ].flat(1);
+      ].flat(2);
 
       let outputs: Output[] = Object.values(
         await outputsExtracted.reduce(async (accPromise, vout) => {
