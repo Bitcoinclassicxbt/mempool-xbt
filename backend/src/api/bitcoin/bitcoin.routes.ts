@@ -1053,7 +1053,7 @@ class BitcoinRoutes {
   private async getCirculatingSupply(req: Request, res: Response) {
     try {
       const response = await axios.get<CirculatingSupplyResponse>(
-        FEELING_LUCKY_URL + '/blocks/circulating-supply'
+        FEELING_LUCKY_URL + '/block/circulating-supply'
       );
       res.json(response.data.circulatingSupply);
     } catch (e) {
