@@ -1091,7 +1091,7 @@ class BitcoinRoutes {
         injectTags<ISingleHolder, 'address'>(holder, 'address', tags)
       );
 
-      return res.json({ total: response.data.total, holders });
+      return res.json({ total: response.data.total, holders: holdersWithTags });
     } catch (e) {
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
