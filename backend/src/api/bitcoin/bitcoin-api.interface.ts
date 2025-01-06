@@ -21,7 +21,7 @@ export namespace IBitcoinApi {
     address: string;
     tag?: string;
     balance: number;
-    lastSeen: number;
+    last_seen: number;
   }
 
   export interface DBBalance extends RowDataPacket {
@@ -29,14 +29,14 @@ export namespace IBitcoinApi {
     address: string;
     tag_data?: ITag;
     balance: number;
-    lastSeen: number;
+    last_seen: number;
   }
 
   export type Holders = {
     total: number;
     holders: ApiBalance[];
     totalBalance: number;
-  }
+  };
 
   export type ApiBalance = {
     position: number;

@@ -12,7 +12,11 @@ import backendInfo from '../backend-info';
 import transactionUtils from '../transaction-utils';
 import { IEsploraApi } from './esplora-api.interface';
 import { IBitcoinApi } from './bitcoin-api.interface';
-import { HolderResponse, CirculatingSupplyResponse } from './feelinglucky-api';
+import {
+  HolderResponse,
+  CirculatingSupplyResponse,
+  ISingleHolder,
+} from './feelinglucky-api';
 
 import loadingIndicators from '../loading-indicators';
 import { TransactionExtended } from '../../mempool.interfaces';
@@ -1070,8 +1074,8 @@ class BitcoinRoutes {
         }
       );
 
-      const holders = response.data.data.map((holder) => {
-        const time = !isNaN(holder.last_seen)
+      let holders = response.data.data.map((holder) => {
+        const time = !isNaN(holder.last_seen as number)
           ? new Date(Number(holder.last_seen) * 1000).toISOString()
           : new Date(1369433253000).toISOString();
 
@@ -1082,6 +1086,10 @@ class BitcoinRoutes {
           last_seen: new Date(time).toISOString(),
         };
       });
+
+      const holdersWithTags = holders.map((holder) =>
+        injectTags<ISingleHolder, 'address'>(holder, 'address', tags)
+      );
 
       return res.json({ total: response.data.total, holders });
     } catch (e) {
