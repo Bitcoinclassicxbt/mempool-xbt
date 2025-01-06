@@ -1071,11 +1071,15 @@ class BitcoinRoutes {
       );
 
       const holders = response.data.data.map((holder) => {
+        const time = !isNaN(holder.last_seen)
+          ? new Date(Number(holder.last_seen) * 1000).toISOString()
+          : new Date(1369433253000).toISOString();
+
         return {
           address: holder.address,
           balance: holder.balance,
           position: holder.position,
-          last_seen: new Date(Number(holder.last_seen) * 1000).toISOString(),
+          last_seen: new Date(time).toISOString(),
         };
       });
 
