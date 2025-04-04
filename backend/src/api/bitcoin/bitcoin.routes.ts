@@ -1093,6 +1093,7 @@ class BitcoinRoutes {
 
       return res.json({ total: response.data.total, holders: holdersWithTags });
     } catch (e) {
+      console.log(e);
       handleError(req, res, 500, e instanceof Error ? e.message : e);
     }
   }
