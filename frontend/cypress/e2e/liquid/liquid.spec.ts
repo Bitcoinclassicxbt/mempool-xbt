@@ -150,7 +150,7 @@ describe('Liquid', () => {
         cy.waitForSkeletonGone();
         cy.get('.container-xl input')
           .click()
-          .type('Liquid Luckycoin')
+          .type('Liquid XBT')
           .then(() => {
             cy.get('ngb-typeahead-window', { timeout: 30000 }).should(
               'have.length',

@@ -1,7 +1,7 @@
 {
   "name": "mempool-frontend",
   "version": "3.1.0-dev",
-  "description": "Luckycoin mempool visualizer and blockchain explorer backend",
+  "description": "XBT mempool visualizer and blockchain explorer backend",
   "license": "GNU Affero General Public License v3.0",
   "homepage": "https://luckyscan.org",
   "repository": {

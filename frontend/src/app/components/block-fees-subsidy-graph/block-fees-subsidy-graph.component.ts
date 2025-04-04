@@ -76,7 +76,7 @@ export class BlockFeesSubsidyGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.setTitle($localize`:@@41545303ec98792b738d6237adbd1f3b54a22196:Block Fees Vs Subsidy`);
-    this.seoService.setDescription($localize`:@@meta.description.bitcoin.graphs.block-fees-subsidy:See the mining fees earned per Luckycoin block compared to the Luckycoin block subsidy, visualized in LKY and USD over time.`);
+    this.seoService.setDescription($localize`:@@meta.description.bitcoin.graphs.block-fees-subsidy:See the mining fees earned per XBT block compared to the XBT block subsidy, visualized in LKY and USD over time.`);
 
     this.miningWindowPreference = this.miningService.getDefaultTimespan('24h');
     this.radioGroupForm = this.formBuilder.group({ dateSpan: this.miningWindowPreference });
@@ -468,7 +468,7 @@ export class BlockFeesSubsidyGraphComponent implements OnInit {
   }
 
   subsidyAt(height: number): number {
-    return this.subsidies[Math.floor(Math.min(height / 100000, 33))];
+    return this.subsidies[Math.floor(Math.min(height / 210_000, 33))];
   }
 
   onZoom() {

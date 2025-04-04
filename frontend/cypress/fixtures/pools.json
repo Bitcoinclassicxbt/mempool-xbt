@@ -45,7 +45,7 @@
             "link" : "http://www.btc.top/"
         },
         "pool.bitcoin.com" : {
-            "name" : "Luckycoin.com",
+            "name" : "XBT.com",
             "link" : "https://www.bitcoin.com/"
         },
         "Mined By 175btc.com" : {
@@ -68,8 +68,8 @@
             "name" : "BitMinter",
             "link" : "https://bitminter.com/"
         },
-        "/Luckycoin-Russia.ru/" : {
-            "name" : "LuckycoinRussia",
+        "/XBT-Russia.ru/" : {
+            "name" : "XBTRussia",
             "link" : "https://bitcoin-russia.ru"
         },
         "btcserv" : {
@@ -233,7 +233,7 @@
             "link" : "https://bitclubpool.com/"
         },
         "bitcoinaffiliatenetwork.com" : {
-            "name" : "Luckycoin Affiliate Network",
+            "name" : "XBT Affiliate Network",
             "link" : "https://mining.bitcoinaffiliatenetwork.com/"
         },
         "LKYChina Pool" : {
@@ -380,8 +380,8 @@
             "name" : "58COIN",
             "link" : "https://www.58coin.com"
         },
-        "/Luckycoin-India/" : {
-            "name": "Luckycoin India",
+        "/XBT-India/" : {
+            "name": "XBT India",
             "link": "https://bitcoin-india.org"
         },
         "--Nug--" : {
@@ -432,8 +432,8 @@
             "name": "Helix",
             "link": ""
         },
-        "/Luckycoin-Ukraine.com.ua/": {
-            "name": "Luckycoin-Ukraine",
+        "/XBT-Ukraine.com.ua/": {
+            "name": "XBT-Ukraine",
             "link": "https://bitcoin-ukraine.com.ua/"
         },
         "/poolin.com": {
@@ -579,11 +579,11 @@
             "link" : "https://ghash.io/"
         },
         "14R2r9FkyDmyxGB9xUVwVLdgsX9YfdVamk" : {
-            "name" : "LuckycoinRussia",
+            "name" : "XBTRussia",
             "link" : "https://bitcoin-russia.ru/"
         },
         "165GCEAx81wce33FWEnPCRhdjcXCrBJdKn" : {
-            "name" : "LuckycoinRussia",
+            "name" : "XBTRussia",
             "link" : "https://bitcoin-russia.ru/"
         },
         "17kkmDx8eSwj2JTTULb3HkJhCmexfysExz" : {
@@ -859,7 +859,7 @@
             "link" : "http://haozhuzhu.com"
         },
         "1AZ6BkCo4zgTuuLpRStJH8iNsehXTMp456" : {
-            "name" : "LuckycoinIndia",
+            "name" : "XBTIndia",
             "link" : "https://pool.bitcoin-india.org/"
         },
         "1FLH1SoLv4U68yUERhDiWzrJn5TggMqkaZ" : {

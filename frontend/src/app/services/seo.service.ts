@@ -10,7 +10,7 @@ import { StateService } from '@app/services/state.service';
 export class SeoService {
   network = '';
   baseTitle = 'mempool';
-  baseDescription = 'Explore the full Luckycoin ecosystem&reg; with The Mempool Open Source Project&reg;.';
+  baseDescription = 'Explore the full XBT ecosystem&reg; with The Mempool Open Source Project&reg;.';
   baseDomain = 'mempool.space';
 
   canonicalLink: HTMLLinkElement = document.getElementById('canonical') as HTMLLinkElement;
@@ -88,16 +88,16 @@ export class SeoService {
 
   getTitle(): string {
     if (this.network === 'testnet')
-      return this.baseTitle + ' - Luckycoin Testnet3';
+      return this.baseTitle + ' - XBT Testnet3';
     if (this.network === 'testnet4')
-      return this.baseTitle + ' - Luckycoin Testnet4';
+      return this.baseTitle + ' - XBT Testnet4';
     if (this.network === 'signet')
-      return this.baseTitle + ' - Luckycoin Signet';
+      return this.baseTitle + ' - XBT Signet';
     if (this.network === 'liquid')
       return this.baseTitle + ' - Liquid Network';
     if (this.network === 'liquidtestnet')
       return this.baseTitle + ' - Liquid Testnet';
-    return this.baseTitle + ' - ' + (this.network ? this.ucfirst(this.network) : 'Luckycoin') + ' Explorer';
+    return this.baseTitle + ' - ' + (this.network ? this.ucfirst(this.network) : 'XBT') + ' Explorer';
   }
 
   getDescription(): string {

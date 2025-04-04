@@ -424,7 +424,7 @@ process.on('SIGTERM', async () => {
 
 function capitalize(str) {
   if (str === 'onbtc') {
-    return 'ONBTC';
+    return 'ONXBT';
   }
   if (str && str.length) {
     return str[0].toUpperCase() + str.slice(1);

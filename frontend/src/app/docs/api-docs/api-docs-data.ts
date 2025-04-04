@@ -1,4 +1,4 @@
-const luckycoinNetworks = ['', 'testnet', 'testnet4', 'signet'];
+const bitcoinNetworks = ['', 'testnet', 'testnet4', 'signet'];
 const liquidNetworks = ['liquid', 'liquidtestnet'];
 const lightningNetworks = ['', 'testnet', 'signet'];
 const miningTimeIntervals =
@@ -123,7 +123,7 @@ export const restApiDocsData = [
     category: 'general',
     fragment: 'general',
     title: 'General',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
@@ -135,7 +135,7 @@ export const restApiDocsData = [
       default: 'Returns details about difficulty adjustment.',
     },
     urlString: '/v1/difficulty-adjustment',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -234,7 +234,7 @@ export const restApiDocsData = [
     title: 'GET Circulating Supply',
     description: {
       default:
-        'Returns the current circulating supply of Luckycoin. The response is returned as raw text.',
+        'Returns the current circulating supply of XBT. The response is returned as raw text.',
     },
     urlString: '/v1/circulating-supply',
     showConditions: [''],
@@ -272,7 +272,7 @@ export const restApiDocsData = [
     fragment: 'get-price',
     title: 'GET Price',
     description: {
-      default: 'Returns luckycoin latest price denominated in main currencies.',
+      default: 'Returns bitcoin latest price denominated in main currencies.',
     },
     urlString: '/v1/prices',
     showConditions: [''],
@@ -314,7 +314,7 @@ export const restApiDocsData = [
     title: 'GET Historical Price',
     description: {
       default:
-        'Returns luckycoin historical price denominated in main currencies. Available query parameters: <code>currency</code>, <code>timestamp</code>. If no parameter is provided, the full price history for all currencies is returned.',
+        'Returns bitcoin historical price denominated in main currencies. Available query parameters: <code>currency</code>, <code>timestamp</code>. If no parameter is provided, the full price history for all currencies is returned.',
     },
     urlString: '/v1/historical-price?currency=EUR&timestamp=1500000000',
     showConditions: [''],
@@ -361,7 +361,7 @@ export const restApiDocsData = [
     category: 'addresses',
     fragment: 'addresses',
     title: 'Addresses',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
   },
   {
     type: 'endpoint',
@@ -374,7 +374,7 @@ export const restApiDocsData = [
         'Returns details about an address. Available fields: <code>address</code>, <code>chain_stats</code>, and <code>mempool_stats</code>. <code>chain_stats</code> and <code>mempool_stats</code> each contain an object with <code>tx_count</code>, <code>funded_txo_count</code>, <code>funded_txo_sum</code>, <code>spent_txo_count</code>, and <code>spent_txo_sum</code>.',
     },
     urlString: '/address/:address',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -518,7 +518,7 @@ export const restApiDocsData = [
         'Get transaction history for the specified address/scripthash, sorted with newest first. Returns up to 50 mempool transactions plus the first 25 confirmed transactions. You can request more confirmed transactions using an <code>after_txid</code> query parameter.',
     },
     urlString: '/address/:address/txs',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -678,7 +678,7 @@ export const restApiDocsData = [
         'Get confirmed transaction history for the specified address/scripthash, sorted with newest first. Returns 25 transactions per page. More can be requested by specifying the last txid seen by the previous query.',
     },
     urlString: '/address/:address/txs/chain',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -838,7 +838,7 @@ export const restApiDocsData = [
         'Get unconfirmed transaction history for the specified address/scripthash. Returns up to 50 transactions (no paging).',
     },
     urlString: '/address/:address/txs/mempool',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -966,7 +966,7 @@ export const restApiDocsData = [
         'Get the list of unspent transaction outputs associated with the address/scripthash. Available fields: <code>txid</code>, <code>vout</code>, <code>value</code>, and <code>status</code> (with the status of the funding tx). There is also a <code>valuecommitment</code> field that may appear in place of <code>value</code>, plus the following additional fields: <code>asset</code>/<code>assetcommitment</code>, <code>nonce</code>/<code>noncecommitment</code>, <code>surjection_proof</code>, and <code>range_proof</code>.',
     },
     urlString: '/address/:address/utxo',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -1106,7 +1106,7 @@ export const restApiDocsData = [
         'Fetches an array of UTXOs for an address that fulfill a send value of amount while performing UTXO management and using up low-value UTXOs the address has first. Includes additional fields such as <code>valuecommitment</code>, <code>assetcommitment</code>, and <code>range_proof</code> for confidential transactions. Does not work for addresses with over 500 UTXOs.',
     },
     urlString: '/api/address/:address/fetch-utxos/:amount',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -1194,7 +1194,7 @@ export const restApiDocsData = [
         'Returns whether an address is valid or not. Available fields: <code>isvalid</code> (boolean), <code>address</code> (string), <code>scriptPubKey</code> (string), <code>isscript</code> (boolean), <code>iswitness</code> (boolean), <code>witness_version</code> (numeric, optional), and <code>witness_program</code> (string, optional).',
     },
     urlString: '/v1/validate-address/:address',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -1623,7 +1623,7 @@ export const restApiDocsData = [
     category: 'blocks',
     fragment: 'blocks',
     title: 'Blocks',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
   },
   {
     type: 'endpoint',
@@ -1637,7 +1637,7 @@ export const restApiDocsData = [
         'Returns details about a block. Available fields: <code>id</code>, <code>height</code>, <code>version</code>, <code>timestamp</code>, <code>bits</code>, <code>nonce</code>, <code>merkle_root</code>, <code>tx_count</code>, <code>size</code>, <code>weight</code>,<code>proof</code>, and <code>previousblockhash</code>.',
     },
     urlString: '/block/:hash',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -1836,7 +1836,7 @@ export const restApiDocsData = [
       default: 'Returns the hex-encoded block header.',
     },
     urlString: '/block/:hash/header',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -1932,7 +1932,7 @@ export const restApiDocsData = [
         'Returns the hash of the block currently at <code>:height</code>.',
     },
     urlString: '/block-height/:height',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -1995,7 +1995,7 @@ export const restApiDocsData = [
         'Returns the height and the hash of the block closest to the given <code>:timestamp</code>.',
     },
     urlString: '/v1/mining/blocks/timestamp/:timestamp',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -2049,7 +2049,7 @@ export const restApiDocsData = [
       default: 'Returns the raw block representation in binary.',
     },
     urlString: '/block/:hash/raw',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2145,7 +2145,7 @@ export const restApiDocsData = [
         'Returns the confirmation status of a block. Available fields: <code>in_best_chain</code> (boolean, false for orphaned blocks), <code>next_best</code> (the hash of the next block, only available for blocks in the best chain).',
     },
     urlString: '/block/:hash/status',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2260,7 +2260,7 @@ export const restApiDocsData = [
       default: 'Returns the height of the last block.',
     },
     urlString: '/blocks/tip/height',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2323,7 +2323,7 @@ export const restApiDocsData = [
       default: 'Returns the hash of the last block.',
     },
     urlString: '/blocks/tip/hash',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2387,7 +2387,7 @@ export const restApiDocsData = [
         'Returns the transaction at index <code>:index</code> within the specified block.',
     },
     urlString: '/block/:hash/txid/:index',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2497,7 +2497,7 @@ export const restApiDocsData = [
       default: 'Returns a list of all txids in the block.',
     },
     urlString: '/block/:hash/txids',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2637,7 +2637,7 @@ export const restApiDocsData = [
         'Returns a list of transactions in the block (up to 25 transactions beginning at <code>start_index</code>). Transactions returned here do not have the <code>status</code> field, since all the transactions share the same block and confirmation status.',
     },
     urlString: '/block/:hash/txs[/:start_index]',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -2829,7 +2829,7 @@ export const restApiDocsData = [
         'Returns details on the past 15 blocks with fee and mining details in an <code>extras</code> field. If <code>:startHeight</code> is specified, the past 15 blocks before (and including) <code>:startHeight</code> are returned.',
     },
     urlString: '/v1/blocks[/:startHeight]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -3033,7 +3033,7 @@ export const restApiDocsData = [
         "<p>Returns details on the range of blocks between <code>:minHeight</code> and <code>:maxHeight</code>, inclusive, up to 10 blocks. If <code>:maxHeight</code> is not specified, it defaults to the current tip.</p><p>To return data for more than 10 blocks, consider becoming an <a href='https://luckyscan.org/enterprise'>enterprise sponsor</a>.</p>",
     },
     urlString: '/v1/blocks-bulk/:minHeight[/:maxHeight]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -3317,7 +3317,7 @@ export const restApiDocsData = [
     category: 'mining',
     fragment: 'mining',
     title: 'Mining',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
@@ -3332,7 +3332,7 @@ export const restApiDocsData = [
         '.',
     },
     urlString: '/v1/mining/pools[/:timePeriod]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -3431,7 +3431,7 @@ export const restApiDocsData = [
         '<p>Returns details about the mining pool specified by <code>:slug</code>.</p>',
     },
     urlString: '/v1/mining/pool/:slug',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -3526,7 +3526,7 @@ export const restApiDocsData = [
         '.</p>',
     },
     urlString: '/v1/mining/hashrate/pools/[:timePeriod]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -3633,7 +3633,7 @@ export const restApiDocsData = [
         'Returns all known hashrate data for the mining pool specified by <code>:slug</code>. Hashrate values are weekly averages.',
     },
     urlString: '/v1/mining/pool/:slug/hashrate',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -3754,7 +3754,7 @@ export const restApiDocsData = [
         "Returns past 10 blocks mined by the specified mining pool (<code>:slug</code>) before the specified <code>:blockHeight</code>. If no <code>:blockHeight</code> is specified, the mining pool's 10 most recent blocks are returned.",
     },
     urlString: '/v1/mining/pool/:slug/blocks/[:blockHeight]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -3843,7 +3843,7 @@ export const restApiDocsData = [
         codeSampleTestnet: {
           esModule: [],
           commonJS: [],
-          curl: [`luckycoincom`, `2226000`],
+          curl: [`bitcoincom`, `2226000`],
           response: `[
   {
     "id": "00000000000000ed428cdb70dfdeb0f3927912131cb96e7b1fe274b1bb1181b2",
@@ -3966,7 +3966,7 @@ export const restApiDocsData = [
         '. If no time interval is specified, all available data is returned.</p><p>Be sure that <code>INDEXING_BLOCKS_AMOUNT</code> is set properly in your backend config so that enough blocks are indexed to properly serve your request.</p>',
     },
     urlString: '/v1/mining/hashrate/[:timePeriod]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4086,7 +4086,7 @@ export const restApiDocsData = [
         '<p>Returns the record of difficulty adjustments over the specified trailing <code>:interval</code>:</p><ul><li>Block timestamp</li><li>Block height</li><li>Difficulty</li><li>Difficulty change</li></ul><p>If no time interval is specified, all available data is returned.',
     },
     urlString: '/v1/mining/difficulty-adjustments/[:interval]',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4181,7 +4181,7 @@ export const restApiDocsData = [
         'Returns block reward and total transactions confirmed for the past <code>:blockCount</code> blocks.',
     },
     urlString: '/v1/mining/reward-stats/:blockCount',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4244,7 +4244,7 @@ export const restApiDocsData = [
         '.</p><p>For <code>24h</code> and <code>3d</code> time periods, every block is included and fee amounts are exact (not averages). For the <code>1w</code> time period, fees may be averages depending on how fast blocks were found around a particular timestamp. For other time periods, fees are averages.</p>',
     },
     urlString: '/v1/mining/blocks/fees/:timePeriod',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4345,7 +4345,7 @@ export const restApiDocsData = [
         '.</p><p>For <code>24h</code> and <code>3d</code> time periods, every block is included and block rewards are exact (not averages). For the <code>1w</code> time period, block rewards may be averages depending on how fast blocks were found around a particular timestamp. For other time periods, block rewards are averages.</p>',
     },
     urlString: '/v1/mining/blocks/rewards/:timePeriod',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4441,7 +4441,7 @@ export const restApiDocsData = [
         '.</p><p>For <code>24h</code> and <code>3d</code> time periods, every block is included and percentiles are exact (not averages). For the <code>1w</code> time period, percentiles may be averages depending on how fast blocks were found around a particular timestamp. For other time periods, percentiles are averages.',
     },
     urlString: '/v1/mining/blocks/fee-rates/:timePeriod',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4570,7 +4570,7 @@ export const restApiDocsData = [
         '.</p><p>For <code>24h</code> and <code>3d</code> time periods, every block is included and figures are exact (not averages). For the <code>1w</code> time period, figures may be averages depending on how fast blocks were found around a particular timestamp. For other time periods, figures are averages.</p>',
     },
     urlString: '/v1/mining/blocks/sizes-weights/:timePeriod',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4716,7 +4716,7 @@ export const restApiDocsData = [
         '.</p><p>For <code>24h</code> and <code>3d</code> time periods, every block is included and figures are exact (not averages). For the <code>1w</code> time period, figures may be averages depending on how fast blocks were found around a particular timestamp. For other time periods, figures are averages.</p>',
     },
     urlString: ['/v1/mining/blocks/predictions/:timePeriod'],
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4825,7 +4825,7 @@ export const restApiDocsData = [
         'Returns the block audit score for the specified <code>:blockHash</code>. Available fields: <code>hash</code>, <code>matchRate</code>, <code>expectedFees</code>, and <code>expectedWeight</code>.',
     },
     urlString: ['/v1/mining/blocks/audit/score/:blockHash'],
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4889,7 +4889,7 @@ export const restApiDocsData = [
         'Returns blocks audit score for the past 16 blocks. If <code>:startHeight</code> is specified, the past 15 blocks before (and including) <code>:startHeight</code> are returned. Available fields: <code>hash</code>, <code>matchRate</code>, <code>expectedFees</code>, and <code>expectedWeight</code>.',
     },
     urlString: ['/v1/mining/blocks/audit/scores/:startHeight'],
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -4974,7 +4974,7 @@ export const restApiDocsData = [
         'Returns the block audit summary for the specified <code>:blockHash</code>. Available fields: <code>height</code>, <code>id</code>, <code>timestamp</code>, <code>template</code>, <code>missingTxs</code>, <code>addedTxs</code>, <code>freshTxs</code>, <code>sigopTxs</code>, <code>fullrbfTxs</code>, <code>acceleratedTxs</code>, <code>matchRate</code>, <code>expectedFees</code>, and <code>expectedWeight</code>.',
     },
     urlString: ['/v1/block/:blockHash/audit-summary'],
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -5123,7 +5123,7 @@ export const restApiDocsData = [
     category: 'fees',
     fragment: 'fees',
     title: 'Fees',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
   },
   {
     type: 'endpoint',
@@ -5135,7 +5135,7 @@ export const restApiDocsData = [
       default: 'Returns current mempool as projected blocks.',
     },
     urlString: '/v1/fees/mempool-blocks',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -5288,7 +5288,7 @@ export const restApiDocsData = [
       default: 'Returns our currently suggested fees for new transactions.',
     },
     urlString: '/v1/fees/recommended',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -5376,7 +5376,7 @@ export const restApiDocsData = [
     category: 'mempool',
     fragment: 'mempool',
     title: 'Mempool',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
   },
   {
     type: 'endpoint',
@@ -5388,7 +5388,7 @@ export const restApiDocsData = [
       default: 'Returns current mempool backlog statistics.',
     },
     urlString: '/mempool',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -5489,10 +5489,10 @@ export const restApiDocsData = [
     title: 'GET Mempool Transaction IDs',
     description: {
       default:
-        'Get the full list of txids in the mempool as an array. The order of the txids is arbitrary and does not match luckycoind.',
+        'Get the full list of txids in the mempool as an array. The order of the txids is arbitrary and does not match bitcoind.',
     },
     urlString: '/mempool/txids',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -5579,7 +5579,7 @@ export const restApiDocsData = [
         'Get a list of the last 10 transactions to enter the mempool. Each transaction object contains simplified overview data, with the following fields: <code>txid</code>, <code>fee</code>, <code>vsize</code>, and <code>value</code>.',
     },
     urlString: '/mempool/recent',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -5686,7 +5686,7 @@ export const restApiDocsData = [
         'Returns the list of mempool transactions that are part of a RBF chain.',
     },
     urlString: '/v1/replacements',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -5817,7 +5817,7 @@ export const restApiDocsData = [
         'Returns the list of mempool transactions that are part of a Full-RBF chain.',
     },
     urlString: '/v1/fullrbf/replacements',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -5941,7 +5941,7 @@ export const restApiDocsData = [
     category: 'transactions',
     fragment: 'transactions',
     title: 'Transactions',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
   },
   {
     type: 'endpoint',
@@ -5954,7 +5954,7 @@ export const restApiDocsData = [
         'Returns the ancestors and the best descendant fees for a transaction.',
     },
     urlString: '/v1/cpfp',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6020,7 +6020,7 @@ export const restApiDocsData = [
         'Returns details about a transaction. Available fields: <code>txid</code>, <code>version</code>, <code>locktime</code>, <code>size</code>, <code>weight</code>, <code>fee</code>, <code>vin</code>, <code>vout</code>, and <code>status</code>.',
     },
     urlString: '/tx/:txid',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6190,7 +6190,7 @@ export const restApiDocsData = [
       default: 'Returns a transaction serialized as hex.',
     },
     urlString: '/tx/:txid/hex',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6283,10 +6283,10 @@ export const restApiDocsData = [
     title: 'GET Transaction Merkleblock Proof',
     description: {
       default:
-        "Returns a merkle inclusion proof for the transaction using <a href='https://luckycoin.org/en/glossary/merkle-block'>luckycoind's merkleblock</a> format.",
+        "Returns a merkle inclusion proof for the transaction using <a href='https://bitcoin.org/en/glossary/merkle-block'>bitcoind's merkleblock</a> format.",
     },
     urlString: '/tx/:txid/merkleblock-proof',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6360,7 +6360,7 @@ export const restApiDocsData = [
         "Returns a merkle inclusion proof for the transaction using <a href='https://electrumx.readthedocs.io/en/latest/protocol-methods.html#blockchain-transaction-get-merkle'>Electrum's blockchain.transaction.get_merkle format.",
     },
     urlString: '/tx/:txid/merkle-proof',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6508,7 +6508,7 @@ export const restApiDocsData = [
         'Returns the spending status of a transaction output. Available fields: <code>spent</code> (boolean), <code>txid</code> (optional), <code>vin</code> (optional), and <code>status</code> (optional, the status of the spending tx).',
     },
     urlString: '/tx/:txid/outspend/:vout',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6674,7 +6674,7 @@ export const restApiDocsData = [
       default: 'Returns the spending status of all transaction outputs.',
     },
     urlString: '/tx/:txid/outspends',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6840,7 +6840,7 @@ export const restApiDocsData = [
       default: 'Returns a transaction as binary data.',
     },
     urlString: '/tx/:txid/raw',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -6935,7 +6935,7 @@ export const restApiDocsData = [
       default: 'Returns the RBF tree timeline of a transaction.',
     },
     urlString: 'v1/tx/:txId/rbf',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -7083,7 +7083,7 @@ export const restApiDocsData = [
         'Returns the confirmation status of a transaction. Available fields: <code>confirmed</code> (boolean), <code>block_height</code> (optional), and <code>block_hash</code> (optional).',
     },
     urlString: '/tx/:txid/status',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -7201,7 +7201,7 @@ export const restApiDocsData = [
         'Returns the timestamps when a list of unconfirmed transactions was initially observed in the mempool. If a transaction is not found in the mempool or has been mined, the timestamp will be <code>0</code>.',
     },
     urlString: '/v1/transaction-times',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
@@ -7259,7 +7259,7 @@ export const restApiDocsData = [
         'Broadcast a raw transaction to the network. The transaction should be provided as hex in the request body. The <code>txid</code> will be returned on success.',
     },
     urlString: '/api/tx',
-    showConditions: luckycoinNetworks.concat(liquidNetworks),
+    showConditions: bitcoinNetworks.concat(liquidNetworks),
     showJsExamples: showJsExamplesDefault,
     codeExample: {
       default: {
@@ -9934,7 +9934,7 @@ export const restApiDocsData = [
   ],
   "hasAccess": false,
   "availablePaymentMethods": {
-    "luckycoin": {
+    "bitcoin": {
       "enabled": true,
       "min": 1000,
       "max": 10000000
@@ -9961,13 +9961,13 @@ export const restApiDocsData = [
     description: {
       default: '<p>Request a LN invoice to accelerate a transaction.</p>',
     },
-    urlString: '/v1/services/payments/luckycoin',
+    urlString: '/v1/services/payments/bitcoin',
     showConditions: [''],
     showJsExamples: showJsExamplesDefaultFalse,
     codeExample: {
       default: {
         codeTemplate: {
-          curl: `%{1}" "[[hostname]][[baseNetworkUrl]]/api/v1/services/payments/luckycoin`, //custom interpolation technique handled in replaceCurlPlaceholder()
+          curl: `%{1}" "[[hostname]][[baseNetworkUrl]]/api/v1/services/payments/bitcoin`, //custom interpolation technique handled in replaceCurlPlaceholder()
           commonJS: ``,
           esModule: ``,
         },
@@ -10140,15 +10140,15 @@ export const restApiDocsData = [
           headers: 'X-Mempool-Auth: stacksats',
           response: `[
   {
-    "type": "Luckycoin",
+    "type": "XBT",
     "invoiceId": "CCunucVyNw7jUiUz64mmHz",
     "amount": 10311031,
     "status": "pending",
     "date": 1706372653000,
-    "link": "/payment/luckycoin/CCunucVyNw7jUiUz64mmHz"
+    "link": "/payment/bitcoin/CCunucVyNw7jUiUz64mmHz"
   },
   {
-    "type": "Luckycoin",
+    "type": "XBT",
     "invoiceId": "SG1U27R9PdWi3gH3jB9tm9",
     "amount": 10000000,
     "status": "paid",
@@ -10356,61 +10356,61 @@ export const faqData = [
     category: 'basics',
     fragment: 'basics',
     title: 'Basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-a-mempool',
     title: 'What is a mempool?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-a-mempool-explorer',
     title: 'What is a mempool explorer?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-a-blockchain',
     title: 'What is a blockchain?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-a-block-explorer',
     title: 'What is a block explorer?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-mining',
     title: 'What is mining?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-are-mining-pools',
     title: 'What are mining pools?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-are-vb-wu',
     title: 'What are virtual bytes (vB) and weight units (WU)?',
   },
   {
     type: 'endpoint',
     category: 'basics',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-svb',
     title: 'What is sat/vB?',
   },
@@ -10419,26 +10419,26 @@ export const faqData = [
     category: 'help',
     fragment: 'help-stuck-transaction',
     title: 'Help! My transaction is stuck',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
     category: 'help',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'why-is-transaction-stuck-in-mempool',
     title: "Why isn't my transaction confirming?",
   },
   {
     type: 'endpoint',
     category: 'help',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'how-to-get-transaction-confirmed-quickly',
     title: 'How can I get my transaction confirmed more quickly?',
   },
   {
     type: 'endpoint',
     category: 'help',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'how-prevent-stuck-transaction',
     title: 'How can I prevent a transaction from getting stuck in the future?',
   },
@@ -10447,40 +10447,40 @@ export const faqData = [
     category: 'using',
     fragment: 'using-this-website',
     title: 'Using this website',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
     category: 'how-to',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'looking-up-transactions',
     title: 'How can I look up a transaction?',
   },
   {
     type: 'endpoint',
     category: 'how-to',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'looking-up-addresses',
     title: 'How can I look up an address?',
   },
   {
     type: 'endpoint',
     category: 'how-to',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'looking-up-blocks',
     title: 'How can I look up a block?',
   },
   {
     type: 'endpoint',
     category: 'how-to',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'looking-up-fee-estimates',
     title: 'How can I look up fee estimates?',
   },
   {
     type: 'endpoint',
     category: 'how-to',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'looking-up-historical-trends',
     title: 'How can I explore historical trends?',
   },
@@ -10489,19 +10489,19 @@ export const faqData = [
     category: 'advanced',
     fragment: 'advanced',
     title: 'Advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-full-mempool',
     title: 'What does it mean for the mempool to be "full"?',
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'how-big-is-mempool-used-by-mempool-space',
     title: 'How big is the mempool used by mempool.space?',
     options: { officialOnly: true },
@@ -10509,28 +10509,28 @@ export const faqData = [
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-memory-usage',
     title: 'What is memory usage?',
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'why-empty-blocks',
     title: 'Why are there empty blocks?',
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'why-block-timestamps-dont-always-increase',
     title: "Why don't block timestamps always increase?",
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'why-dont-fee-ranges-match',
     title:
       "Why doesn't the fee range shown for a block match the feerates of transactions within the block?",
@@ -10538,7 +10538,7 @@ export const faqData = [
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     options: { auditOnly: true },
     fragment: 'how-do-block-audits-work',
     title: 'How do block audits work?',
@@ -10546,7 +10546,7 @@ export const faqData = [
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     options: { auditOnly: true },
     fragment: 'what-is-block-health',
     title: 'What is block health?',
@@ -10554,28 +10554,28 @@ export const faqData = [
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'how-do-mempool-goggles-work',
     title: 'How do Mempool Goggles™ work?',
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-are-sigops',
     title: 'What are sigops?',
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'what-is-adjusted-vsize',
     title: 'What is adjusted vsize?',
   },
   {
     type: 'endpoint',
     category: 'advanced',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'why-do-the-projected-block-fee-ranges-overlap',
     title: 'Why do the projected block fee ranges overlap?',
   },
@@ -10584,40 +10584,40 @@ export const faqData = [
     category: 'self-hosting',
     fragment: 'self-hosting',
     title: 'Self-Hosting',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
   },
   {
     type: 'endpoint',
     category: 'self-hosting',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'who-runs-this-website',
     title: 'Who runs this website?',
   },
   {
     type: 'endpoint',
     category: 'self-hosting',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'host-my-own-instance-raspberry-pi',
     title: 'How can I host my own instance on a Raspberry Pi?',
   },
   {
     type: 'endpoint',
     category: 'self-hosting',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'host-my-own-instance-server',
     title: 'How can I host a Mempool instance on my own server?',
   },
   {
     type: 'endpoint',
     category: 'self-hosting',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'install-mempool-with-docker',
     title: 'Can I install Mempool using Docker?',
   },
   {
     type: 'endpoint',
     category: 'self-hosting',
-    showConditions: luckycoinNetworks,
+    showConditions: bitcoinNetworks,
     fragment: 'address-lookup-issues',
     title:
       'Why do I get an error for certain address lookups on my Mempool instance?',

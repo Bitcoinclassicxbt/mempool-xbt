@@ -16,7 +16,7 @@ interface EpochProgress {
   timeUntilHalving: number;
 }
 
-const EPOCH_BLOCK_LENGTH = 2016; // Luckycoin mainnet
+const EPOCH_BLOCK_LENGTH = 2016; // XBT mainnet
 
 @Component({
   selector: 'app-difficulty-tooltip',

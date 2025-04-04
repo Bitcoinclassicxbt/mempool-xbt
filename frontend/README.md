@@ -129,7 +129,7 @@ https://www.transifex.com/mempool/mempool/dashboard/
 - Thai @Gusb3ll
 - Turkish @stackmore
 - Ukrainian @volbil
-- Vietnamese @LuckycoinvnNews
+- Vietnamese @XBTvnNews
 - Chinese @wdljt
 - Russian @TonyCrusoe @Bitconan
 - Romanian @mirceavesa

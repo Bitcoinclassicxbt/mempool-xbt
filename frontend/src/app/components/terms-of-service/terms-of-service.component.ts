@@ -18,7 +18,7 @@ export class TermsOfServiceComponent {
 
   ngOnInit(): void {
     this.seoService.setTitle('Terms of Service');
-    this.seoService.setDescription('Out of respect for the Luckycoin community, the mempool.space website is Luckycoin Only and does not display any advertising.');
+    this.seoService.setDescription('Out of respect for the XBT community, the mempool.space website is XBT Only and does not display any advertising.');
     this.ogService.setManualOgImage('tos.jpg');
   }
 }

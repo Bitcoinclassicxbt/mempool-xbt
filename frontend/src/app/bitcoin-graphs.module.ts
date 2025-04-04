@@ -20,15 +20,15 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class LuckycoinGraphsRoutingModule { }
+export class XBTGraphsRoutingModule { }
 
 @NgModule({
   imports: [
     CommonModule,
-    LuckycoinGraphsRoutingModule,
+    XBTGraphsRoutingModule,
   ],
 })
-export class LuckycoinGraphsModule { }
+export class XBTGraphsModule { }
 
 
 

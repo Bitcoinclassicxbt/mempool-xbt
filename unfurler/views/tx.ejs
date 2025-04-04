@@ -59,7 +59,7 @@
                 <% } else { %>
                   <td><a href="/address/<%= vin.prevout.scriptpubkey_address %>"><%= vin.prevout.scriptpubkey_address %></a></td>
                 <% } %>
-                <td><%= ((vin.prevout ? vin.prevout.value : 0) / 100_000_000).toFixed(8) %> BTC</td>
+                <td><%= ((vin.prevout ? vin.prevout.value : 0) / 100_000_000).toFixed(8) %> XBT</td>
               </tr>
             <% }) %>
           </table>
@@ -80,7 +80,7 @@
                     <a href="/address/<%= vout.scriptpubkey_address %>"><%= vout.scriptpubkey_address %></a>
                   <% } %>
                 </td>
-                <td><%= (vout.value / 100_000_000).toFixed(8) %> BTC</td>
+                <td><%= (vout.value / 100_000_000).toFixed(8) %> XBT</td>
               </tr>
             <% }) %>
           </table>

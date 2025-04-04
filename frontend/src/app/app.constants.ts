@@ -188,98 +188,87 @@ export const languages: Language[] = [
 export const specialBlocks = {
   '0': {
     labelEvent: 'Genesis',
-    labelEventCompleted: 'The Genesis of Luckycoin with 88 LKY reward per block',
-    details: 'Initial block reward set at 88 LKY with a target block time of 1 minute.',
+    labelEventCompleted: 'The Genesis of Bitcoin',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '100000': {
-    labelEvent: 'Luckycoin\'s 1st Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 44 LKY per block',
-    details: 'First halving, reducing the block reward from 88 to 44 LKY.',
+  '210000': {
+    labelEvent: 'Bitcoin\'s 1st Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 25 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '200000': {
-    labelEvent: 'Luckycoin\'s 2nd Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 22 LKY per block',
-    details: 'Second halving, reducing the block reward from 44 to 22 LKY.',
+  '420000': {
+    labelEvent: 'Bitcoin\'s 2nd Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 12.5 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '300000': {
-    labelEvent: 'Luckycoin\'s 3rd Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 11 LKY per block',
-    details: 'Third halving, reducing the block reward from 22 to 11 LKY.',
+  '630000': {
+    labelEvent: 'Bitcoin\'s 3rd Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 6.25 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '400000': {
-    labelEvent: 'Luckycoin\'s 4th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 5.5 LKY per block',
-    details: 'Fourth halving, reducing the block reward from 11 to 5.5 LKY.',
+  '709632': {
+    labelEvent: 'Taproot 🌱 activation',
+    labelEventCompleted: 'Taproot 🌱 has been activated!',
+    networks: ['mainnet'],
+  },
+  '840000': {
+    labelEvent: 'Bitcoin\'s 4th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 3.125 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '500000': {
-    labelEvent: 'Luckycoin\'s 5th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 2.75 LKY per block',
-    details: 'Fifth halving, reducing the block reward from 5.5 to 2.75 LKY.',
+  '1050000': {
+    labelEvent: 'Bitcoin\'s 5th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 1.5625 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '600000': {
-    labelEvent: 'Luckycoin\'s 6th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 1.375 LKY per block',
-    details: 'Sixth halving, reducing the block reward from 2.75 to 1.375 LKY.',
+  '1260000': {
+    labelEvent: 'Bitcoin\'s 6th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.78125 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '700000': {
-    labelEvent: 'Luckycoin\'s 7th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.6875 LKY per block',
-    details: 'Seventh halving, reducing the block reward from 1.375 to 0.6875 LKY.',
+  '1470000': {
+    labelEvent: 'Bitcoin\'s 7th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.390625 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '800000': {
-    labelEvent: 'Luckycoin\'s 8th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.34375 LKY per block',
-    details: 'Eighth halving, reducing the block reward from 0.6875 to 0.34375 LKY.',
+  '1680000': {
+    labelEvent: 'Bitcoin\'s 8th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.1953125 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '900000': {
-    labelEvent: 'Luckycoin\'s 9th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.171875 LKY per block',
-    details: 'Ninth halving, reducing the block reward from 0.34375 to 0.171875 LKY.',
+  '1890000': {
+    labelEvent: 'Bitcoin\'s 9th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.09765625 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1000000': {
-    labelEvent: 'Luckycoin\'s 10th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.0859375 LKY per block',
-    details: 'Tenth halving, reducing the block reward from 0.171875 to 0.0859375 LKY.',
+  '2100000': {
+    labelEvent: 'Bitcoin\'s 10th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.04882812 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1100000': {
-    labelEvent: 'Luckycoin\'s 11th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.04296875 LKY per block',
-    details: 'Eleventh halving, reducing the block reward from 0.0859375 to 0.04296875 LKY.',
+  '2310000': {
+    labelEvent: 'Bitcoin\'s 11th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.02441406 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1200000': {
-    labelEvent: 'Luckycoin\'s 12th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.021484375 LKY per block',
-    details: 'Twelfth halving, reducing the block reward from 0.04296875 to 0.021484375 LKY.',
+  '2520000': {
+    labelEvent: 'Bitcoin\'s 12th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.01220703 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1300000': {
-    labelEvent: 'Luckycoin\'s 13th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.0107421875 LKY per block',
-    details: 'Thirteenth halving, reducing the block reward from 0.021484375 to 0.0107421875 LKY.',
+  '2730000': {
+    labelEvent: 'Bitcoin\'s 13th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.00610351 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1400000': {
-    labelEvent: 'Luckycoin\'s 14th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.00537109375 LKY per block',
-    details: 'Fourteenth halving, reducing the block reward from 0.0107421875 to 0.00537109375 LKY.',
+  '2940000': {
+    labelEvent: 'Bitcoin\'s 14th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.00305175 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   },
-  '1500000': {
-    labelEvent: 'Luckycoin\'s 15th Halving',
-    labelEventCompleted: 'Block Subsidy has halved to 0.002685546875 LKY per block',
-    details: 'Fifteenth halving, reducing the block reward from 0.00537109375 to 0.002685546875 LKY.',
+  '3150000': {
+    labelEvent: 'Bitcoin\'s 15th Halving',
+    labelEventCompleted: 'Block Subsidy has halved to 0.00152587 XBT per block',
     networks: ['mainnet', 'testnet', 'testnet4'],
   }
 };

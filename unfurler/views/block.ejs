@@ -41,11 +41,11 @@
           </tr>
           <tr>
             <td>Total fees</td>
-            <td><%= (data.block.extras.totalFees / 100_000_000).toFixed(8) %> BTC</td>
+            <td><%= (data.block.extras.totalFees / 100_000_000).toFixed(8) %> XBT</td>
           </tr>
           <tr>
             <td>Subsidy + fees</td>
-            <td><%= (data.block.extras.reward / 100_000_000).toFixed(8) %> BTC</td>
+            <td><%= (data.block.extras.reward / 100_000_000).toFixed(8) %> XBT</td>
           </tr>
           <% if (data.block.extras.matchRate != null) { %>
             <tr>

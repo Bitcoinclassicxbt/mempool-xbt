@@ -52,6 +52,7 @@ interface IConfig {
     PRICE_UPDATES_PER_HOUR: number;
     MAX_TRACKED_ADDRESSES: number;
   };
+
   ESPLORA: {
     REST_API_URL: string;
     UNIX_SOCKET_PATH: string | void | null;
@@ -62,6 +63,7 @@ interface IConfig {
     FALLBACK: string[];
     MAX_BEHIND_TIP: number;
   };
+
   LIGHTNING: {
     ENABLED: boolean;
     BACKEND: 'lnd' | 'cln' | 'ldk';
@@ -182,7 +184,7 @@ interface IConfig {
     ENABLED: boolean;
     WALLETS: string[];
   };
-  FEELING_LUCKY: {
+  FEELING_SATS: {
     HOST: string;
     PORT: number;
   };
@@ -246,10 +248,6 @@ const defaults: IConfig = {
     HOST: '127.0.0.1',
     PORT: 3306,
     TLS_ENABLED: true,
-  },
-  FEELING_LUCKY: {
-    HOST: '127.0.0.1',
-    PORT: 2718,
   },
 
   CORE_RPC: {
@@ -361,6 +359,10 @@ const defaults: IConfig = {
     ENABLED: false,
     WALLETS: [],
   },
+  FEELING_SATS: {
+    PORT: 3434,
+    HOST: 'localhost',
+  },
 };
 
 class Config implements IConfig {
@@ -383,7 +385,7 @@ class Config implements IConfig {
   REDIS: IConfig['REDIS'];
   FIAT_PRICE: IConfig['FIAT_PRICE'];
   WALLETS: IConfig['WALLETS'];
-  FEELING_LUCKY: IConfig['FEELING_LUCKY'];
+  FEELING_SATS: IConfig['FEELING_SATS'];
 
   constructor() {
     const configs = this.merge(configFromFile, defaults);
@@ -406,7 +408,7 @@ class Config implements IConfig {
     this.REDIS = configs.REDIS;
     this.FIAT_PRICE = configs.FIAT_PRICE;
     this.WALLETS = configs.WALLETS;
-    this.FEELING_LUCKY = configs.FEELING_LUCKY;
+    this.FEELING_SATS = configs.FEELING_SATS;
   }
 
   merge = (...objects: object[]): IConfig => {

@@ -294,7 +294,7 @@
         <note priority="1" from="description">about.about-the-project</note>
       </trans-unit>
       <trans-unit id="8a4411dcb4da0aa489ec367bf2a3ec289e07a86e" datatype="html">
-        <source>Our mempool and blockchain explorer for the Luckycoin community, focusing on the transaction fee market and multi-layer ecosystem, completely self-hosted without any trusted third-parties.</source>
+        <source>Our mempool and blockchain explorer for the XBT community, focusing on the transaction fee market and multi-layer ecosystem, completely self-hosted without any trusted third-parties.</source>
         <target>Náš průzkumník mempoolu a blockchainu pro bitcoinovou komunitu se zaměřením na trh transakčních poplatků a vícevrstvý ekosystém. Je zcela samostatně hostovaný bez nutnosti důvěry třetích stran.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/about/about.component.html</context>
@@ -800,7 +800,7 @@
         <note priority="1" from="description">go-back</note>
       </trans-unit>
       <trans-unit id="7d89e94e98140d07d5c2bb12d6166b8b74506eb0" datatype="html">
-        <source>Accelerate your Luckycoin transaction?</source>
+        <source>Accelerate your XBT transaction?</source>
         <target>Urychlit vaši bitcoinovou transakci?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/accelerate-checkout/accelerate-checkout.component.html</context>
@@ -2246,8 +2246,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.address" datatype="html">
-        <source>See mempool transactions, confirmed transactions, balance, and more for <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Luckycoin'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> address <x id="INTERPOLATION" equiv-text="this.addressString"/>.</source>
-        <target>Podívejte se na transakce v mempoolu, potvrzené transakce, zůstatek a další informace o <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Luckycoin'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> adrese <x id="INTERPOLATION" equiv-text="this.addressString"/>.</target>
+        <source>See mempool transactions, confirmed transactions, balance, and more for <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'XBT'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> address <x id="INTERPOLATION" equiv-text="this.addressString"/>.</source>
+        <target>Podívejte se na transakce v mempoolu, potvrzené transakce, zůstatek a další informace o <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'XBT'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> adrese <x id="INTERPOLATION" equiv-text="this.addressString"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/address/address-preview.component.ts</context>
           <context context-type="linenumber">72</context>
@@ -2802,8 +2802,8 @@
         <note priority="1" from="description">mining.avg-block-fee-1m</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.block-fee-rates" datatype="html">
-        <source>See Luckycoin feerates visualized over time, including minimum and maximum feerates per block along with feerates at various percentiles.</source>
-        <target>Podívejte se na vizualizaci sazby poplatků Luckycoinu v průběhu času, včetně minimálních a maximálních poplatků na blok a jejich různých percentilů.</target>
+        <source>See XBT feerates visualized over time, including minimum and maximum feerates per block along with feerates at various percentiles.</source>
+        <target>Podívejte se na vizualizaci sazby poplatků XBTu v průběhu času, včetně minimálních a maximálních poplatků na blok a jejich různých percentilů.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-fee-rates-graph/block-fee-rates-graph.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -2827,7 +2827,7 @@
         <note priority="1" from="description">mining.block-fees</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.block-fees" datatype="html">
-        <source>See the average mining fees earned per Luckycoin block visualized in LKY and USD over time.</source>
+        <source>See the average mining fees earned per XBT block visualized in LKY and USD over time.</source>
         <target>Podívejte se na průměrné poplatky za těžbu vydělané za bitcoinový blok vizualizované v LKY a USD v průběhu času.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-fees-graph/block-fees-graph.component.ts</context>
@@ -2888,7 +2888,7 @@
         <note priority="1" from="description">mining.block-fees-subsidy-subsidy</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.block-fees-subsidy" datatype="html">
-        <source>See the mining fees earned per Luckycoin block compared to the Luckycoin block subsidy, visualized in LKY and USD over time.</source>
+        <source>See the mining fees earned per XBT block compared to the XBT block subsidy, visualized in LKY and USD over time.</source>
         <target>Podívejte se na poplatky za vytěžení jednoho bloku bitcoinu v porovnání s odměnou sítě za blok bitcoinu, vizualizované v LKY a USD v průběhu času.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-fees-subsidy-graph/block-fees-subsidy-graph.component.ts</context>
@@ -3016,8 +3016,8 @@
         <note priority="1" from="description">mining.blocks-health</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.block-health" datatype="html">
-        <source>See Luckycoin block health visualized over time. Block health is a measure of how many expected transactions were included in an actual mined block. Expected transactions are determined using Mempool's re-implementation of Luckycoin Core's transaction selection algorithm.</source>
-        <target>Podívejte se na vizualizaci stavu bloků Luckycoinu v čase. Stav bloku je měřítkem toho, kolik očekávaných transakcí bylo zahrnuto do skutečně vytěženého bloku. Očekávané transakce se určují pomocí reimplementace algoritmu výběru transakcí Luckycoin Core, kterou provedla společnost Mempool.</target>
+        <source>See XBT block health visualized over time. Block health is a measure of how many expected transactions were included in an actual mined block. Expected transactions are determined using Mempool's re-implementation of XBT Core's transaction selection algorithm.</source>
+        <target>Podívejte se na vizualizaci stavu bloků XBTu v čase. Stav bloku je měřítkem toho, kolik očekávaných transakcí bylo zahrnuto do skutečně vytěženého bloku. Očekávané transakce se určují pomocí reimplementace algoritmu výběru transakcí XBT Core, kterou provedla společnost Mempool.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-health-graph/block-health-graph.component.ts</context>
           <context context-type="linenumber">64</context>
@@ -3303,8 +3303,8 @@
         <note priority="1" from="description">mining.block-rewards</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.block-rewards" datatype="html">
-        <source>See Luckycoin block rewards in LKY and USD visualized over time. Block rewards are the total funds miners earn from the block subsidy and fees.</source>
-        <target>Podívejte se na vizualizaci odměn za bloky Luckycoinu v LKY a USD v čase. Odměny za bloky jsou celkové finanční prostředky, které těžaři získají z dotace bloku a poplatků.</target>
+        <source>See XBT block rewards in LKY and USD visualized over time. Block rewards are the total funds miners earn from the block subsidy and fees.</source>
+        <target>Podívejte se na vizualizaci odměn za bloky XBTu v LKY a USD v čase. Odměny za bloky jsou celkové finanční prostředky, které těžaři získají z dotace bloku a poplatků.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-rewards-graph/block-rewards-graph.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -3328,7 +3328,7 @@
         <note priority="1" from="description">mining.block-sizes-weights</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.block-sizes" datatype="html">
-        <source>See Luckycoin block sizes (MB) and block weights (weight units) visualized over time.</source>
+        <source>See XBT block sizes (MB) and block weights (weight units) visualized over time.</source>
         <target>Zobrazí velikosti bitcoinových bloků (MB) a váhy bloků (jednotky hmotnosti) vizualizované v průběhu času.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-sizes-weights-graph/block-sizes-weights-graph.component.ts</context>
@@ -3468,8 +3468,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.block" datatype="html">
-        <source>See size, weight, fee range, included transactions, audit (expected v actual), and more for Luckycoin<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> block <x id="BLOCK_HEIGHT" equiv-text="block.height"/> (<x id="BLOCK_ID" equiv-text="block.id"/>).</source>
-        <target>Podívejte se na velikost, váhu, rozsah poplatků, zahrnuté transakce, audit (očekávaný proti skutečnému) a další pro Luckycoin<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> blok<x id="BLOCK_HEIGHT" equiv-text="block.height"/> (<x id="BLOCK_ID" equiv-text="block.id"/>).</target>
+        <source>See size, weight, fee range, included transactions, audit (expected v actual), and more for XBT<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> block <x id="BLOCK_HEIGHT" equiv-text="block.height"/> (<x id="BLOCK_ID" equiv-text="block.id"/>).</source>
+        <target>Podívejte se na velikost, váhu, rozsah poplatků, zahrnuté transakce, audit (očekávaný proti skutečnému) a další pro XBT<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> blok<x id="BLOCK_HEIGHT" equiv-text="block.height"/> (<x id="BLOCK_ID" equiv-text="block.id"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/block-view/block-view.component.ts</context>
           <context context-type="linenumber">114</context>
@@ -4191,8 +4191,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.blocks" datatype="html">
-        <source>See the most recent Luckycoin<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> blocks along with basic stats such as block height, block reward, block size, and more.</source>
-        <target>Podívejte se na nejnovější Luckycoinové<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> bloky spolu se základními statistikami, jako je výška bloku, odměna za blok, velikost bloku a další.</target>
+        <source>See the most recent XBT<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> blocks along with basic stats such as block height, block reward, block size, and more.</source>
+        <target>Podívejte se na nejnovější XBTové<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> bloky spolu se základními statistikami, jako je výška bloku, odměna za blok, velikost bloku a další.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/blocks-list/blocks-list.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -5174,7 +5174,7 @@
         <note priority="1" from="description">mining.hashrate</note>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.hashrate" datatype="html">
-        <source>See hashrate and difficulty for the Luckycoin<x id="PH" equiv-text="seoDescriptionNetwork(this.network)"/> network visualized over time.</source>
+        <source>See hashrate and difficulty for the XBT<x id="PH" equiv-text="seoDescriptionNetwork(this.network)"/> network visualized over time.</source>
         <target>Podívejte se na hashrate a obtížnost bitcoinové sítě<x id="PH" equiv-text="seoDescriptionNetwork(this.network)"/> vizualizované v průběhu času.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/hashrate-chart/hashrate-chart.component.ts</context>
@@ -5202,7 +5202,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.descriptions.bitcoin.graphs.hashrate-pools" datatype="html">
-        <source>See Luckycoin mining pool dominance visualized over time: see how top mining pools' share of total hashrate has fluctuated over time.</source>
+        <source>See XBT mining pool dominance visualized over time: see how top mining pools' share of total hashrate has fluctuated over time.</source>
         <target>Podívejte se na vizualizaci dominance poolu pro těžbu bitcoinů v čase: podívejte se, jak se podíl top poolů těžby na celkovém hashrate v průběhu času měnil.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/hashrates-chart-pools/hashrate-chart-pools.component.ts</context>
@@ -5715,8 +5715,8 @@
         <note priority="1" from="description">master-page.faucet</note>
       </trans-unit>
       <trans-unit id="meta.description.mempool-block" datatype="html">
-        <source>See stats for <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Luckycoin'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> transactions in the mempool: fee range, aggregate size, and more. Mempool blocks are updated in real-time as the network receives new transactions.</source>
-        <target>Podívejte se na statistiky transakcí <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Luckycoin'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> v mempoolu: rozsah poplatků, velikost souhrnu a další. Mempool bloky jsou aktualizovány v reálném čase, když síť přijímá nové transakce.</target>
+        <source>See stats for <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'XBT'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> transactions in the mempool: fee range, aggregate size, and more. Mempool blocks are updated in real-time as the network receives new transactions.</source>
+        <target>Podívejte se na statistiky transakcí <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'XBT'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> v mempoolu: rozsah poplatků, velikost souhrnu a další. Mempool bloky jsou aktualizovány v reálném čase, když síť přijímá nové transakce.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/mempool-block/mempool-block.component.ts</context>
           <context context-type="linenumber">62</context>
@@ -5811,7 +5811,7 @@
         <note priority="1" from="description">dashboard.adjustments</note>
       </trans-unit>
       <trans-unit id="meta.description.mining.dashboard" datatype="html">
-        <source>Get real-time Luckycoin mining stats like hashrate, difficulty adjustment, block rewards, pool dominance, and more.</source>
+        <source>Get real-time XBT mining stats like hashrate, difficulty adjustment, block rewards, pool dominance, and more.</source>
         <target>Získejte statistiky těžby bitcoinů v reálném čase, jako je hashrate, úprava obtížnosti, odměny za blokování, dominance poolu a další.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/mining-dashboard/mining-dashboard.component.ts</context>
@@ -5996,8 +5996,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.bitcoin.graphs.pool-ranking" datatype="html">
-        <source>See the top Luckycoin mining pools ranked by number of blocks mined, over your desired timeframe.</source>
-        <target>Podívejte se na nejlepší těžební pooly Luckycoinu seřazené podle počtu vytěžených bloků za požadovaný časový úsek.</target>
+        <source>See the top XBT mining pools ranked by number of blocks mined, over your desired timeframe.</source>
+        <target>Podívejte se na nejlepší těžební pooly XBTu seřazené podle počtu vytěžených bloků za požadovaný časový úsek.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pool-ranking/pool-ranking.component.ts</context>
           <context context-type="linenumber">60</context>
@@ -6295,8 +6295,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.push-tx" datatype="html">
-        <source>Broadcast a transaction to the <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Luckycoin'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> network using the transaction's hash.</source>
-        <target>Vysílání transakce do <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'Luckycoin'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> sítě pomocí hashe transakce.</target>
+        <source>Broadcast a transaction to the <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'XBT'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> network using the transaction's hash.</source>
+        <target>Vysílání transakce do <x id="PH" equiv-text="this.stateService.network==='liquid'||this.stateService.network==='liquidtestnet'?'Liquid':'XBT'"/><x id="PH_1" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> sítě pomocí hashe transakce.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/push-transaction/push-transaction.component.ts</context>
           <context context-type="linenumber">39</context>
@@ -6325,7 +6325,7 @@
         <note priority="1" from="description">rbf.no-replacements-yet</note>
       </trans-unit>
       <trans-unit id="meta.description.rbf-list" datatype="html">
-        <source>See the most recent RBF replacements on the Luckycoin<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> network, updated in real-time.</source>
+        <source>See the most recent RBF replacements on the XBT<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/> network, updated in real-time.</source>
         <target>Podívejte se na nejnovější náhrady RBF na bitcoinové síti<x id="PH" equiv-text="seoDescriptionNetwork(this.stateService.network)"/>, aktualizované v reálném čase.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/rbf-list/rbf-list.component.ts</context>
@@ -6448,8 +6448,8 @@
         <note priority="1" from="meaning">shared.sat-vbyte</note>
       </trans-unit>
       <trans-unit id="7deec1c1520f06170e1f8e8ddfbe4532312f638f" datatype="html">
-        <source>Explore the full Luckycoin ecosystem</source>
-        <target>Prozkoumejte celý Luckycoin ekosystém</target>
+        <source>Explore the full XBT ecosystem</source>
+        <target>Prozkoumejte celý XBT ekosystém</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/search-form/search-form.component.html</context>
           <context context-type="linenumber">4</context>
@@ -6656,7 +6656,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.tv" datatype="html">
-        <source>See Luckycoin blocks and mempool congestion in real-time in a simplified format perfect for a TV.</source>
+        <source>See XBT blocks and mempool congestion in real-time in a simplified format perfect for a TV.</source>
         <target>Podívejte se na bitcoinové bloky a přetížení mempoolu v reálném čase ve zjednodušeném formátu, který je ideální pro televizi.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/television/television.component.ts</context>
@@ -7953,7 +7953,7 @@
         <note priority="1" from="description">lightning.indexing-in-progress</note>
       </trans-unit>
       <trans-unit id="999bb1a0150c2815a6b4dd64a1850e763603e525" datatype="html">
-        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="For any such requ"/><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="mempool.space mer"/>mempool.space merely provides data about the Luckycoin network.<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> It cannot help you with retrieving funds, wallet issues, etc.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="For any such requ"/>For any such requests, you need to get in touch with the entity that helped make the transaction (wallet software, exchange company, etc).<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
+        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="For any such requ"/><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="mempool.space mer"/>mempool.space merely provides data about the XBT network.<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> It cannot help you with retrieving funds, wallet issues, etc.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="For any such requ"/>For any such requests, you need to get in touch with the entity that helped make the transaction (wallet software, exchange company, etc).<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
         <target><x id="START_PARAGRAPH" ctype="x-p" equiv-text="For any such requ"/><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="mempool.space mer"/>mempool.space poskytuje pouze data o bitcoinové síti.<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> Nemůže vám pomoci s načítáním finančních prostředků, problémy s peněženkou atd.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="For any such requ"/>V případě jakýchkoliv takových žádostí je třeba nás kontaktovat s entitou, která pomohla provést transakci (software peněženky, burzovní společnost atd.).<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/docs/api-docs/api-docs.component.html</context>
@@ -9694,8 +9694,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="meta.description.lightning.nodes-isp" datatype="html">
-        <source>Browse all Luckycoin Lightning nodes using the <x id="PH" equiv-text="response.isp"/> [AS<x id="PH_1" equiv-text="this.route.snapshot.params.isp"/>] ISP and see aggregate stats like total number of nodes, total capacity, and more for the ISP.</source>
-        <target>Procházejte všechny uzly Luckycoin Lightning pomocí <x id="PH" equiv-text="response.isp"/> [AS<x id="PH_1" equiv-text="this.route.snapshot.params.isp"/>] ISP a podívejte se na souhrnné statistiky, jako je celkový počet uzlů, celková kapacita, a další pro ISP.</target>
+        <source>Browse all XBT Lightning nodes using the <x id="PH" equiv-text="response.isp"/> [AS<x id="PH_1" equiv-text="this.route.snapshot.params.isp"/>] ISP and see aggregate stats like total number of nodes, total capacity, and more for the ISP.</source>
+        <target>Procházejte všechny uzly XBT Lightning pomocí <x id="PH" equiv-text="response.isp"/> [AS<x id="PH_1" equiv-text="this.route.snapshot.params.isp"/>] ISP a podívejte se na souhrnné statistiky, jako je celkový počet uzlů, celková kapacita, a další pro ISP.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/lightning/nodes-per-isp/nodes-per-isp-preview.component.ts</context>
           <context context-type="linenumber">45</context>

@@ -187,12 +187,12 @@ import { ClockchainComponent } from '@components/clockchain/clockchain.component
 import { ClockFaceComponent } from '@components/clock-face/clock-face.component';
 import { ClockComponent } from '@components/clock/clock.component';
 import { CalculatorComponent } from '@components/calculator/calculator.component';
-import { LuckycoinsatoshisPipe } from '@app/shared/pipes/bitcoinsatoshis.pipe';
+import { XBTsatoshisPipe } from '@app/shared/pipes/bitcoinsatoshis.pipe';
 import { HttpErrorComponent } from '@app/shared/components/http-error/http-error.component';
 import { TwitterWidgetComponent } from '@components/twitter-widget/twitter-widget.component';
 import { FaucetComponent } from '@components/faucet/faucet.component';
 import { TwitterLogin } from '@components/twitter-login/twitter-login.component';
-import { LuckycoinInvoiceComponent } from '@components/bitcoin-invoice/bitcoin-invoice.component';
+import { XBTInvoiceComponent } from '@components/bitcoin-invoice/bitcoin-invoice.component';
 import { HoldersList } from '@components/holders/holders-list.component';
 import {
   OnlyVsizeDirective,
@@ -294,7 +294,7 @@ import {
     TestnetAlertComponent,
     GlobalFooterComponent,
     CalculatorComponent,
-    LuckycoinsatoshisPipe,
+    XBTsatoshisPipe,
     BlockViewComponent,
     EightBlocksComponent,
     MempoolBlockViewComponent,
@@ -314,7 +314,7 @@ import {
     TwitterWidgetComponent,
     FaucetComponent,
     TwitterLogin,
-    LuckycoinInvoiceComponent,
+    XBTInvoiceComponent,
   ],
   imports: [
     CommonModule,
@@ -446,8 +446,8 @@ import {
     HttpErrorComponent,
     TwitterWidgetComponent,
     TwitterLogin,
-    LuckycoinInvoiceComponent,
-    LuckycoinsatoshisPipe,
+    XBTInvoiceComponent,
+    XBTsatoshisPipe,
 
     MempoolBlockOverviewComponent,
     ClockchainComponent,

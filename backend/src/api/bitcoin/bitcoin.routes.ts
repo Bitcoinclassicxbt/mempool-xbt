@@ -32,8 +32,8 @@ import DB from '../../database';
 import { log } from 'console';
 import { getTags, injectTags } from '../../utils/tags';
 
-const FEELING_LUCKY_URL =
-  'http://' + config.FEELING_LUCKY.HOST + ':' + config.FEELING_LUCKY.PORT;
+const FEELING_SATS_URL =
+  'http://' + config.FEELING_SATS.HOST + ':' + config.FEELING_SATS.PORT;
 
 const tags = getTags();
 
@@ -399,7 +399,7 @@ class BitcoinRoutes {
   /**
    * Takes the PSBT as text/plain body, parses it, and adds the full
    * parent transaction to each input that doesn't already have it.
-   * This is used for BTCPayServer / Trezor users which need access to
+   * This is used for XBTPayServer / Trezor users which need access to
    * the full parent transaction even with segwit inputs.
    * It will respond with a text/plain PSBT in the same format (hex|base64).
    */
@@ -1053,7 +1053,7 @@ class BitcoinRoutes {
   private async getCirculatingSupply(req: Request, res: Response) {
     try {
       const response = await axios.get<CirculatingSupplyResponse>(
-        FEELING_LUCKY_URL + '/block/circulating-supply'
+        FEELING_SATS_URL + '/block/circulating-supply'
       );
       res.json(response.data.circulatingSupply);
     } catch (e) {
@@ -1066,7 +1066,7 @@ class BitcoinRoutes {
 
     try {
       const response = await axios.get<HolderResponse>(
-        FEELING_LUCKY_URL + '/address/sorted-by-balance',
+        FEELING_SATS_URL + '/address/sorted-by-balance',
         {
           params: {
             page: pageParam,

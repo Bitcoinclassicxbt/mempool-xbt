@@ -264,7 +264,7 @@ export const networks = {
   },
   onbtc: {
     title: 'National Bitcoin Office of El Salvador',
-    description: 'The National Bitcoin Office (ONBTC) of El Salvador under President @nayibbukele',
+    description: 'The National Bitcoin Office (ONXBT) of El Salvador under President @nayibbukele',
     fallbackImg: '/resources/onbtc/onbtc-preview.jpg',
     routes: { // only dynamic routes supported
       block: routes.block,

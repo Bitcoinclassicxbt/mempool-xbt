@@ -46,7 +46,7 @@
           <ng-template #faqDisclaimer i18n="faq.big-disclaimer"
             ><p>
               <b
-                >mempool.space merely provides data about the Luckycoin
+                >mempool.space merely provides data about the XBT
                 network.</b
               >
               It cannot help you with retrieving funds, wallet issues, etc.
@@ -150,7 +150,7 @@
           Below is a reference for the
           {{
             network.val === ""
-              ? "Luckycoin"
+              ? "XBT"
               : network.val.charAt(0).toUpperCase() + network.val.slice(1)
           }}
           <ng-container i18n="api-docs.title">REST API service</ng-container>.
@@ -395,8 +395,8 @@
             *ngIf="network.val !== 'signet' && network.val !== 'testnet4'"
           >
             Electrum RPC interface for
-            <a href="/signet/docs/api/electrs">Luckycoin Signet</a> and
-            <a href="/testnet4/docs/api/electrs">Luckycoin Testnet4</a> is
+            <a href="/signet/docs/api/electrs">XBT Signet</a> and
+            <a href="/testnet4/docs/api/electrs">XBT Testnet4</a> is
             publicly available. Electrum RPC interface for all other networks is
             available to
             <a href="https://luckyscan.org/enterprise">sponsors</a>
@@ -424,7 +424,7 @@
     and search and view those transactions.
   </p>
   <p>
-    The mempool.space website invented the concept of visualizing a Luckycoin
+    The mempool.space website invented the concept of visualizing a XBT
     node's mempool as <b>projected blocks</b>. These blocks are the inspiration
     for our half-filled block logo.
   </p>
@@ -487,14 +487,14 @@
 <ng-template type="what-are-vb-wu">
   <p>
     Virtual bytes (vB) and weight units (WU) are used to measure the size of
-    transactions and blocks on the Luckycoin network.
+    transactions and blocks on the XBT network.
   </p>
   <p>
-    A Luckycoin transaction's size in the blockchain is <i>not</i> determined
+    A XBT transaction's size in the blockchain is <i>not</i> determined
     how much bitcoin it transfers—instead, a transaction's size is determined by
     technical factors such as how many inputs and outputs it has, how many
     signatures it has, and the format it uses (legacy, SegWit, etc). Since space
-    in the Luckycoin blockchain is limited, bigger transactions pay more in
+    in the XBT blockchain is limited, bigger transactions pay more in
     mining fees than smaller transactions.
   </p>
   <p>
@@ -515,11 +515,11 @@
 
 <ng-template type="what-is-svb">
   <p>
-    The priority of a pending Luckycoin transaction is determined by its
+    The priority of a pending XBT transaction is determined by its
     feerate. Feerates are measured in sat/vB.
   </p>
   <p>
-    Using a higher sat/vB feerate for a Luckycoin transaction will generally
+    Using a higher sat/vB feerate for a XBT transaction will generally
     result in quicker confirmation than using a lower feerate. But feerates
     change all the time, so it's important to check suggested feerates right
     before making a transaction to
@@ -554,12 +554,12 @@
     >.
   </p>
   <p>
-    There's no need to panic—a Luckycoin transaction will always either confirm
+    There's no need to panic—a XBT transaction will always either confirm
     completely (or not at all) at some point. As long as you have your
     transaction's ID, you can always see where your funds are.
   </p>
   <p>
-    This site only provides data about the Luckycoin network. To get help with a
+    This site only provides data about the XBT network. To get help with a
     transaction, get in touch with the entity that helped make the transaction
     (wallet software, exchange company, etc).
   </p>
@@ -674,7 +674,7 @@
     block, etc.
   </p>
   <p>
-    Ultimately, the Luckycoin network is not perfectly predictable, so fee
+    Ultimately, the XBT network is not perfectly predictable, so fee
     estimation cannot be perfectly precise.
   </p>
   <p>
@@ -693,13 +693,13 @@
 
 <ng-template type="what-is-full-mempool">
   <p>
-    When a Luckycoin transaction is made, it is stored in a Luckycoin node's
+    When a XBT transaction is made, it is stored in a XBT node's
     mempool before it is confirmed into a block. When the rate of incoming
     transactions exceeds the rate transactions are confirmed, the mempool grows
     in size.
   </p>
   <p>
-    By default, Luckycoin Core allocates 300MB of memory for its mempool, so
+    By default, XBT Core allocates 300MB of memory for its mempool, so
     when a node's mempool grows big enough to use all 300MB of allocated memory,
     we say it's "full".
   </p>
@@ -714,12 +714,12 @@
 
 <ng-template type="how-big-is-mempool-used-by-mempool-space">
   <p>
-    mempool.space uses multiple Luckycoin nodes to obtain data: some with the
+    mempool.space uses multiple XBT nodes to obtain data: some with the
     default 300MB mempool memory limit (call these Small Nodes) and others with
     a much larger mempool memory limit (call these Big Nodes).
   </p>
   <p>
-    Many nodes on the Luckycoin network are configured to run with the default
+    Many nodes on the XBT network are configured to run with the default
     300MB mempool memory setting. When all 300MB of memory are used up, such
     nodes will reject transactions below a certain threshold feerate. Running
     Small Nodes allows mempool.space to tell you what this threshold feerate
@@ -739,22 +739,22 @@
 <ng-template type="what-is-memory-usage">
   <p>
     Memory usage on the front page refers to the real-time amount of system
-    memory used by a Luckycoin node's mempool. This memory usage number is
+    memory used by a XBT node's mempool. This memory usage number is
     always higher than the total size of all pending transactions in the mempool
-    due to indexes, pointers, and other overhead used by Luckycoin Core for
+    due to indexes, pointers, and other overhead used by XBT Core for
     storage and processing.
   </p>
   <p>
-    mempool.space shows the memory usage of a Luckycoin node that has a very
+    mempool.space shows the memory usage of a XBT node that has a very
     high mempool memory limit. As a result, when mempools fill up, you may
     notice memory usage on mempool.space go beyond 300MB. This is not a
-    mistake—this memory usage figure is high because it's for a Luckycoin node
+    mistake—this memory usage figure is high because it's for a XBT node
     that isn't rejecting (or evicting) transactions. Consider it to be another
     data point to give you an idea of how congested the mempool is relative to
     the default memory limit of 300MB.
   </p>
   <p>
-    A Luckycoin node running the default 300MB mempool memory limit, like most
+    A XBT node running the default 300MB mempool memory limit, like most
     Raspberry Pi nodes, will never go past 300MB of memory usage.
   </p>
 </ng-template>
@@ -779,7 +779,7 @@
     Block validation rules do not strictly require that a block's timestamp be
     more recent than the timestamp of the block preceding it. Without a central
     authority, it's impossible to know what the exact correct time is. Instead,
-    the Luckycoin protocol requires that a block's timestamp meet certain
+    the XBT protocol requires that a block's timestamp meet certain
     requirements. One of those requirements is that a block's timestamp cannot
     be older than the median timestamp of the 12 blocks that came before it. See
     more details
@@ -823,7 +823,7 @@
   </p>
   <p>
     How is the expected block determined? Mempool monitors its view of the
-    mempool and runs a re-implementation of Luckycoin Core's transaction
+    mempool and runs a re-implementation of XBT Core's transaction
     selection algorithm to determine the transactions it expects to see in
     upcoming blocks (<a
       href="https://github.com/mempool/mempool/blob/master/backend/src/api/mempool-blocks.ts"
@@ -886,11 +886,11 @@
       <p>
         A transaction is highlighted dark pink if it is present in the expected
         block, not present in the actual block, and was first seen by Mempool's
-        Luckycoin node within 3 minutes of the block being mined.
+        XBT node within 3 minutes of the block being mined.
       </p>
       <p>
         Due to network latency and other factors, it can take time for a miner's
-        Luckycoin nodes to receive a transaction, so we do not assume a miner
+        XBT nodes to receive a transaction, so we do not assume a miner
         has intentionally excluded such a transaction from a block.
       </p>
       <p>
@@ -1117,7 +1117,7 @@
 
     <dt>Data</dt>
     <dd>
-      Different methods of embedding arbitrary data in a Luckycoin transaction.
+      Different methods of embedding arbitrary data in a XBT transaction.
       <dl>
         <dt>OP_RETURN</dt>
         <dt>Fake pubkey</dt>
@@ -1147,7 +1147,7 @@
 
     <dt>Sighash Flags</dt>
     <dd>
-      Different ways of signing inputs to Luckycoin transactions. Note that
+      Different ways of signing inputs to XBT transactions. Note that
       selecting multiple sighash filters will highlight transactions in which
       each sighash flag is used, but not necessarily in the same input.
       <dl>
@@ -1164,24 +1164,24 @@
 <ng-template type="what-are-sigops">
   <p>
     A "sigop" is a way of accounting for the cost of "signature operations" in
-    Luckycoin script, like <code>OP_CHECKSIG</code>,
+    XBT script, like <code>OP_CHECKSIG</code>,
     <code>OP_CHECKSIGVERIFY</code>, <code>OP_CHECKMULTISIG</code> and
     <code>OP_CHECKMULTISIGVERIFY</code>
   </p>
   <p>
     These signature operations incur different costs depending on whether they
-    are single or multi-sig operations, and on where they appear in a Luckycoin
+    are single or multi-sig operations, and on where they appear in a XBT
     transaction.
   </p>
   <p>
-    By consensus, each Luckycoin block is permitted to include a maximum of
+    By consensus, each XBT block is permitted to include a maximum of
     80,000 sigops.
   </p>
 </ng-template>
 
 <ng-template type="what-is-adjusted-vsize">
   <p>
-    Luckycoin blocks have two independent consensus-enforced resource
+    XBT blocks have two independent consensus-enforced resource
     constraints - a 4MWU weight limit, and the 80,000 sigop limit.
   </p>
   <p>
@@ -1190,12 +1190,12 @@
     to their weight.
   </p>
   <p>
-    To account for this, Luckycoin Core calculates and uses an "adjusted vsize"
+    To account for this, XBT Core calculates and uses an "adjusted vsize"
     equal 5 times the number of sigops, or the unadjusted vsize, whichever is
     larger.
   </p>
   <p>
-    Then, during block template construction, Luckycoin Core selects
+    Then, during block template construction, XBT Core selects
     transactions in descending order of fee rate measured in satoshis per
     <i>adjusted vsize</i>
   </p>
@@ -1240,7 +1240,7 @@
   The official mempool.space website is operated by The Mempool Open Source
   Project. See more information on our
   <a [routerLink]="['/about']">About page</a>. There are also many unofficial
-  instances of this website operated by individual members of the Luckycoin
+  instances of this website operated by individual members of the XBT
   community.
 </ng-template>
 

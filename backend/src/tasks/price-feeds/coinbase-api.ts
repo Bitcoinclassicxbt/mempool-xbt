@@ -5,11 +5,11 @@ class CoinbaseApi implements PriceFeed {
   public name: string = 'Coinbase';
   public currencies: string[] = ['USD', 'EUR', 'GBP'];
 
-  public url: string = 'https://api.coinbase.com/v2/prices/BTC-{CURRENCY}/spot';
-  public urlHist: string = 'https://api.exchange.coinbase.com/products/BTC-{CURRENCY}/candles?granularity={GRANULARITY}';
+  public url: string = 'https://api.coinbase.com/v2/prices/XBT-{CURRENCY}/spot';
+  public urlHist: string =
+    'https://api.exchange.coinbase.com/products/XBT-{CURRENCY}/candles?granularity={GRANULARITY}';
 
-  constructor() {
-  }
+  constructor() {}
 
   public async $fetchPrice(currency): Promise<number> {
     const response = await query(this.url.replace('{CURRENCY}', currency));
@@ -20,7 +20,10 @@ class CoinbaseApi implements PriceFeed {
     }
   }
 
-  public async $fetchRecentPrice(currencies: string[], type: 'hour' | 'day'): Promise<PriceHistory> {
+  public async $fetchRecentPrice(
+    currencies: string[],
+    type: 'hour' | 'day'
+  ): Promise<PriceHistory> {
     const priceHistory: PriceHistory = {};
 
     for (const currency of currencies) {
@@ -28,7 +31,11 @@ class CoinbaseApi implements PriceFeed {
         continue;
       }
 
-      const response = await query(this.urlHist.replace('{GRANULARITY}', type === 'hour' ? '3600' : '86400').replace('{CURRENCY}', currency));
+      const response = await query(
+        this.urlHist
+          .replace('{GRANULARITY}', type === 'hour' ? '3600' : '86400')
+          .replace('{CURRENCY}', currency)
+      );
       const pricesRaw = response ? response : [];
 
       for (const price of pricesRaw as any[]) {

@@ -120,7 +120,7 @@ describe('Mainnet', () => {
     });
 
     describe('search', () => {
-      it('allows searching for partial Luckycoin addresses', () => {
+      it('allows searching for partial XBT addresses', () => {
         cy.visit('/');
         cy.get('.search-box-container > .form-control').type('1wiz').then(() => {
           cy.wait('@search-1wiz');
@@ -140,7 +140,7 @@ describe('Mainnet', () => {
         cy.get('app-search-results button.dropdown-item.active').click().then(() => {
           cy.url().should('include', '/address/1wizSAYSbuyXbt9d8JV8ytm5acqq2TorC');
           cy.waitForSkeletonGone();
-          cy.get('.text-center').should('not.have.text', 'Invalid Luckycoin address');
+          cy.get('.text-center').should('not.have.text', 'Invalid XBT address');
         });
       });
 
@@ -152,7 +152,7 @@ describe('Mainnet', () => {
             cy.get('app-search-results button.dropdown-item.active').click().then(() => {
               cy.url().should('include', '/address/bc1pqyqs26fs4gnyw4aqttyjqa5ta7075zzfjftyz98qa8vdr49dh7fqm2zkv3');
               cy.waitForSkeletonGone();
-              cy.get('.text-center').should('not.have.text', 'Invalid Luckycoin address');
+              cy.get('.text-center').should('not.have.text', 'Invalid XBT address');
             });
           });
         });
@@ -166,7 +166,7 @@ describe('Mainnet', () => {
             cy.get('app-search-results button.dropdown-item.active').click().then(() => {
               cy.url().should('include', '/address/bc1q000303cgr9zazthut63kdktwtatfe206um8nyh');
               cy.waitForSkeletonGone();
-              cy.get('.text-center').should('not.have.text', 'Invalid Luckycoin address');
+              cy.get('.text-center').should('not.have.text', 'Invalid XBT address');
             });
           });
         });
