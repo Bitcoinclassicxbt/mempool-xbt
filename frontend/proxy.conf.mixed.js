@@ -85,7 +85,7 @@ PROXY_CONFIG.push(
     },
     {
       context: ["/api/**"],
-      target: `https://luckyscan.org`,
+      target: `https://xbtscan.org`,
       secure: false,
       changeOrigin: true,
       proxyTimeout: 30000,

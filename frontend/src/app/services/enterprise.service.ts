@@ -66,7 +66,7 @@ export class EnterpriseService {
         (error) => {
           if (error.status === 404) {
             window.location.href =
-              'https://luckyscan.org' + window.location.pathname;
+              'https://xbtscan.org' + window.location.pathname;
           }
         }
       );

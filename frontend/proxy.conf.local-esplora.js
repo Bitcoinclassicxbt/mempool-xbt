@@ -86,7 +86,7 @@ PROXY_CONFIG.push(
     /* Optional proxy to route dev to official acceleration services
   {
     context: ['/api/v1/services/accelerator/**'],
-    target: `https://luckyscan.org/api/v1/services/accelerator/`,
+    target: `https://xbtscan.org/api/v1/services/accelerator/`,
     secure: false,
     changeOrigin: true,
     proxyTimeout: 30000,

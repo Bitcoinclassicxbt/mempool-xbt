@@ -7,7 +7,7 @@ import { EnterpriseService } from '@app/services/enterprise.service';
   styleUrls: ['./about-sponsors.component.scss'],
 })
 export class AboutSponsorsComponent {
-  @Input() host = 'https://luckyscan.org';
+  @Input() host = 'https://xbtscan.org';
   @Input() context = 'about';
 
   constructor(private enterpriseService: EnterpriseService) {}

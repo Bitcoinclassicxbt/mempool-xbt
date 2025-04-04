@@ -96,7 +96,7 @@ describe('Liquid', () => {
             if (baseModule === 'liquid') {
               cy.url().should(
                 'eq',
-                'https://luckyscan.org/tx/f148c0d854db4174ea420655235f910543f0ec3680566dcfdf84fb0a1697b592#vout=0'
+                'https://xbtscan.org/tx/f148c0d854db4174ea420655235f910543f0ec3680566dcfdf84fb0a1697b592#vout=0'
               );
             } else {
               //TODO: Use an environment variable to get the hostname
@@ -123,7 +123,7 @@ describe('Liquid', () => {
             if (baseModule === 'liquid') {
               cy.url().should(
                 'eq',
-                'https://luckyscan.org/address/1BxoGcMg14oaH3CwHD2hF4gU9VcfgX5yoR'
+                'https://xbtscan.org/address/1BxoGcMg14oaH3CwHD2hF4gU9VcfgX5yoR'
               );
             } else {
               //TODO: Use an environment variable to get the hostname

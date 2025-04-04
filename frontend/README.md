@@ -23,7 +23,7 @@ cd mempool/frontend
 
 ### 2. Specify Website
 
-The same frontend codebase is used for https://luckyscan.org and https://liquid.network.
+The same frontend codebase is used for https://xbtscan.org and https://liquid.network.
 
 Configure the frontend for the site you want by running the corresponding command:
 
@@ -43,7 +43,7 @@ $ npm install
 $ npm run serve:local-prod
 ```
 
-The frontend will be available at http://localhost:4200/ and all API requests will be proxied to the production server at https://luckyscan.org.
+The frontend will be available at http://localhost:4200/ and all API requests will be proxied to the production server at https://xbtscan.org.
 
 ### 4. Test
 

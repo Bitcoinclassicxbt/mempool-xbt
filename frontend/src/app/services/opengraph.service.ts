@@ -27,7 +27,7 @@ export class OpenGraphService {
     const initialOgImageTag = metaService.getTag("property='og:image'");
     this.defaultImageUrl =
       initialOgImageTag?.content ||
-      'https://luckyscan.org/resources/previews/mempool-space-preview.jpg';
+      'https://xbtscan.org/resources/previews/mempool-space-preview.jpg';
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),

@@ -14,7 +14,7 @@
   "MEMPOOL_BLOCKS_AMOUNT": 8,
   "BASE_MODULE": "mempool",
   "ROOT_NETWORK": "",
-  "MEMPOOL_WEBSITE_URL": "https://luckyscan.org",
+  "MEMPOOL_WEBSITE_URL": "https://xbtscan.org",
   "LIQUID_WEBSITE_URL": "https://liquid.network",
   "MINING_DASHBOARD": true,
   "AUDIT": false,
@@ -27,5 +27,5 @@
   "ACCELERATOR": false,
   "ACCELERATOR_BUTTON": true,
   "PUBLIC_ACCELERATIONS": false,
-  "SERVICES_API": "https://luckyscan.org/api/v1/services"
+  "SERVICES_API": "https://xbtscan.org/api/v1/services"
 }

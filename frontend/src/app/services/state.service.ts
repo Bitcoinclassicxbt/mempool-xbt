@@ -129,7 +129,7 @@ const defaultEnv: Env = {
   MEMPOOL_BLOCKS_AMOUNT: 8,
   GIT_COMMIT_HASH: '',
   PACKAGE_JSON_VERSION: '',
-  MEMPOOL_WEBSITE_URL: 'https://luckyscan.org',
+  MEMPOOL_WEBSITE_URL: 'https://xbtscan.org',
   LIQUID_WEBSITE_URL: 'https://liquid.network',
   MINING_DASHBOARD: true,
   LIGHTNING: false,
@@ -142,7 +142,7 @@ const defaultEnv: Env = {
   ACCELERATOR_BUTTON: true,
   PUBLIC_ACCELERATIONS: false,
   ADDITIONAL_CURRENCIES: false,
-  SERVICES_API: 'https://luckyscan.org/api/v1/services',
+  SERVICES_API: 'https://xbtscan.org/api/v1/services',
   PROD_DOMAINS: [],
 };
 

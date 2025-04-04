@@ -208,7 +208,7 @@ init();`;
         return codeText;
       }
 
-      let importText = `<script src="https://luckyscan.org/mempool.js"></script>`;
+      let importText = `<script src="https://xbtscan.org/mempool.js"></script>`;
       if (this.env.BASE_MODULE === 'liquid') {
         importText = `<script src="https://liquid.network/liquid.js"></script>`;
       }
