@@ -360,7 +360,7 @@ const defaults: IConfig = {
     WALLETS: [],
   },
   FEELING_SATS: {
-    PORT: 3434,
+    PORT: 7778,
     HOST: 'localhost',
   },
 };
