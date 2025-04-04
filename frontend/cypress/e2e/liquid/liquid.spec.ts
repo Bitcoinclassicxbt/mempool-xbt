@@ -189,16 +189,16 @@ describe('Liquid', () => {
         cy.waitForSkeletonGone();
         cy.get('.table-tx-vin tr:nth-child(1) .amount').should(
           'contain.text',
-          '0.02465000 L-LKY'
+          '0.02465000 L-XBT'
         );
         cy.get('.table-tx-vin tr').should('have.class', 'assetBox');
         cy.get('.table-tx-vout tr:nth-child(1) .amount').should(
           'contain.text',
-          '0.00100000 L-LKY'
+          '0.00100000 L-XBT'
         );
         cy.get('.table-tx-vout tr:nth-child(2) .amount').should(
           'contain.text',
-          '0.02364760 L-LKY'
+          '0.02364760 L-XBT'
         );
         cy.get('.table-tx-vout tr').should('have.class', 'assetBox');
       });
@@ -257,7 +257,7 @@ describe('Liquid', () => {
         );
         cy.get('.table-tx-vout tr:nth-child(1) .amount').should(
           'contain.text',
-          '0.00100000 L-LKY'
+          '0.00100000 L-XBT'
         );
       });
 
@@ -271,7 +271,7 @@ describe('Liquid', () => {
         );
         cy.get('.table-tx-vout tr:nth-child(2) .amount').should(
           'contain.text',
-          '0.02364760 L-LKY'
+          '0.02364760 L-XBT'
         );
       });
 

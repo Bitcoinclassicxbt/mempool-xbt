@@ -43,7 +43,7 @@ const ADDRESS_CHARS: {
         + BECH32_CHARS_LW
         + `{6,100}` // As per bech32, 6 char checksum is minimum
       + `|`
-        + `LKY` // All upper case version
+        + `XBT` // All upper case version
         + BECH32_CHARS_UP
         + `{6,100}`
       + `)`,

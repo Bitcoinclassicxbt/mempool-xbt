@@ -84,7 +84,7 @@ export class XBTInvoiceComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   get availableMethods(): string[] {
-    return Object.keys(this.invoice?.addresses || {}).filter(k => k === 'LKY_LightningLike');
+    return Object.keys(this.invoice?.addresses || {}).filter(k => k === 'XBT_LightningLike');
   }
 
   bypassSecurityTrustUrl(text: string): SafeUrl {

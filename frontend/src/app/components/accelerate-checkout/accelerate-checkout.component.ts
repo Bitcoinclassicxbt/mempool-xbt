@@ -217,7 +217,7 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
       this.btcpayInvoiceFailed = false;
       this.loadingBtcpayInvoice = true;
       this.invoice = null;
-      this.requestLKYPayInvoice();
+      this.requestXBTPayInvoice();
     } else if (this._step === 'cashapp' && this.cashappEnabled) {
       this.loadingCashapp = true;
       this.setupSquare();
@@ -325,7 +325,7 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
 
           if (this.step === 'checkout' && this.canPayWithXBT && !this.loadingBtcpayInvoice) {
             this.loadingBtcpayInvoice = true;
-            this.requestLKYPayInvoice();
+            this.requestXBTPayInvoice();
           }
 
           this.calculating = false;
@@ -749,10 +749,10 @@ export class AccelerateCheckout implements OnInit, OnDestroy {
   }
 
   /**
-   * LKYPay
+   * XBTPay
    */
-  async requestLKYPayInvoice(): Promise<void> {
-    this.servicesApiService.generateLKYPayAcceleratorInvoice$(this.tx.txid, this.userBid).pipe(
+  async requestXBTPayInvoice(): Promise<void> {
+    this.servicesApiService.generateXBTPayAcceleratorInvoice$(this.tx.txid, this.userBid).pipe(
       switchMap(response => {
         return this.servicesApiService.retreiveInvoice$(response.btcpayInvoiceId);
       }),

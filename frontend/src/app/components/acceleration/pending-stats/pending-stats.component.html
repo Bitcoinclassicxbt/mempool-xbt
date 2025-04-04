@@ -10,7 +10,7 @@
     <div class="item">
       <h5 class="card-title" i18n="accelerator.average-max-bid">Avg Max Bid</h5>
       <div class="card-text">
-        <div>{{ stats.avgFeeDelta / 100_000_000 | amountShortener: 4 }} <span class="symbol" i18n="shared.btc|LKY">LKY</span></div>
+        <div>{{ stats.avgFeeDelta / 100_000_000 | amountShortener: 4 }} <span class="symbol" i18n="shared.btc|XBT">XBT</span></div>
         <span class="fiat">
           <app-fiat [value]="stats.avgFeeDelta"></app-fiat>
         </span>

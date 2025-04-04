@@ -35,14 +35,14 @@ export class AssetsService {
             // @ts-ignore
             assets.push({
               name: 'Liquid XBT',
-              ticker: 'L-LKY',
+              ticker: 'L-XBT',
               asset_id: this.nativeAssetId,
             });
           } else if (this.stateService.network === 'liquidtestnet') {
             // @ts-ignore
             assets.push({
               name: 'Test Liquid XBT',
-              ticker: 'tL-LKY',
+              ticker: 'tL-XBT',
               asset_id: this.nativeAssetId,
             });
           }
@@ -60,7 +60,7 @@ export class AssetsService {
       map((assetsMinimal) => {
         if (this.stateService.network === 'liquidtestnet') {
           // Hard coding the Liquid Testnet native asset
-          assetsMinimal['144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49'] = [null, "tL-LKY", "Test Liquid XBT", 8];
+          assetsMinimal['144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49'] = [null, "tL-XBT", "Test Liquid XBT", 8];
         }
         return assetsMinimal;
       }),

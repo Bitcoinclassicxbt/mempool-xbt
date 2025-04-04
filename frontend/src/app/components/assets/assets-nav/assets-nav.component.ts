@@ -40,7 +40,7 @@ export class AssetsNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoService.setTitle($localize`:@@ee8f8008bae6ce3a49840c4e1d39b4af23d4c263:Assets`);
-    this.seoService.setDescription($localize`:@@meta.description.liquid.assets:Explore all the assets issued on the Liquid network like L-LKY, L-CAD, USDT, and more.`);
+    this.seoService.setDescription($localize`:@@meta.description.liquid.assets:Explore all the assets issued on the Liquid network like L-XBT, L-CAD, USDT, and more.`);
     this.typeaheadSearchFn = this.typeaheadSearch;
 
     this.searchForm = this.formBuilder.group({

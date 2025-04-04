@@ -202,7 +202,7 @@ export class ServicesApiServices {
     return this.httpClient.get<{txid: string}>(`${this.stateService.env.SERVICES_API}/testnet4/faucet/request?address=${address}&sats=${sats}`, { responseType: 'json' });
   }
 
-  generateLKYPayAcceleratorInvoice$(txid: string, sats: number): Observable<any> {
+  generateXBTPayAcceleratorInvoice$(txid: string, sats: number): Observable<any> {
     const params = {
       product: txid,
       amount: sats,

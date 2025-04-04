@@ -604,13 +604,13 @@
           "virtualSize": 998341.5,
           "coinbaseAddress": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX",
           "coinbaseSignature": "OP_DUP OP_HASH160 OP_PUSHBYTES_20 536ffa992491508dca0354e52f32a3a7a679a53a OP_EQUALVERIFY OP_CHECKSIG",
-          "coinbaseSignatureAscii": "/ViaLKY/Mined by 27911/",
+          "coinbaseSignatureAscii": "/ViaXBT/Mined by 27911/",
           "header": "0080002008471c48d255f4fd28b9930abc6680c159601fd8641102000000000000000000d766af4ab69ecfdb26a81ef3878f7891b639978cd663f236edf9b69f23eaa1ff34d30866d36203178a72a327",
           "utxoSetSize": null,
           "totalInputAmt": null,
           "pool": {
             "id": 73,
-            "name": "ViaLKY",
+            "name": "ViaXBT",
             "slug": "viabtc"
           },
           "matchRate": 100,

@@ -241,7 +241,7 @@ class PriceUpdater {
       }
     } catch (e: any) {
       logger.err(
-        `Cannot save LKY prices in db. Reason: ${
+        `Cannot save XBT prices in db. Reason: ${
           e instanceof Error ? e.message : e
         }`,
         logger.tags.mining
@@ -271,7 +271,7 @@ class PriceUpdater {
   }
 
   /**
-   * Fetch last LKY price from exchanges, average them, and save it in the database once every hour
+   * Fetch last XBT price from exchanges, average them, and save it in the database once every hour
    */
   private async $updatePrice(): Promise<void> {
     let forceUpdate = false;
@@ -315,12 +315,12 @@ class PriceUpdater {
               prices.push(price);
             }
             logger.debug(
-              `${feed.name} LKY/${currency} price: ${price}`,
+              `${feed.name} XBT/${currency} price: ${price}`,
               logger.tags.mining
             );
           } catch (e) {
             logger.debug(
-              `Could not fetch LKY/${currency} price at ${feed.name}. Reason: ${
+              `Could not fetch XBT/${currency} price at ${feed.name}. Reason: ${
                 e instanceof Error ? e.message : e
               }`,
               logger.tags.mining
@@ -330,7 +330,7 @@ class PriceUpdater {
       }
       if (prices.length === 1) {
         logger.debug(
-          `Only ${prices.length} feed available for LKY/${currency} price`,
+          `Only ${prices.length} feed available for XBT/${currency} price`,
           logger.tags.mining
         );
       }
@@ -384,7 +384,7 @@ class PriceUpdater {
 
     this.latestPrices.time = Math.round(new Date().getTime() / 1000);
     logger.info(
-      `Latest LKY fiat averaged price: ${JSON.stringify(this.latestPrices)}`
+      `Latest XBT fiat averaged price: ${JSON.stringify(this.latestPrices)}`
     );
 
     if (this.ratesChangedCallback) {

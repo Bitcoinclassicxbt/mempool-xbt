@@ -12,12 +12,12 @@
             "name": "1THash",
             "link": "https://www.1thash.top"
         },
-        "/LKY.COM/" : {
-            "name" : "LKY.com",
+        "/XBT.COM/" : {
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
-        "/LKY.com/" : {
-            "name" : "LKY.com",
+        "/XBT.com/" : {
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
         "BITFARMS": {
@@ -32,7 +32,7 @@
             "name": "Huobi.pool",
             "link": "https://www.hpt.com/"
         },
-        "/E2M & LKY.TOP/": {
+        "/E2M & XBT.TOP/": {
             "name": "WAYI.CN",
             "link": "http://www.easy2mine.com/"
         },
@@ -40,8 +40,8 @@
             "name": "CanoePool",
             "link": "https://www.canoepool.com/"
         },
-        "/LKY.TOP/": {
-            "name" : "LKY.TOP",
+        "/XBT.TOP/": {
+            "name" : "XBT.TOP",
             "link" : "http://www.btc.top/"
         },
         "pool.bitcoin.com" : {
@@ -73,15 +73,15 @@
             "link" : "https://bitcoin-russia.ru"
         },
         "btcserv" : {
-            "name" : "LKYServ",
+            "name" : "XBTServ",
             "link" : "http://btcserv.net/"
         },
         "simplecoin" : {
             "name" : "simplecoin.us",
             "link" : "http://simplecoin.us/"
         },
-        "LKY Guild" : {
-            "name" : "LKY Guild",
+        "XBT Guild" : {
+            "name" : "XBT Guild",
             "link" : "http://www.btcguild.com/"
         },
         "Eligius" : {
@@ -100,8 +100,8 @@
             "name" : "EclipseMC",
             "link" : "https://eclipsemc.com/"
         },
-        "MaxLKY" : {
-            "name" : "MaxLKY",
+        "MaxXBT" : {
+            "name" : "MaxXBT",
             "link" : "http://maxbtc.com/"
         },
         "triplemining" : {
@@ -116,8 +116,8 @@
             "name" : "CoinLab",
             "link" : "http://coinlab.com/"
         },
-        "50LKY" : {
-            "name" : "50LKY",
+        "50XBT" : {
+            "name" : "50XBT",
             "link" : "https://www.50btc.com/"
         },
         "ghash.io" : {
@@ -236,20 +236,20 @@
             "name" : "XBT Affiliate Network",
             "link" : "https://mining.bitcoinaffiliatenetwork.com/"
         },
-        "LKYChina Pool" : {
-            "name" : "LKYC",
+        "XBTChina Pool" : {
+            "name" : "XBTC",
             "link" : "https://pool.btcc.com/"
         },
         "btcchina.com" : {
-            "name" : "LKYC",
+            "name" : "XBTC",
             "link" : "https://pool.btcc.com/"
         },
-        "LKYChina.com" : {
-            "name" : "LKYC",
+        "XBTChina.com" : {
+            "name" : "XBTC",
             "link" : "https://pool.btcc.com/"
         },
-        "/LKYC/" : {
-            "name" : "LKYC",
+        "/XBTC/" : {
+            "name" : "XBTC",
             "link" : "https://pool.btcc.com/"
         },
         "BW Pool" : {
@@ -281,15 +281,15 @@
             "link" : "https://21.co/"
         },
         "/agentD/" : {
-            "name" : "digitalLKY",
+            "name" : "digitalXBT",
             "link" : "http://digitalbtc.com/"
         },
         "/八宝池 8baochi.com/" : {
             "name" : "8baochi",
             "link" : "http://8baochi.com/"
         },
-        "myLKYcoin Pool" : {
-            "name" : "myLKYcoin Pool",
+        "myXBTcoin Pool" : {
+            "name" : "myXBTcoin Pool",
             "link" : "http://mybtccoin.com/"
         },
         "TBDice" : {
@@ -324,11 +324,11 @@
             "name": "1Hash",
             "link": "http://www.1hash.com/"
         },
-        "/HaoLKY/" : {
+        "/HaoXBT/" : {
             "name": "Bixin",
             "link": "https://haopool.com/"
         },
-        "HAOLKY" : {
+        "HAOXBT" : {
             "name": "Bixin",
             "link": "https://haopool.com/"
         },
@@ -336,20 +336,20 @@
             "name": "Bixin",
             "link": "https://haopool.com/"
         },
-        "/ViaLKY/TATMAS Pool/" : {
+        "/ViaXBT/TATMAS Pool/" : {
             "name" : "TATMAS Pool",
             "link" : "https://tmsminer.com/"
         },
         "viabtc.com deploy" : {
-            "name": "ViaLKY",
+            "name": "ViaXBT",
             "link": "https://viabtc.com"
         },
-        "/ViaLKY/" : {
-            "name": "ViaLKY",
+        "/ViaXBT/" : {
+            "name": "ViaXBT",
             "link": "http://viabtc.com/"
         },
-        "/ConnectLKY - Home for Miners/" : {
-            "name" : "ConnectLKY",
+        "/ConnectXBT - Home for Miners/" : {
+            "name" : "ConnectXBT",
             "link" : "https://www.connectbtc.com/"
         },
         "/BATPOOL/" : {
@@ -540,8 +540,8 @@
             "name": "ArkPool",
             "link": "https://www.arkpool.com/"
         },
-        "/PureLKY.COM/": {
-            "name": "PureLKY.COM",
+        "/PureXBT.COM/": {
+            "name": "PureXBT.COM",
             "link": "https://purebtc.com"
         },
         "MARA Pool": {
@@ -635,7 +635,7 @@
             "link" : "https://eclipsemc.com/"
         },
         "1BwZeHJo7b7M2op7VDfYnsmcpXsUYEcVHm" : {
-            "name" : "LKY Nuggets",
+            "name" : "XBT Nuggets",
             "link" : "http://104.197.8.250/"
         },
         "1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY" : {
@@ -707,7 +707,7 @@
             "link" : "https://21.co/"
         },
         "1MimPd6LrPKGftPRHWdfk8S3KYBfN4ELnD" : {
-            "name" : "digitalLKY",
+            "name" : "digitalXBT",
             "link" : "http://digitalbtc.com/"
         },
         "1NY15MK947MLzmPUa2gL7UgyR8prLh2xfu" : {
@@ -739,11 +739,11 @@
             "link" : "http://www.telco214.com/"
         },
         "152f1muMCNa7goXYhYAQC61hxEgGacmncB" : {
-            "name" : "LKYC",
+            "name" : "XBTC",
             "link" : "https://pool.btcc.com/"
         },
         "1PmRrdp1YSkp1LxPyCfcmBHDEipG5X4eJB" : {
-            "name" : "LKY Pool Party",
+            "name" : "XBT Pool Party",
             "link" : "https://btcpoolparty.com/"
         },
         "1Hk9gD8xMo2XBUhE73y5zXEM8xqgffTB5f" : {
@@ -751,7 +751,7 @@
             "link" : "http://8baochi.com/"
         },
         "151T7r1MhizzJV6dskzzUkUdr7V8JxV2Dx" : {
-            "name" : "myLKYcoin Pool",
+            "name" : "myXBTcoin Pool",
             "link" : "http://www.mybtccoin.com/"
         },
         "1MFsp2txCPwMMBJjNNeKaduGGs8Wi1Ce7X" : {
@@ -771,7 +771,7 @@
             "link" : "http://sha256.transactioncoinmining.com/"
         },
         "15MxzsutVroEE9XiDckLxUHTCDAEZgPZJi" : {
-            "name" : "LKYDig",
+            "name" : "XBTDig",
             "link" : "https://btcdig.com/"
         },
         "1GBo1f2tzVx5jScV9kJXPUP9RjvYXuNzV7" : {
@@ -779,7 +779,7 @@
             "link" : "https://nexious.com/"
         },
         "1AePMyovoijxvHuKhTqWvpaAkRCF4QswC6" : {
-            "name" : "Tricky's LKY Pool",
+            "name" : "Tricky's XBT Pool",
             "link" : "http://pool.wemine.uk/"
         },
         "17judvK4AC2M6KhaBbAEGw8CTKc9Pg8wup" : {
@@ -787,7 +787,7 @@
             "link" : "https://hotpool.co/"
         },
         "1jKSjMLnDNup6NPgCjveeP9tUn4YpT94Y" : {
-            "name" : "LKYMP",
+            "name" : "XBTMP",
             "link" : "https://www.btcmp.com/"
         },
         "1MPxhNkSzeTNTHSZAibMaS8HS1esmUL1ne" : {
@@ -815,23 +815,23 @@
             "link" : "http://patelsminingpool.com/"
         },
         "3NA8hsjfdgVkmmVS9moHmkZsVCoLxUkvvv" : {
-            "name" : "LKY.com",
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
         "34qkc2iac6RsyxZVfyE2S5U5WcRsbg2dpK" : {
-            "name" : "LKY.com",
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
         "3EhLZarJUNSfV6TWMZY1Nh5mi3FMsdHa5U" : {
-            "name" : "LKY.com",
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
         "bc1qjl8uwezzlech723lpnyuza0h2cdkvxvh54v3dn" : {
-            "name" : "LKY.com",
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
         "1Bf9sZvBHPFGVPX71WX2njhd1NXKv5y7v5" : {
-            "name" : "LKY.com",
+            "name" : "XBT.com",
             "link" : "https://pool.btc.com"
         },
         "18EPLvrs2UE11kWBB3ABS7Crwj5tTBYPoa" : {
@@ -839,7 +839,7 @@
             "link" : "http://www.gogreenlight.se/"
         },
         "1KPQkehgYAqwiC6UCcbojM3mbGjURrQJF2" : {
-            "name" : "ConnectLKY",
+            "name" : "ConnectXBT",
             "link" : "https://www.connectbtc.com/"
         },
         "167ApWWxUSFQmz2jdz9xop3oAKdLejvMML" : {
@@ -875,7 +875,7 @@
             "link" : "https://www.58coin.com/"
         },
         "1Cs5RT9SRk1hxsdzivAfkjesNmVVJqfqkw" : {
-            "name" : "EkanemLKY",
+            "name" : "EkanemXBT",
             "link" : "https://ekanembtc.com/"
         },
         "13Sd8Y7nUao3z4bJFkZvCRXpFqHvLy49YY" : {
@@ -911,7 +911,7 @@
             "link" : "https://www.brainofshawn.com"
         },
         "1Hz96kJKF2HLPGY15JWLB5m9qGNxvt8tHJ" : {
-            "name" : "LKY.TOP",
+            "name" : "XBT.TOP",
             "link" : "http://btc.top"
         },
         "1Afcpc2FpPnREU6i52K3cicmHdvYRAH9Wo" : {

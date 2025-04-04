@@ -126,7 +126,7 @@ export class AddressesTreemap implements OnChanges {
 
   formatValue(sats: number): string {
     if (sats > 100000000) {
-      return formatNumber(sats / 100000000, this.locale, '1.2-2') + ' LKY';
+      return formatNumber(sats / 100000000, this.locale, '1.2-2') + ' XBT';
     } else {
      return this.amountShortenerPipe.transform(sats, 2) + ' sats';
     }
