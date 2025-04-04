@@ -1578,6 +1578,7 @@ class BlocksRepository {
           );
           summaryVersion = 1;
         } else {
+          throw 'Verbose block not supported for XBT nodes. Please use esplora backend';
           // Call Core RPC
           const block = await bitcoinClient.getBlock(dbBlk.id, 2);
           summary = blocks.summarizeBlock(block);
