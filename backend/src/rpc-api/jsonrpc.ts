@@ -155,6 +155,7 @@ JsonRPC.prototype.call = function (method, params) {
             decodedResponse.error != null
           ) {
             if (reject) {
+              console.log('ERROR ON FUNC ->>> ' + method + ' ' + params);
               err = new Error(decodedResponse.error.message || '');
               if (decodedResponse.error.code) {
                 err.code = decodedResponse.error.code;
