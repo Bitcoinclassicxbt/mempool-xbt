@@ -1310,7 +1310,7 @@ class Blocks {
       const blockHash = await bitcoinCoreApi.$getBlockHash(
         this.currentBlockHeight
       );
-      const verboseBlock = await bitcoinClient.getBlock(blockHash, 2);
+      const verboseBlock = await bitcoinApi.$getVerboseBlock(blockHash);
       const block = BitcoinApi.convertBlock(verboseBlock);
       const txIds: string[] = verboseBlock.tx.map((tx) => tx.txid);
       const transactions = (await this.$getTransactionsExtended(
@@ -1329,7 +1329,8 @@ class Blocks {
           !transactions[i].fee &&
           transactions[i].txid === verboseBlock.tx[i].txid
         ) {
-          transactions[i].fee = verboseBlock.tx[i].fee * 100_000_000 || 0;
+          transactions[i].fee =
+            (verboseBlock.tx[i].fee ?? 0) * 100_000_000 || 0;
         }
       }
 

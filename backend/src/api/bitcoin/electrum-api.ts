@@ -8,7 +8,7 @@ import logger from '../../logger';
 import crypto from 'crypto-js';
 import loadingIndicators from '../loading-indicators';
 import memoryCache from '../memory-cache';
-
+import { IBitcoinApi } from './bitcoin-api.interface';
 class BitcoindElectrsApi extends BitcoinApi implements AbstractBitcoinApi {
   private electrumClient: any;
 
@@ -165,6 +165,11 @@ class BitcoindElectrsApi extends BitcoinApi implements AbstractBitcoinApi {
     }
   }
 
+  async $getVerboseBlock(hash: string): Promise<IBitcoinApi.Block> {
+    throw new Error(
+      'Method getVerboseBlock not supported by the Bitcoin RPC API.'
+    );
+  }
   async $getScriptHash(scripthash: string): Promise<IEsploraApi.ScriptHash> {
     try {
       const balance = await this.electrumClient.blockchainScripthash_getBalance(

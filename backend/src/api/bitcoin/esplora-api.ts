@@ -9,6 +9,7 @@ import { IEsploraApi } from './esplora-api.interface';
 import logger from '../../logger';
 import { Common } from '../common';
 import {
+  IBitcoinApi,
   SubmitPackageResult,
   TestMempoolAcceptResult,
 } from './bitcoin-api.interface';
@@ -19,8 +20,13 @@ import {
   txJsonToHex,
 } from '../../utils/blockchain';
 
-import { getTags, ITags, injectTagsIntoTransaction, injectTags} from '../../utils/tags';
-
+import {
+  getTags,
+  ITags,
+  injectTagsIntoTransaction,
+  injectTags,
+} from '../../utils/tags';
+import bitcoinClient from './bitcoin-client';
 
 interface FailoverHost {
   host: string;
@@ -388,21 +394,22 @@ class ElectrsApi implements AbstractBitcoinApi {
       'json'
     );
 
-    return txs.map((tx) => ({ ...injectTagsIntoTransaction(tx, this.tags), hex: txJsonToHex(tx) }));
+    return txs.map((tx) => ({
+      ...injectTagsIntoTransaction(tx, this.tags),
+      hex: txJsonToHex(tx),
+    }));
   }
 
   async $getMempoolTransactions(
     txids: string[]
   ): Promise<IEsploraApi.Transaction[]> {
-    const txs =  await this.failoverRouter.$post<IEsploraApi.Transaction[]>(
+    const txs = await this.failoverRouter.$post<IEsploraApi.Transaction[]>(
       '/internal/mempool/txs',
       txids,
       'json'
     );
 
-    return txs.map((tx) => (injectTagsIntoTransaction(tx, this.tags)));
-
-
+    return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
   }
 
   async $getAllMempoolTransactions(
@@ -440,7 +447,6 @@ class ElectrsApi implements AbstractBitcoinApi {
     );
 
     return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
-    
   }
 
   $getBlockHash(height: number): Promise<string> {
@@ -455,6 +461,51 @@ class ElectrsApi implements AbstractBitcoinApi {
     return this.failoverRouter.$get<IEsploraApi.Block>('/block/' + hash);
   }
 
+  async $getVerboseBlock(hash: string): Promise<IBitcoinApi.VerboseBlock> {
+    let heightTip = await this.$getBlockHeightTip();
+
+    let tx = await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+      '/block/' + hash + '/txs'
+    );
+
+    let rpcTxs: IBitcoinApi.Transaction[] = tx.map((esploraTx) => {
+      return {
+        ...esploraTx,
+        blockhash: hash,
+        hash: esploraTx.txid,
+        in_active_chain: true,
+        vsize: esploraTx.size,
+        confirmations:
+          heightTip - Number(esploraTx.status.block_height ?? heightTip),
+        blocktime: esploraTx.status.block_time ?? 0,
+        time: esploraTx.status.block_time ?? 0,
+        hex: txJsonToHex(esploraTx),
+        fee: esploraTx.fee,
+        vout: esploraTx.vout.map((vout, index) => {
+          return {
+            ...vout,
+            n: index,
+            scriptPubKey: {
+              asm: vout.scriptpubkey_asm,
+              hex: vout.scriptpubkey,
+              type: vout.scriptpubkey_type,
+              address: vout.scriptpubkey_address,
+            },
+          };
+        }),
+      };
+    });
+
+    const block: IBitcoinApi.VerboseBlock = await bitcoinClient.getBlock(
+      hash,
+      true
+    );
+
+    return {
+      ...block,
+      tx: rpcTxs,
+    };
+  }
   $getRawBlock(hash: string): Promise<Buffer> {
     return this.failoverRouter
       .$get<any>('/block/' + hash + '/raw', 'arraybuffer')
@@ -464,21 +515,26 @@ class ElectrsApi implements AbstractBitcoinApi {
   }
 
   async $getAddress(address: string): Promise<IEsploraApi.Address> {
-    const account =  await this.failoverRouter.$get<IEsploraApi.Address>('/address/' + address);
+    const account = await this.failoverRouter.$get<IEsploraApi.Address>(
+      '/address/' + address
+    );
 
-    return injectTags<IEsploraApi.Address, "address">(account, "address", this.tags); 
+    return injectTags<IEsploraApi.Address, 'address'>(
+      account,
+      'address',
+      this.tags
+    );
   }
 
   async $getAddressTransactions(
     address: string,
     txId?: string
   ): Promise<IEsploraApi.Transaction[]> {
-    const txs =  await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+    const txs = await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
       '/address/' + address + '/txs' + (txId ? '?after_txid=' + txId : '')
     );
 
     return txs.map((tx) => injectTagsIntoTransaction(tx, this.tags));
-
   }
 
   $getAddressUtxos(address: string): Promise<IEsploraApi.UTXO[]> {
@@ -526,14 +582,18 @@ class ElectrsApi implements AbstractBitcoinApi {
       '/scripthash/' + scripthash
     );
 
-    return injectTags<IEsploraApi.ScriptHash, "scripthash">(txs, "scripthash", this.tags);
+    return injectTags<IEsploraApi.ScriptHash, 'scripthash'>(
+      txs,
+      'scripthash',
+      this.tags
+    );
   }
 
   async $getScriptHashTransactions(
     scripthash: string,
     txId?: string
   ): Promise<IEsploraApi.Transaction[]> {
-    const txs =  await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+    const txs = await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
       '/scripthash/' + scripthash + '/txs' + (txId ? '?after_txid=' + txId : '')
     );
 

@@ -123,6 +123,12 @@ class BitcoinApi implements AbstractBitcoinApi {
     return this.bitcoindClient.getBestBlockHash();
   }
 
+  $getVerboseBlock(hash: string): Promise<IBitcoinApi.Block> {
+    throw new Error(
+      'Method getVerboseBlock not supported by the Bitcoin RPC API.'
+    );
+  }
+
   $getTxIdsForBlock(hash: string): Promise<string[]> {
     return this.bitcoindClient
       .getBlock(hash, true)

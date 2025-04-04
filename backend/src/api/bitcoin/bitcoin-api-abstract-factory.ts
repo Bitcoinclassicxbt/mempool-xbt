@@ -13,6 +13,7 @@ export interface AbstractBitcoinApi {
     addPrevout?: boolean,
     lazyPrevouts?: boolean
   ): Promise<IEsploraApi.Transaction>;
+  $getVerboseBlock(hash: string): Promise<IBitcoinApi.VerboseBlock>;
   $getRawTransactions(txids: string[]): Promise<IEsploraApi.Transaction[]>;
   $getMempoolTransactions(txids: string[]): Promise<IEsploraApi.Transaction[]>;
   $getAllMempoolTransactions(lastTxid?: string, max_txs?: number);
