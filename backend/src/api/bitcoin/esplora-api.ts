@@ -461,6 +461,75 @@ class ElectrsApi implements AbstractBitcoinApi {
     return this.failoverRouter.$get<IEsploraApi.Block>('/block/' + hash);
   }
 
+  async $getBlockStats(height: number): Promise<IBitcoinApi.BlockStats> {
+    const blockhash = await this.$getBlockHash(height);
+    const block = await this.$getBlock(blockhash);
+    const txs = await this.failoverRouter.$get<IEsploraApi.Transaction[]>(
+      '/block/' + blockhash + '/txs'
+    );
+
+    const avgfee = txs.reduce((acc, tx) => acc + tx.fee, 0) / txs.length;
+    const avgfeerate =
+      txs.reduce((acc, tx) => acc + tx.fee / tx.size, 0) / txs.length;
+    const avgtxsize = txs.reduce((acc, tx) => acc + tx.size, 0) / txs.length;
+
+    const feerates = txs
+      .map((tx) => tx.fee / tx.size) // feerate = fee / vsize (sat/vbyte)
+      .sort((a, b) => a - b); // sort ascending
+
+    const getPercentile = (percentile: number): number => {
+      if (feerates.length === 0) return 0;
+      const index = Math.floor(percentile * feerates.length);
+      return feerates[Math.min(index, feerates.length - 1)];
+    };
+
+    const feerate_percentiles: [number, number, number, number, number] = [
+      getPercentile(0.1), // 10th percentile
+      getPercentile(0.25), // 25th percentile
+      getPercentile(0.5), // 50th percentile (median)
+      getPercentile(0.75), // 75th percentile
+      getPercentile(0.9), // 90th percentile
+    ];
+
+    return {
+      avgfee,
+      avgfeerate,
+      avgtxsize,
+      blockhash,
+      feerate_percentiles,
+      height,
+      ins: txs.reduce((acc, tx) => acc + tx.vin.length, 0),
+      maxfee: Math.max(...txs.map((tx) => tx.fee)),
+      maxfeerate: Math.max(...txs.map((tx) => tx.fee / tx.size)),
+      maxtxsize: Math.max(...txs.map((tx) => tx.size)),
+      medianfee: Common.median(txs.map((tx) => tx.fee)),
+      mediantime: block.timestamp,
+      totalfee: txs.reduce((acc, tx) => acc + tx.fee, 0),
+      mediantxsize: Common.median(txs.map((tx) => tx.size)),
+      minfee: Math.min(...txs.map((tx) => tx.fee)),
+      minfeerate: Math.min(...txs.map((tx) => tx.fee / tx.size)),
+      mintxsize: Math.min(...txs.map((tx) => tx.size)),
+      outs: txs.reduce((acc, tx) => acc + tx.vout.length, 0),
+      subsidy: 210000,
+      swtotal_size: 0,
+      swtotal_weight: 0,
+      swtxs: 0,
+      time: block.timestamp,
+      total_out: txs.slice(1).reduce((acc, tx) => {
+        const txTotal = tx.vout.reduce(
+          (voutAcc, vout) => voutAcc + vout.value,
+          0
+        );
+        return acc + txTotal;
+      }, 0),
+      total_size: txs.slice(1).reduce((acc, tx) => acc + tx.size, 0),
+      total_weight: txs.slice(1).reduce((acc, tx) => acc + tx.weight, 0),
+      txs: txs.length,
+      utxo_increase: 0, //UNKNOWN
+      utxo_size_inc: 0, //UNKNOWN
+    };
+  }
+
   async $getVerboseBlock(hash: string): Promise<IBitcoinApi.VerboseBlock> {
     let heightTip = await this.$getBlockHeightTip();
 

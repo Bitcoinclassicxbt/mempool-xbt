@@ -129,6 +129,10 @@ class BitcoinApi implements AbstractBitcoinApi {
     );
   }
 
+  $getBlockStats(height: number): Promise<IBitcoinApi.BlockStats> {
+    throw new Error('Method getBlockStats is only supported by esplora.');
+  }
+
   $getTxIdsForBlock(hash: string): Promise<string[]> {
     return this.bitcoindClient
       .getBlock(hash, true)

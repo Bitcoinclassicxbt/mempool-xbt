@@ -273,6 +273,10 @@ class BitcoindElectrsApi extends BitcoinApi implements AbstractBitcoinApi {
     );
   }
 
+  public $getBlockStats(height: number): Promise<IBitcoinApi.BlockStats> {
+    throw new Error('Method getBlockStats is only supported by esplora.');
+  }
+
   private $getScriptHashHistory(
     scriptHash: string
   ): Promise<IElectrumApi.ScriptHashHistory[]> {

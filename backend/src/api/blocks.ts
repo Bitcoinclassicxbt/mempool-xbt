@@ -359,8 +359,8 @@ class Blocks {
       extras.segwitTotalSize = 0;
       extras.segwitTotalWeight = 0;
     } else {
-      const stats: IBitcoinApi.BlockStats = await bitcoinClient.getBlockStats(
-        block.id
+      const stats: IBitcoinApi.BlockStats = await bitcoinApi.$getBlockStats(
+        block.height
       );
       let feeStats = {
         medianFee: stats.feerate_percentiles[2], // 50th percentiles
