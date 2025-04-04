@@ -1035,15 +1035,6 @@ class Blocks {
       const blockchainInfo = await bitcoinClient.getBlockchainInfo();
       let currentBlockHeight = blockchainInfo.blocks;
 
-      if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT !== -1) {
-        logger.err(
-          'INDEXING_BLOCKS_AMOUNT has to be -1 when balances are enabled!'
-        );
-        throw new Error(
-          'INDEXING_BLOCKS_AMOUNT has to be -1 when balances are enabled!'
-        );
-      }
-
       let indexingBlockAmount: number;
       if (config.MEMPOOL.INDEXING_BLOCKS_AMOUNT === -1) {
         indexingBlockAmount = currentBlockHeight + 1;
