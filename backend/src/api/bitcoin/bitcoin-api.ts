@@ -352,7 +352,7 @@ class BitcoinApi implements AbstractBitcoinApi {
 
   $getEstimatedHashrate(blockHeight: number): Promise<number> {
     // 120 is the default block span in Core
-    return this.bitcoindClient.getNetworkHashPs(120, blockHeight);
+    return this.bitcoindClient.getNetworkHashPs(120);
   }
 
   protected async $convertTransaction(
