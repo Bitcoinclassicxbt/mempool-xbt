@@ -1785,6 +1785,8 @@ class Blocks {
         summaryVersion = 1;
       } else {
         // Call Core RPC
+
+        throw 'Verbose block not supported by XBT node. Use esplora.';
         const block = await bitcoinClient.getBlock(hash, 2);
         summary = this.summarizeBlock(block);
         height = block.height;
@@ -1945,6 +1947,8 @@ class Blocks {
             summaryVersion = 1;
           } else {
             // Call Core RPC
+            throw 'Verbose block not supported by XBT node. Use esplora.';
+
             const block = await bitcoinClient.getBlock(cleanBlock.hash, 2);
             summary = this.summarizeBlock(block);
           }
@@ -2048,13 +2052,6 @@ class Blocks {
         transactions = (await bitcoinApi.$getTxsForBlock(hash)).map((tx) =>
           transactionUtils.extendMempoolTransaction(tx)
         );
-      }
-      if (!transactions) {
-        const block = await bitcoinClient.getBlock(hash, 2);
-        transactions = block.tx.map((tx) => {
-          tx.fee *= 100_000_000;
-          return tx;
-        });
       }
     }
 

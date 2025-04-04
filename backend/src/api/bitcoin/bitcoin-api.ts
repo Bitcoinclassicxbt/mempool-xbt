@@ -125,13 +125,15 @@ class BitcoinApi implements AbstractBitcoinApi {
 
   $getTxIdsForBlock(hash: string): Promise<string[]> {
     return this.bitcoindClient
-      .getBlock(hash, 1)
+      .getBlock(hash, true)
       .then((rpcBlock: IBitcoinApi.Block) => rpcBlock.tx);
   }
 
   async $getTxsForBlock(hash: string): Promise<IEsploraApi.Transaction[]> {
+    throw 'Method getTxsForBlock not supported by the XBT RPC API. Use Esplora.';
+
     const verboseBlock: IBitcoinApi.VerboseBlock =
-      await this.bitcoindClient.getBlock(hash, 2);
+      await this.bitcoindClient.getBlock(hash, true);
     const transactions: IEsploraApi.Transaction[] = [];
     for (const tx of verboseBlock.tx) {
       const converted = await this.$convertTransaction(tx, true);
@@ -475,6 +477,8 @@ class BitcoinApi implements AbstractBitcoinApi {
   }
 
   protected $returnCoinbaseTransaction(): Promise<IEsploraApi.Transaction> {
+    throw 'Verbose block not supported by XBT node. Use Esplora instead.';
+
     return this.bitcoindClient.getBlockHash(0).then((hash: string) =>
       this.bitcoindClient.getBlock(hash, 2).then((block: IBitcoinApi.Block) => {
         return this.$convertTransaction(
