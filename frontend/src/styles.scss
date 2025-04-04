@@ -39,8 +39,8 @@ $pagination-disabled-bg:          $bg;
 $custom-select-indicator-color: $fg;
 
 .input-group-text {
-  background-color: #1c2031 !important;
-  border: 1px solid #20263e !important;
+  background-color: #181818 !important;
+  border: 1px solid #6b6b6b !important;
 }
 
 $link-color:                $info;
@@ -76,12 +76,12 @@ $dropdown-link-active-bg: $active-bg;
   --link-color: #{$link-color};
   --link-hover-color: #{$link-hover-color};
   --icon: #f1f1f1;
-  --skeleton-bg: #2e324e;
-  --skeleton-bg-light: #5d6182;
+  --skeleton-bg: #6b6b6b;
+  --skeleton-bg-light: #555555;
 
   --box-bg: #{$bg} !important;
   --stat-box-bg: #363636;
-  --alert-bg: #1f1f1f;
+  --alert-bg: #242424;
   --navbar-bg: #{$nav-bg};
   --transparent-fg: #ffffff66;
   --fade-out-box-bg-start: rgba(36, 39, 62, 0);
