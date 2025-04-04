@@ -268,25 +268,19 @@ class Server {
         }
       }
 
-      console.log('a');
       const newMempool = await bitcoinApi.$getRawMempool();
-      console.log('b');
 
       const minFeeMempool = memPool.limitGBT
         ? await bitcoinSecondClient.getRawMemPool()
         : null;
-      console.log('c');
 
       const minFeeTip = memPool.limitGBT
         ? await bitcoinSecondClient.getBlockCount()
         : -1;
-      console.log('d');
 
       const latestAccelerations = await accelerationApi.$updateAccelerations();
-      console.log('e');
 
       const numHandledBlocks = await blocks.$updateBlocks();
-      console.log('f');
 
       const pollRate =
         config.MEMPOOL.POLL_RATE_MS * (indexer.indexerIsRunning() ? 10 : 1);
