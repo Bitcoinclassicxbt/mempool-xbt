@@ -8,7 +8,7 @@ import PricesRepository, {
 } from '../repositories/PricesRepository';
 
 import FreeCurrencyApi from './price-feeds/free-currency-api';
-import NonkycApi from './price-feeds/nonkyc-api';
+import Mecacex from './price-feeds/mecacex-api';
 
 export interface PriceFeed {
   name: string;
@@ -105,7 +105,7 @@ class PriceUpdater {
   constructor() {
     this.latestPrices = this.getEmptyPricesObj();
 
-    this.feeds.push(new NonkycApi()); // Does not have historical endpoint
+    this.feeds.push(new Mecacex()); // Does not have historical endpoint
 
     this.currencyConversionFeed = new FreeCurrencyApi();
     this.setCyclePosition();
