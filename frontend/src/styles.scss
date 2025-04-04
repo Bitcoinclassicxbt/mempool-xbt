@@ -4,7 +4,7 @@ $active-bg: #181818;
 $hover-bg: #12131e;
 $fg: #fff;
 $nav-bg: $bg;
-$title-fg: #d68b09;
+$title-fg: #ffac1b;
 
 $taproot: #eba814;
 $taproot-light: #d5a90a;
@@ -22,7 +22,7 @@ $primary: #d68b09;
 $secondary: #141414;
 $tertiary: #bb7a09;
 $success: #1a9436;
-$info: #2ddb9f;
+$info: #ffac1b;
 
 $h5-font-size: 1.15rem !default;
 
@@ -80,8 +80,8 @@ $dropdown-link-active-bg: $active-bg;
   --skeleton-bg-light: #5d6182;
 
   --box-bg: #{$bg} !important;
-  --stat-box-bg: #152621;
-  --alert-bg: #0c642b;
+  --stat-box-bg: #1f1f1f;
+  --alert-bg: #1f1f1f;
   --navbar-bg: #{$nav-bg};
   --transparent-fg: #ffffff66;
   --fade-out-box-bg-start: rgba(36, 39, 62, 0);
